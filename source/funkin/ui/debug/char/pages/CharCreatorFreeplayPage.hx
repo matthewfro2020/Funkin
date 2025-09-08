@@ -10,7 +10,7 @@ import haxe.ui.containers.menus.MenuCheckBox;
 import funkin.ui.freeplay.LetterSort;
 import funkin.ui.freeplay.CapsuleText;
 import flixel.text.FlxText;
-import funkin.ui.freeplay.FreeplayState.DifficultySprite;
+import funkin.ui.freeplay.components.DifficultySprite;
 import funkin.ui.debug.char.components.dialogs.freeplay.*;
 import funkin.ui.debug.char.components.dialogs.DefaultPageDialog;
 import funkin.graphics.FunkinSprite;
