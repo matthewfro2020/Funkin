@@ -156,7 +156,7 @@ jobs:
           token: ${{ steps.app_token.outputs.token }}
           persist-credentials: false
           submodule-aliases: |
-            https://github.com/matthewfro181818/Funkin.assets > https://github.com/matthewfro181818/Funkin-assets-secret
+            https://github.com/matthewfro181818/funkin.assets/tree/main > https://github.com/matthewfro181818/Funkin-assets-secret
             https://github.com/FunkinCrew/Funkin.art > https://github.com/FunkinCrew/Funkin-art-secret
       - name: Setup build environment
         uses: ./.github/actions/setup-haxe
@@ -220,7 +220,7 @@ jobs:
           token: ${{ steps.app_token.outputs.token }}
           persist-credentials: false
           submodule-aliases: |
-            https://github.com/matthewfro181818/Funkin.assets > https://github.com/matthewfro181818/Funkin-assets-secret
+            https://github.com/matthewfro181818/funkin.assets/tree/main > https://github.com/matthewfro181818/Funkin-assets-secret
             https://github.com/FunkinCrew/Funkin.art > https://github.com/FunkinCrew/Funkin-art-secret
       - name: Config haxelib
         run: |
