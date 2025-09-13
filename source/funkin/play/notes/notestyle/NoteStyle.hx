@@ -940,7 +940,7 @@ class NoteStyle implements IRegistryEntry<NoteStyleData>
       {
         for (anim in animData)
           FlxAnimationUtil.addAtlasAnimation(target, anim);
-      };
+      }
     };
 
     addSplashAnim(LEFT);

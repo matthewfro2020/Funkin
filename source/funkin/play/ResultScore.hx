@@ -165,7 +165,7 @@ class ScoreNum extends FlxSprite
             animation.play(animation.curAnim.name, true, false, 0);
           });
           // fuck
-        };
+        }
       }, tweenFunction);
   }
 

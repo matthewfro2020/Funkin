@@ -516,7 +516,7 @@ enum abstract ScoringRank(String)
   {
     switch (abstract)
     {
-      case PERFECT_GOLD, PERFECT:
+      case PERFECT_GOLD | PERFECT:
         // return 2.5;
         return 95 / 24;
       case EXCELLENT:
@@ -536,7 +536,7 @@ enum abstract ScoringRank(String)
   {
     switch (abstract)
     {
-      case PERFECT_GOLD, PERFECT:
+      case PERFECT_GOLD | PERFECT:
         // return 2.5;
         return 95 / 24;
       case EXCELLENT:
@@ -556,7 +556,7 @@ enum abstract ScoringRank(String)
   {
     switch (abstract)
     {
-      case PERFECT_GOLD, PERFECT:
+      case PERFECT_GOLD | PERFECT:
         // return 2.5;
         return 129 / 24;
       case EXCELLENT:
@@ -576,7 +576,7 @@ enum abstract ScoringRank(String)
   {
     switch (abstract)
     {
-      case PERFECT_GOLD, PERFECT:
+      case PERFECT_GOLD | PERFECT:
         // return 2.5;
         return 140 / 24;
       case EXCELLENT:
