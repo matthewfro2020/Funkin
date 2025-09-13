@@ -68,7 +68,7 @@ class CharacterRegistry
     {
       try
       {
-        var charData:CharacterData = parseCharacterData(charId);
+        var charData:Null<CharacterData> = parseCharacterData(charId);
         if (charData != null)
         {
           trace('    Loaded character data: ${charId}');
@@ -214,14 +214,14 @@ class CharacterRegistry
       return null;
     }
 
-    var charData:CharacterData = characterCache.get(charId);
-    var charScriptClass:String = characterScriptedClass.get(charId);
+    var charData:Null<CharacterData> = characterCache.get(charId);
+    var charScriptClass:Null<String> = characterScriptedClass.get(charId);
 
-    var char:BaseCharacter;
+    var char:Null<BaseCharacter> = null;
 
     if (charScriptClass != null)
     {
-      switch (charData.renderType)
+      if (charData != null) switch (charData.renderType)
       {
         case CharacterRenderType.AnimateAtlas:
           char = ScriptedAnimateAtlasCharacter.init(charScriptClass, charId);
@@ -238,7 +238,7 @@ class CharacterRegistry
     }
     else
     {
-      switch (charData.renderType)
+      if (charData != null) switch (charData.renderType)
       {
         case CharacterRenderType.AnimateAtlas:
           char = new AnimateAtlasCharacter(charId);
@@ -294,38 +294,26 @@ class CharacterRegistry
   /**
    * Returns the idle frame of a character.
    */
-  public static function getCharPixelIconAsset(char:String):FlxFrame
+  public static function getCharPixelIconAsset(char:String):Null<FlxFrame>
   {
     var charPath:String = "freeplay/icons/";
 
-    // FunkinCrew please dont skin me alive for copying pixelated icon and changing it a tiny bit
-    switch (char)
+    final charIDParts:Array<String> = char.split("-");
+    var iconName:String = "";
+    var lastValidIconName:String = "";
+    for (i in 0...charIDParts.length)
     {
-      case "bf-christmas" | "bf-car" | "bf-pixel" | "bf-holding-gf" | "bf-dark":
-        charPath += "bfpixel";
-      case "monster-christmas":
-        charPath += "monsterpixel";
-      case "mom" | "mom-car":
-        charPath += "mommypixel";
-      case "pico-blazin" | "pico-playable" | "pico-speaker":
-        charPath += "picopixel";
-      case "gf-christmas" | "gf-car" | "gf-pixel" | "gf-tankmen" | "gf-dark":
-        charPath += "gfpixel";
-      case "dad":
-        charPath += "dadpixel";
-      case "darnell-blazin":
-        charPath += "darnellpixel";
-      case "senpai-angry":
-        charPath += "senpaipixel";
-      case "spooky-dark":
-        charPath += "spookypixel";
-      case "tankman-atlas":
-        charPath += "tankmanpixel";
-      case "pico-christmas" | "pico-dark":
-        charPath += "picopixel";
-      default:
-        charPath += '${char}pixel';
+      iconName += charIDParts[i];
+
+      if (Assets.exists(Paths.image(charPath + '${iconName}pixel')))
+      {
+        lastValidIconName = iconName;
+      }
+
+      if (i < charIDParts.length - 1) iconName += '-';
     }
+
+    charPath += '${lastValidIconName}pixel';
 
     if (!Assets.exists(Paths.image(charPath)))
     {
@@ -334,13 +322,13 @@ class CharacterRegistry
     }
 
     var isAnimated = Assets.exists(Paths.file('images/$charPath.xml'));
-    var frame:FlxFrame = null;
+    var frame:Null<FlxFrame> = null;
 
     if (isAnimated)
     {
       var frames = Paths.getSparrowAtlas(charPath);
 
-      var idleFrame:FlxFrame = frames.frames.find(function(frame:FlxFrame):Bool {
+      var idleFrame:Null<FlxFrame> = frames.frames.find(function(frame:FlxFrame):Bool {
         return frame.name.startsWith('idle');
       });
 
@@ -511,7 +499,7 @@ class CharacterRegistry
    * @param input
    * @return The validated character data
    */
-  static function validateCharacterData(id:String, input:CharacterData):Null<CharacterData>
+  static function validateCharacterData(id:String, input:Null<CharacterData>):Null<CharacterData>
   {
     if (input == null)
     {

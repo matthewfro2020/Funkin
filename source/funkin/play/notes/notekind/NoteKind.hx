@@ -2,7 +2,6 @@ package funkin.play.notes.notekind;
 
 import funkin.modding.IScriptedClass.INoteScriptedClass;
 import funkin.modding.events.ScriptEvent;
-import flixel.math.FlxMath;
 
 /**
  * Class for note scripts
@@ -28,6 +27,13 @@ class NoteKind implements INoteScriptedClass
    * Custom parameters for the chart editor
    */
   public var params:Array<NoteKindParam>;
+
+  /**
+   * If this note kind is scoreable (ie, counted towards score and accuracy)
+   * Only accessible in scripts
+   * Defaults to true
+   */
+  public var scoreable:Bool = true;
 
   public function new(noteKind:String, description:String = "", ?noteStyleId:String, ?params:Array<NoteKindParam>)
   {
@@ -67,6 +73,8 @@ class NoteKind implements INoteScriptedClass
   public function onNoteHit(event:HitNoteScriptEvent):Void {}
 
   public function onNoteMiss(event:NoteScriptEvent):Void {}
+
+  public function onNoteHoldDrop(event:HoldNoteScriptEvent) {}
 }
 
 /**

@@ -18,7 +18,10 @@ class PackerCharacter extends BaseCharacter
 
   override function onCreate(event:ScriptEvent):Void
   {
-    trace('Creating Packer character: ' + this.characterId);
+    // Display a custom scope for debugging purposes.
+    #if FEATURE_DEBUG_TRACY
+    cpp.vm.tracy.TracyProfiler.zoneScoped('PackerCharacter.create(${this.characterId})');
+    #end
 
     loadSpritesheet();
     loadAnimations();
@@ -43,8 +46,8 @@ class PackerCharacter extends BaseCharacter
     {
       this.isPixel = true;
       this.antialiasing = false;
-      pixelPerfectRender = true;
-      pixelPerfectPosition = true;
+      // pixelPerfectRender = true;
+      // pixelPerfectPosition = true;
     }
     else
     {
