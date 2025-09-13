@@ -66,7 +66,7 @@ class StageEditorObjectGraphicToolbox extends StageEditorDefaultToolbox
           state.notifyChange("Object Graphic Loaded", "The Image File " + selectedFile.name + " has been loaded.");
         });
       });
-    }
+    };
 
     // Callback for loading the image from the internet.
     objLoadNet.onClick = function(_) {
@@ -84,7 +84,7 @@ class StageEditorObjectGraphicToolbox extends StageEditorDefaultToolbox
 
         stageEditorState.updateDialog(OBJECT_ANIMS);
       });
-    }
+    };
 
     // Callback for resetting the image.
     objReset.onClick = function(_) {
@@ -99,7 +99,7 @@ class StageEditorObjectGraphicToolbox extends StageEditorDefaultToolbox
       // Update the image preview.
       refresh();
       stageEditorState.updateDialog(OBJECT_ANIMS);
-    }
+    };
 
     // Callback for resetting frames.
     objResetFrames.onClick = function(_) {
@@ -108,7 +108,7 @@ class StageEditorObjectGraphicToolbox extends StageEditorDefaultToolbox
       linkedObj.loadGraphic(linkedObj.graphic);
       refresh();
       stageEditorState.updateDialog(OBJECT_ANIMS);
-    }
+    };
 
     // Callback for loading the text for the Frame Data.
     objLoadFrames.onClick = function(_) {
@@ -119,7 +119,7 @@ class StageEditorObjectGraphicToolbox extends StageEditorDefaultToolbox
 
         state.notifyChange("Frame Text Loaded", "The Text File " + selectedFile.name + " has been loaded.");
       });
-    }
+    };
 
     // Callback for setting the frames as Sparrow.
     objSetSparrow.onClick = function(_) setObjFrames(false);
@@ -141,7 +141,7 @@ class StageEditorObjectGraphicToolbox extends StageEditorDefaultToolbox
         linkedObj.frames.framesByName.set('Frame$i', linkedObj.frames.frames[i]);
 
         linkedObj.frames.frames[i].name = 'Frame$i';
-      }
+      };
 
       // Refresh the display.
       refresh();

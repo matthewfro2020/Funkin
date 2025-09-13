@@ -34,7 +34,7 @@ class GhostSettingsDialog extends DefaultPageDialog
       if (ghostChar.visible) // i love saving on data
       {
         daPage.ghostId = (ghostCustomChar.selected ? charId : "");
-      }
+      };
     }
 
     ghostCurChar.onChange = function(_) {
@@ -42,24 +42,24 @@ class GhostSettingsDialog extends DefaultPageDialog
       if (ghostCurChar.selected) Screen.instance.removeComponent(attachedMenu);
 
       if (ghostChar.visible && ghostCurChar.selected) daPage.ghostId = "";
-    }
+    };
 
     ghostCustomChar.onChange = function(_) {
       ghostTypeButton.disabled = !ghostCustomChar.selected;
       if (!ghostCustomChar.selected) Screen.instance.removeComponent(attachedMenu);
 
       if (ghostChar.visible && ghostCustomChar.selected) daPage.ghostId = charId;
-    }
+    };
 
     ghostTypeButton.onClick = function(_) {
       attachedMenu = new GhostCharacterMenu(daPage, this);
       Screen.instance.addComponent(attachedMenu);
-    }
+    };
 
     ghostAnimDropdown.onChange = function(_) {
       if (ghostAnimDropdown.selectedIndex == -1) return;
       ghostChar.playAnimation(ghostAnimDropdown.selectedItem.text);
-    }
+    };
   }
 }
 

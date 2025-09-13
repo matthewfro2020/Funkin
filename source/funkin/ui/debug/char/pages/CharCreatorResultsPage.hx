@@ -82,14 +82,14 @@ class CharCreatorResultsPage extends CharCreatorDefaultPage
     animDialog.text = "Rank Animations";
     animDialog.onClick = function(_) {
       dialogMap[RankAnims].hidden = !animDialog.selected;
-    }
+    };
     menu.addComponent(animDialog);
 
     var musicDialog = new MenuCheckBox();
     musicDialog.text = "Rank Music";
     musicDialog.onClick = function(_) {
       dialogMap[Music].hidden = !musicDialog.selected;
-    }
+    };
     menu.addComponent(musicDialog);
   }
 
@@ -107,7 +107,7 @@ class CharCreatorResultsPage extends CharCreatorDefaultPage
   {
     var animDialog:ResultsAnimDialog = cast dialogMap[RankAnims];
 
-    labelRank.text = animDialog.rankDropdown.safeSelectedItem.text;
+    labelRank.text = animDialog.rankDropdown.selectedItem.text;
     labelRank.styleNames = "infoText";
     labelRank.verticalAlign = "center";
 
@@ -121,7 +121,7 @@ class CharCreatorResultsPage extends CharCreatorDefaultPage
       clearSprites();
       animDialog.changeRankPreview();
       playAnimation();
-    }
+    };
 
     labelRank.onRightClick = function(_) {
       var supposedInd = animDialog.rankDropdown.selectedIndex - 1;
@@ -131,7 +131,7 @@ class CharCreatorResultsPage extends CharCreatorDefaultPage
       clearSprites();
       animDialog.changeRankPreview();
       playAnimation();
-    }
+    };
   }
 
   override public function performCleanup():Void
@@ -388,7 +388,7 @@ class CharCreatorResultsPage extends CharCreatorDefaultPage
 
     var rank = animDialog.currentRank;
 
-    labelRank.text = animDialog.rankDropdown.safeSelectedItem.text;
+    labelRank.text = animDialog.rankDropdown.selectedItem.text;
 
     var newMusic = rankMusicMap[rank];
     previousMusic = newMusic;

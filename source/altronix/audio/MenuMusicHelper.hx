@@ -21,7 +21,7 @@ class MenuMusicHelper
   {
     for (song in FileUtil.readDirContent(Paths.getLibraryPath('music/menuMusic/')))
     {
-      if (FileUtil.exists(path).(Paths.getLibraryPath('music/menuMusic/$song/$song-metadata.json')))
+      if (FileUtil.exists(Paths.getLibraryPath('music/menuMusic/$song/$song-metadata.json')))
       {
         avaiableMusic.push(song);
       }

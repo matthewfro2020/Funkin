@@ -32,7 +32,7 @@ class DefaultWizardDialog extends Dialog
       {
         CharCreatorStartupWizard.wizardProcessRunning = false;
         if (onQuit != null) onQuit();
-      }
+      };
       else if (_.button == PREVIOUS_STEP_BUTTON)
       {
         id--;

@@ -119,7 +119,7 @@ class DebugBoundingState extends FlxState
     Cursor.show();
 
     super.create();
-  }
+  };
 
   var bf:FlxSprite;
   var swagOutlines:FlxSprite;
@@ -168,7 +168,7 @@ class DebugBoundingState extends FlxState
       swagOutlines.drawRect(i.uv.x * i.parent.width, i.uv.y * i.parent.height, uvW, uvH, FlxColor.TRANSPARENT, lineStyle);
       // swagGraphic.setPosition(, );
       // trace(uvH);
-    }
+    };
   }
 
   function initOffsetView():Void
@@ -202,7 +202,7 @@ class DebugBoundingState extends FlxState
     charDropdown.onChange = function(e:UIEvent) {
       loadAnimShit(e.data.text);
     };
-  }
+  };
 
   public var mouseOffset:FlxPoint = FlxPoint.get(0, 0);
   public var oldPos:FlxPoint = FlxPoint.get(0, 0);
@@ -533,7 +533,7 @@ class DebugBoundingState extends FlxState
       {
         trace('Selected animation ${event.data.id}');
         playCharacterAnimation(event.data.id, true);
-      }
+      };
     }
 
     txtOffsetShit.text = 'Offset: ' + swagChar.animOffsets;

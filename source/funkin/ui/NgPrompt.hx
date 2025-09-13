@@ -46,7 +46,7 @@ class NgPrompt extends Prompt
           prompt = null;
           NGio.cancelLogin();
         };
-      }
+      };
       else
       {
         prompt.setText("Connecting...");
@@ -97,5 +97,5 @@ class NgPrompt extends Prompt
     prompt.onNo = prompt.close;
     return prompt;
   }
-}
+};
 #end

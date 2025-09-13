@@ -49,7 +49,7 @@ class ResultsAnimDialog extends DefaultPageDialog
 
       changeRankPreview();
       daPage.playAnimation();
-    }
+    };
 
     rankAnimationBox.useAnimationData(rankAnimationDataMap[currentRank]);
     previousRank = currentRank;
@@ -66,9 +66,9 @@ class ResultsAnimDialog extends DefaultPageDialog
 
   function get_currentRank():ScoringRank
   {
-    if (rankDropdown.safeSelectedItem == null) return PERFECT_GOLD;
+    if (rankDropdown.selectedItem == null) return PERFECT_GOLD;
 
-    switch (rankDropdown.safeSelectedItem.text)
+    switch (rankDropdown.selectedItem.text)
     {
       case "Perfect Gold":
         return PERFECT_GOLD;
@@ -125,7 +125,7 @@ private class AddRankAnimationDataBox extends HBox
 
       parentList.addComponentAt(newBox, parentList.childComponents.length - 1); // considering this box is last
       removeButton.disabled = false;
-    }
+    };
 
     removeButton.disabled = true;
     removeButton.onClick = function(_) {
@@ -145,7 +145,7 @@ private class AddRankAnimationDataBox extends HBox
       daDialog.rankAnimationFiles[daDialog.previousRank].pop();
 
       if (parentList.childComponents.length < 2) removeButton.disabled = true;
-    }
+    };
 
     addComponent(addButton);
     addComponent(removeButton);
@@ -199,7 +199,7 @@ private class AddRankAnimationDataBox extends HBox
       if (obj?.sprite == null) return;
       cast(obj.sprite, FlxSprite).setPosition(newBox.animOffsetX.pos, newBox.animOffsetY.pos);
       copyData(data, newBox.animData);
-    }
+    };
 
     newBox.animZIndex.onChange = function(_) {
       var obj = page.currentAnims[newBox.ID];
@@ -208,14 +208,14 @@ private class AddRankAnimationDataBox extends HBox
       cast(obj.sprite, FlxSprite).zIndex = Std.int(newBox.animZIndex.pos);
       page.refresh();
       copyData(data, newBox.animData);
-    }
+    };
 
     newBox.animScale.onChange = function(_) {
       var obj = page.currentAnims[newBox.ID];
       if (obj?.sprite == null) return;
       cast(obj.sprite, FlxSprite).scale.set(newBox.animScale.pos, newBox.animScale.pos);
       copyData(data, newBox.animData);
-    }
+    };
 
     newBox.onAssetChange = function() reloadSpriteFromBox(newBox);
 
@@ -232,7 +232,7 @@ private class AddRankAnimationDataBox extends HBox
           if (animation != null)
           {
             sparrow.animation.play('idle', true, false, newBox.animData.loopFrame ?? 0);
-          }
+          };
         }
       }
       else if (atlas != null)
@@ -423,7 +423,7 @@ private class RankAnimationData extends VBox
   function get_animData():PlayerResultsAnimationData
   {
     return {
-      renderType: animRenderType.safeSelectedItem.value,
+      renderType: animRenderType.selectedItem.value,
       assetPath: animAssetPath.text,
       offsets: [animOffsetX.value, animOffsetY.value],
       zIndex: animZIndex.value,
@@ -442,15 +442,15 @@ private class RankAnimationData extends VBox
 
     animStartFrameLabelCheck.onClick = function(_) {
       animStartFrameLabel.disabled = !animStartFrameLabelCheck.selected;
-    }
+    };
 
     animLoopFrameCheck.onClick = function(_) {
       animLoopFrame.disabled = !animLoopFrameCheck.selected;
-    }
+    };
 
     animLoopFrameLabelCheck.onClick = function(_) {
       animLoopFrameLabel.disabled = !animLoopFrameLabelCheck.selected;
-    }
+    };
 
     if (data != null)
     {
@@ -494,13 +494,13 @@ private class RankAnimationData extends VBox
     }
 
     animLoadAsset.onClick = function(_) {
-      var isAtlas:Bool = (animRenderType.safeSelectedItem.value == "animateatlas");
+      var isAtlas:Bool = (animRenderType.selectedItem.value == "animateatlas");
 
       FileUtil.browseForBinaryFile("Load Animation File", [isAtlas ? FileUtil.FILE_EXTENSION_INFO_ZIP : FileUtil.FILE_EXTENSION_INFO_PNG], function(_) {
         if (_?.fullPath == null) return;
         animAssetPath.text = _.fullPath;
       });
-    }
+    };
 
     animOffsetX.onChange = animOffsetY.onChange = _ -> onOffsetsChange();
     animLooped.onChange = animLoopFrame.onChange = animLoopFrameLabel.onChange = _ -> onLoopDataChange();

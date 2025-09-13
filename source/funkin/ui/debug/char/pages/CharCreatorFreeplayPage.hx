@@ -75,7 +75,7 @@ class CharCreatorFreeplayPage extends CharCreatorDefaultPage
       capsuleAsset: "freeplay/freeplayCapsule/capsule/freeplayCapsule",
       capsuleTextColors: ["#00ccff", "#00ccff"],
       startDelay: 1.0
-    }
+    };
   public var styleFiles:Array<WizardFile> = [];
 
   var dj:CharSelectAtlasSprite;
@@ -237,7 +237,7 @@ class CharCreatorFreeplayPage extends CharCreatorDefaultPage
 
     animsDialog.onClick = function(_) {
       dialogMap[FreeplayDJAnimations].hidden = !animsDialog.selected;
-    }
+    };
 
     var settingsDialog = new MenuCheckBox();
     settingsDialog.text = "Freeplay DJ Settings";
@@ -245,7 +245,7 @@ class CharCreatorFreeplayPage extends CharCreatorDefaultPage
 
     settingsDialog.onClick = function(_) {
       dialogMap[FreeplayDJSettings].hidden = !settingsDialog.selected;
-    }
+    };
 
     var styleDialog = new MenuCheckBox();
     styleDialog.text = "Freeplay Style Settings";
@@ -253,7 +253,7 @@ class CharCreatorFreeplayPage extends CharCreatorDefaultPage
 
     styleDialog.onClick = function(_) {
       dialogMap[FreeplayStyle].hidden = !styleDialog.selected;
-    }
+    };
   }
 
   var labelAnimName:Label = new Label();

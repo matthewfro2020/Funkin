@@ -44,11 +44,11 @@ class StageEditorObjectPropertiesToolbox extends StageEditorDefaultToolbox
     // Numeric callbacks.
     objPosX.onChange = function(_) {
       if (linkedObj != null) linkedObj.x = objPosX.pos;
-    }
+    };
 
     objPosY.onChange = function(_) {
       if (linkedObj != null) linkedObj.y = objPosY.pos;
-    }
+    };
 
     objZIdx.max = StageEditorState.MAX_Z_INDEX;
     objZIdx.onChange = function(_) {
@@ -56,23 +56,23 @@ class StageEditorObjectPropertiesToolbox extends StageEditorDefaultToolbox
       {
         linkedObj.zIndex = Std.int(objZIdx.pos);
         state.updateArray();
-      }
+      };
     }
 
     objAlpha.onChange = function(_) {
       if (linkedObj != null) linkedObj.alpha = objAlpha.pos;
-    }
+    };
 
     objAngle.onChange = function(_) {
       if (linkedObj != null) linkedObj.angle = objAngle.pos;
-    }
+    };
 
     objScaleX.onChange = function(_) {
       if (linkedObj != null)
       {
         linkedObj.scale.x = objScaleX.pos;
         linkedObj.updateHitbox();
-      }
+      };
     }
 
     objScaleY.onChange = function(_) {
@@ -80,46 +80,46 @@ class StageEditorObjectPropertiesToolbox extends StageEditorDefaultToolbox
       {
         linkedObj.scale.y = objScaleY.pos;
         linkedObj.updateHitbox();
-      }
+      };
     }
 
     objScrollX.onChange = function(_) {
       if (linkedObj != null) linkedObj.scrollFactor.x = objScrollX.pos;
-    }
+    };
 
     objScrollY.onChange = function(_) {
       if (linkedObj != null) linkedObj.scrollFactor.y = objScrollY.pos;
-    }
+    };
 
     objDance.onChange = function(_) {
       if (linkedObj != null) linkedObj.danceEvery = Std.int(objDance.pos);
-    }
+    };
 
     // Boolean callbacks.
     objPixel.onChange = function(_) {
       if (linkedObj != null) linkedObj.antialiasing = objPixel.selected; // Kind of misleading, but objPixel has the 'Antialiasing' label attached to it!
-    }
+    };
 
     objFlipX.onChange = function(_) {
       if (linkedObj != null) linkedObj.flipX = objFlipX.selected;
-    }
+    };
 
     objFlipY.onChange = function(_) {
       if (linkedObj != null) linkedObj.flipY = objFlipY.selected;
-    }
+    };
 
     objBlend.onChange = function(_) {
       if (linkedObj != null)
       {
         linkedObj.blend = (objBlend.selectedItem?.text ?? "NONE") == "NONE" ? null : AssetDataHandler.blendFromString(objBlend.selectedItem.text);
-      }
+      };
     }
 
     objTint.onChange = function(_) {
       if (linkedObj != null)
       {
         linkedObj.color = FlxColor.fromString(_.value) ?? 0xFFFFFFFF;
-      }
+      };
     }
 
     this.onDialogClosed = onClose;

@@ -282,7 +282,7 @@ class FreeplayDJ extends FlxAtlasSprite
   public dynamic function onCharSelectComplete():Void
   {
     trace('onCharSelectComplete()');
-  }
+  };
 
   var offsetX:Float = 0.0;
   var offsetY:Float = 0.0;

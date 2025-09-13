@@ -249,7 +249,7 @@ class ChartEditorToolboxHandler
 
     toolbox.onDialogClosed = function(_) {
       state.menubarItemToggleToolboxPlaytestProperties.selected = false;
-    }
+    };
 
     var checkboxPracticeMode:Null<CheckBox> = toolbox.findComponent('practiceModeCheckbox', CheckBox);
     if (checkboxPracticeMode == null) throw 'ChartEditorToolboxHandler.buildToolboxPlaytestPropertiesLayout() - Could not find practiceModeCheckbox component.';
@@ -350,7 +350,7 @@ class ChartEditorToolboxHandler
 
     toolbox.onDialogClosed = function(event:DialogEvent) {
       state.menubarItemToggleToolboxPlayerPreview.selected = false;
-    }
+    };
 
     var charPlayer:Null<CharacterPlayer> = toolbox.findComponent('charPlayer');
     if (charPlayer == null) throw 'ChartEditorToolboxHandler.buildToolboxPlayerPreviewLayout() - Could not find charPlayer component.';

@@ -239,7 +239,7 @@ class LoadingState extends MusicBeatSubState
         onConstruct(result);
         return result;
       };
-    }
+    };
 
     #if NO_PRELOAD_ALL
     // Switch to loading state while we load assets (default on HTML5 target).
@@ -248,7 +248,7 @@ class LoadingState extends MusicBeatSubState
       @:privateAccess
       result.asSubState = asSubState;
       return result;
-    }
+    };
     if (asSubState)
     {
       FlxG.state.openSubState(cast loadStateCtor());
@@ -537,7 +537,7 @@ class MultiCallback
         {
           if (logId != null) log('all callbacks fired');
           callback();
-        }
+        };
       }
       else
         log('already fired $id');

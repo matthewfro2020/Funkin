@@ -241,7 +241,7 @@ class InitState extends FlxState
       #end
 
       _coreInitialized = true;
-    }
+    };
 
     //
     // GAME DATA PARSING

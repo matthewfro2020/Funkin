@@ -384,31 +384,31 @@ class CharCreatorGameplayPage extends CharCreatorDefaultPage
       if (idx >= typesArray.length) idx = 0;
       updateCharPerStageData(typesArray[idx]);
       labelCharType.text = Std.string(currentCharacter.characterType);
-    }
+    };
     labelCharType.onRightClick = function(_) {
       var idx = typesArray.indexOf(currentCharacter.characterType);
       idx--;
       if (idx < 0) idx = typesArray.length - 1;
       updateCharPerStageData(typesArray[idx]);
       labelCharType.text = Std.string(currentCharacter.characterType);
-    }
+    };
     stageDropdown.onChange = function(_) {
       curStage = stageDropdown.selectedItem?.text ?? curStage;
       updateCharPerStageData(currentCharacter.characterType);
-    }
+    };
 
     checkAnim.onChange = function(_) {
       dialogMap[Animation].hidden = !checkAnim.selected;
-    }
+    };
     checkData.onChange = function(_) {
       dialogMap[Data].hidden = !checkData.selected;
-    }
+    };
     checkHealth.onChange = function(_) {
       dialogMap[Health].hidden = !checkHealth.selected;
-    }
+    };
     checkGhost.onChange = function(_) {
       dialogMap[Ghost].hidden = !checkGhost.selected;
-    }
+    };
   }
 
   function sortAssets()

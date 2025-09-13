@@ -514,7 +514,7 @@ class ChartEditorImportExportHandler
         {
           trace('[WARN] Could not get save path.');
           state.applyWindowTitle();
-        }
+        };
         else
         {
           trace('Saved to "${paths[0]}"');
@@ -534,7 +534,7 @@ class ChartEditorImportExportHandler
       {
         FileUtil.saveChartAsFNFC(zipEntries, onSave, onCancel, '${state.currentSongId}.${Constants.EXT_CHART}');
         state.saveDataDirty = false;
-      }
+      };
       catch (e) {}
     }
   }

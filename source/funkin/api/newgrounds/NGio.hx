@@ -135,7 +135,7 @@ class NGio
       onSuccess = function() {
         onNGLogin();
         onComplete(Success);
-      }
+      };
       onFail = function(e) onComplete(Fail(e.message));
       onCancel = function() onComplete(Cancelled);
     }

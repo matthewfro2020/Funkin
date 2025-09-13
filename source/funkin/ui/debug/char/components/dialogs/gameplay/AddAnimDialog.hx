@@ -36,7 +36,7 @@ class AddAnimDialog extends DefaultPageDialog
     charAnimFrameList.onChange = function(_) {
       if (charAnimFrameList.selectedIndex == -1) return;
       charAnimPrefix.text = charAnimFrameList.selectedItem.name;
-    }
+    };
 
     charAnimDropdown.onChange = function(_) {
       if (charAnimDropdown.selectedIndex == -1) // delete this shiz
@@ -47,9 +47,9 @@ class AddAnimDialog extends DefaultPageDialog
         charAnimOffsetX.pos = charAnimOffsetY.pos = 0;
 
         return;
-      }
+      };
 
-      var animData = char.getAnimationData(charAnimDropdown.safeSelectedItem.text);
+      var animData = char.getAnimationData(charAnimDropdown.selectedItem.text);
       if (animData == null) return;
 
       charAnimName.text = animData.name;
@@ -72,7 +72,7 @@ class AddAnimDialog extends DefaultPageDialog
       {
         CharCreatorUtil.error("Add Animation", "Error: Missing name!");
         return;
-      }
+      };
       if ((charAnimPrefix.text ?? "") == "")
       {
         CharCreatorUtil.error("Add Animation", "Error: Missing prefix!");
@@ -127,7 +127,7 @@ class AddAnimDialog extends DefaultPageDialog
       {
         CharCreatorUtil.error("Remove Animation", "Error: Problem removing the animation.");
         return;
-      }
+      };
       if (daPage.ghostId == "") daPage.ghostCharacter.removeAnimation(charAnimName.text);
 
       updateDropdown();

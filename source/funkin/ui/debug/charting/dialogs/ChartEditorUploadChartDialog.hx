@@ -28,12 +28,12 @@ class ChartEditorUploadChartDialog extends ChartEditorBaseDialog
       if (this.locked) return;
       this.chartBox.swapClass('upload-bg', 'upload-bg-hover');
       Cursor.cursorMode = Pointer;
-    }
+    };
 
     this.chartBox.onMouseOut = function(_event) {
       this.chartBox.swapClass('upload-bg-hover', 'upload-bg');
       Cursor.cursorMode = Default;
-    }
+    };
 
     dropHandlers.push({component: this.chartBox, handler: this.onDropFileChartBox});
   }

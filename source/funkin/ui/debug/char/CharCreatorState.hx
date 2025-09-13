@@ -112,7 +112,7 @@ class CharCreatorState extends UIState
     menubarSliderAnimSpeed.onChange = function(_) {
       FlxG.animationTimeScale = (menubarSliderAnimSpeed.pos / 100);
       menubarLabelAnimSpeed.text = 'Animation Speed: ${menubarSliderAnimSpeed.pos}%';
-    }
+    };
   }
 
   function handleShortcuts():Void

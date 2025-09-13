@@ -2468,7 +2468,7 @@ class PlayState extends MusicBeatSubState
       // trace('${vocals.time}');
 
       vocals.play();
-    }
+    };
 
     FlxG.sound.music.play();
 

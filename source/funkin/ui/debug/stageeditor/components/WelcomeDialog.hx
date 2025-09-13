@@ -27,7 +27,7 @@ class WelcomeDialog extends Dialog
       stageEditorState.loadDummyData();
       stageEditorState.currentFile = "";
       killDaDialog();
-    }
+    };
 
     for (file in Save.instance.stageEditorPreviousFiles)
     {
@@ -53,7 +53,7 @@ class WelcomeDialog extends Dialog
       #end
 
       contentRecent.addComponent(fileText);
-    }
+    };
 
     boxDrag.onClick = function(_) FileUtil.browseForSaveFile([FileUtil.FILE_FILTER_FNFS], loadFromFilePath, null, null, "Open Stage Data");
 

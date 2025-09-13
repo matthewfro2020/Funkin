@@ -128,7 +128,7 @@ class UndoRedoHandler
         finalAction.data = {type: char, pos: state.charPos[char].copy()};
 
       case OBJECT_MOVED:
-        finalAction.data = {ID: state.selectedSprite.ID, pos: [state.selectedSprite.x, state.selectedSprite.y]}
+        finalAction.data = {ID: state.selectedSprite.ID, pos: [state.selectedSprite.x, state.selectedSprite.y]};
 
       case OBJECT_CREATED:
         finalAction.data = {ID: state.selectedSprite.ID}

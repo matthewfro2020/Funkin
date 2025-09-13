@@ -152,7 +152,7 @@ class SaveDataMigrator
             maxCombo: 0,
             totalNotesHit: 0,
             totalNotes: 0,
-          }
+          };
       };
     result.setLevelScore(levelId, 'easy', scoreDataEasy);
 
@@ -171,7 +171,7 @@ class SaveDataMigrator
             maxCombo: 0,
             totalNotesHit: 0,
             totalNotes: 0,
-          }
+          };
       };
     result.setLevelScore(levelId, 'normal', scoreDataNormal);
 
@@ -190,7 +190,7 @@ class SaveDataMigrator
             maxCombo: 0,
             totalNotesHit: 0,
             totalNotes: 0,
-          }
+          };
       };
     result.setLevelScore(levelId, 'hard', scoreDataHard);
   }
@@ -211,7 +211,7 @@ class SaveDataMigrator
             maxCombo: 0,
             totalNotesHit: 0,
             totalNotes: 0,
-          }
+          };
       };
 
     for (songId in songIds)
@@ -235,7 +235,7 @@ class SaveDataMigrator
             maxCombo: 0,
             totalNotesHit: 0,
             totalNotes: 0,
-          }
+          };
       };
 
     for (songId in songIds)
@@ -259,7 +259,7 @@ class SaveDataMigrator
             maxCombo: 0,
             totalNotesHit: 0,
             totalNotes: 0,
-          }
+          };
       };
 
     for (songId in songIds)

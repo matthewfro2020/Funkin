@@ -60,7 +60,7 @@ class CharCreatorCharacter extends Bopper
 
     switch (generatedParams?.renderType)
     {
-      case CharacterRenderType.Sparrow | CharacterRenderType.MultiSparrow:
+      case CharacterRenderType.Sparrow, CharacterRenderType.MultiSparrow:
         if (generatedParams.files.length < 2) return; // img and data
 
         var combinedFrames = null;

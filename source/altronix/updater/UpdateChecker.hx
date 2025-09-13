@@ -81,10 +81,10 @@ class UpdateChecker
     http.setHeader("User-Agent", "request");
     http.onData = function(data:String) {
       ret = data;
-    }
+    };
     http.onError = function(msg:String) {
       throw "Error while getting upstream commit! Message: " + msg;
-    }
+    };
     http.request(false);
 
     return ret;

@@ -17,7 +17,7 @@ class CharacterUtil
 
     switch (other.renderType)
     {
-      case CharacterRenderType.Sparrow | CharacterRenderType.MultiSparrow:
+      case CharacterRenderType.Sparrow, CharacterRenderType.MultiSparrow:
         if (char.generatedParams.files.length < 2) return; // img and data
 
         var combinedFrames = null;
@@ -82,7 +82,7 @@ class CharacterUtil
 
     switch (data.renderType)
     {
-      case CharacterRenderType.Sparrow | CharacterRenderType.MultiSparrow:
+      case CharacterRenderType.Sparrow, CharacterRenderType.MultiSparrow:
         var combinedFrames = null;
         for (i => assetPath in data.assetPaths)
         {

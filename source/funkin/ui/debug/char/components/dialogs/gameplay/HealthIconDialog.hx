@@ -70,13 +70,13 @@ class HealthIconDialog extends DefaultPageDialog
       FileUtil.browseForBinaryFile("Load File", [FileUtil.FILE_EXTENSION_INFO_PNG], function(_) {
         if (_?.fullPath != null) healthIconLoadField.text = _.fullPath;
       });
-    }
+    };
 
     healthIconPreviewBtn.onClick = function(_) {
       if (healthIconLoadField.text.length == 0)
       {
         return;
-      }
+      };
 
       if (haxe.io.Path.isAbsolute(healthIconLoadField.text) && haxe.io.Path.extension(healthIconLoadField.text) != "png")
       {
@@ -160,6 +160,6 @@ class HealthIconDialog extends DefaultPageDialog
 
     healthIconCurAnim.onChange = function(_) {
       healthIcon?.animation?.play(healthIconCurAnim.selectedItem.text);
-    }
+    };
   }
 }

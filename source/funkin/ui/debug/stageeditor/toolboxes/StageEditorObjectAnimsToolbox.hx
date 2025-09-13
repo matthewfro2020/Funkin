@@ -42,7 +42,7 @@ class StageEditorObjectAnimsToolbox extends StageEditorDefaultToolbox
     objFrameList.onChange = function(_) {
       if (objFrameList.selectedIndex == -1) return;
       objAnimPrefix.text = objFrameList.selectedItem.name;
-    }
+    };
 
     objAnims.onChange = function(_) {
       var animData = linkedObj?.animDatas[objAnims.selectedItem?.text ?? ""];
@@ -55,7 +55,7 @@ class StageEditorObjectAnimsToolbox extends StageEditorDefaultToolbox
         objAnimFramerate.pos = 24;
         objAnimOffsetX.pos = objAnimOffsetY.pos = 0;
         return;
-      }
+      };
 
       // Update the displays.
       objAnimName.text = objAnims.selectedItem.text;
@@ -79,7 +79,7 @@ class StageEditorObjectAnimsToolbox extends StageEditorDefaultToolbox
       {
         state.notifyChange("Animation Saving Error", "The Animation Name is missing.", true);
         return;
-      }
+      };
 
       if ((objAnimPrefix.text ?? "") == "")
       {
@@ -113,7 +113,7 @@ class StageEditorObjectAnimsToolbox extends StageEditorDefaultToolbox
       updateAnimList();
 
       objAnims.selectedIndex = objAnims.dataSource.size - 1;
-    }
+    };
 
     this.onDialogClosed = onClose;
   }

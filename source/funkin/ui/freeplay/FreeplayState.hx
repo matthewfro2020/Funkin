@@ -703,7 +703,7 @@ class FreeplayState extends MusicBeatSubState
           },
           onComplete: function(_) {
             blackOverlayBullshitLOLXD.visible = false;
-          }
+          };
         }
       }
 
@@ -907,7 +907,7 @@ class FreeplayState extends MusicBeatSubState
     else
     {
       randomCapsule.initJumpIn(0, force);
-    }
+    };
 
     var hsvShader:HSVShader = new HSVShader();
     randomCapsule.hsvShader = hsvShader;
@@ -939,7 +939,7 @@ class FreeplayState extends MusicBeatSubState
 
       grpCapsules.add(funnyMenu);
       // add(funnyMenu.theActualHitbox);
-    }
+    };
 
     FlxG.console.registerFunction('changeSelection', changeSelection);
 
@@ -2520,7 +2520,7 @@ class FreeplayState extends MusicBeatSubState
     capsuleOptionsMenu.onConfirm = function(targetInstId:String) {
       capsuleOnConfirmDefault(cap, targetInstId);
     };
-  }
+  };
 
   var capsuleOptionsMenu:Null<CapsuleOptionsMenu> = null;
 

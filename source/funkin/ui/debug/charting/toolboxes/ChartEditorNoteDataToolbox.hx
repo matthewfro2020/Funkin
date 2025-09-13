@@ -68,7 +68,7 @@ class ChartEditorNoteDataToolbox extends ChartEditorBaseToolbox
       {
         showCustom();
         toolboxNotesCustomKind.value = chartEditorState.noteKindToPlace;
-      }
+      };
       else
       {
         hideCustom();
@@ -124,7 +124,7 @@ class ChartEditorNoteDataToolbox extends ChartEditorBaseToolbox
         for (note in chartEditorState.currentNoteSelection)
         {
           note.kind = chartEditorState.noteKindToPlace;
-        }
+        };
         chartEditorState.saveDataDirty = true;
         chartEditorState.noteDisplayDirty = true;
         chartEditorState.notePreviewDirty = true;
@@ -188,7 +188,7 @@ class ChartEditorNoteDataToolbox extends ChartEditorBaseToolbox
 
       switch (param.type)
       {
-        case NoteKindParamType.INT | NoteKindParamType.FLOAT:
+        case NoteKindParamType.INT, NoteKindParamType.FLOAT:
           var paramStepper:NumberStepper = new NumberStepper();
           paramStepper.value = (setParamsToPlace ? chartEditorState.noteParamsToPlace[i].value : param.data?.defaultValue) ?? 0.0;
           paramStepper.percentWidth = 100;
@@ -230,7 +230,7 @@ class ChartEditorNoteDataToolbox extends ChartEditorBaseToolbox
           if (note.params.length != noteKindParams.length)
           {
             break;
-          }
+          };
 
           if (note.params[i].name == param.name)
           {

@@ -12,15 +12,15 @@ class FreeplayDJAnimsDialog extends DefaultPageDialog
 
     djAnimList.onChange = function(_) {
       daPage.changeDJAnimation(djAnimList.selectedIndex - daPage.currentDJAnimation);
-    }
+    };
 
     djAnimSave.onClick = function(_) {
       if (!daPage.dj.hasAnimation(djAnimPrefix.text))
       {
         return;
-      }
+      };
 
-      if ((djAnimList.safeSelectedItem?.text ?? "") == djAnimName.text) // update instead of add
+      if ((djAnimList.selectedItem?.text ?? "") == djAnimName.text) // update instead of add
       {
         var animData = daPage.djAnims[daPage.currentDJAnimation];
 

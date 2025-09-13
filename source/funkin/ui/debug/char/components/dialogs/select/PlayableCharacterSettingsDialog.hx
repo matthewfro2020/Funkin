@@ -72,7 +72,7 @@ private class AddOwnedCharBox extends HBox
 
       parentList.addComponentAt(newDropDown, parentList.childComponents.length - 1); // considering this box is last
       removeButton.disabled = false;
-    }
+    };
 
     removeButton.disabled = true;
     removeButton.onClick = function(_) {
@@ -83,7 +83,7 @@ private class AddOwnedCharBox extends HBox
 
       parentList.removeComponentAt(parentList.childComponents.length - 2);
       if (parentList.childComponents.length <= 2) removeButton.disabled = true;
-    }
+    };
 
     addComponent(addButton);
     addComponent(removeButton);

@@ -116,7 +116,7 @@ class StageDataHandler
           dataSize: bytes.length,
           data: bytes,
           crc32: null // apparently fileutil.hx does not like crc32, idk why but i dont even know what crc32 is
-        }
+        };
 
       entryList.push(entry);
     }
@@ -135,7 +135,7 @@ class StageDataHandler
           dataSize: bytes.length,
           data: bytes,
           crc32: null
-        }
+        };
 
       entryList.push(entry);
     }

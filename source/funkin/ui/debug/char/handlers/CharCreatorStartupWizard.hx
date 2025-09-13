@@ -25,7 +25,7 @@ class CharCreatorStartupWizard
       freeplayFile: null,
       importedCharacter: null,
       importedPlayerData: null
-    }
+    };
 
   public static function startWizard(state:CharCreatorState, onComplete:WizardGenerateParams->Void = null, onQuit:Void->Void = null)
   {

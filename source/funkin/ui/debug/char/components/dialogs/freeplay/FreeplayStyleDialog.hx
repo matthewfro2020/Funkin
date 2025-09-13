@@ -39,7 +39,7 @@ class FreeplayStyleDialog extends DefaultPageDialog
     optionMakeNew.onChange = optionUsePreset.onChange = function(_) {
       freeplayStyleNew.disabled = optionUsePreset.selected;
       freeplayStylePresets.disabled = optionMakeNew.selected;
-    }
+    };
 
     optionUsePreset.selected = (daPlayuh != null);
     optionMakeNew.selected = (daPlayuh == null);
@@ -61,14 +61,14 @@ class FreeplayStyleDialog extends DefaultPageDialog
 
       num.setGraphicSize(Std.int(num.width * 0.4));
       num.updateHitbox();
-    }
+    };
 
     buttonApplyStyle.onClick = function(_) {
       if (optionUsePreset.selected)
       {
         var daStyle = FreeplayStyleRegistry.instance.fetchEntry(styleID);
 
-        daPage.bgDad.loadGraphic(daStyle?.getBgAssetGraphic() != null ? daStyle.getBgAssetGraphic() : Paths.image('freeplay/freeplayBGdad'));
+        daPage.bg.loadGraphic(daStyle?.getBgAssetGraphic() != null ? daStyle.getBgAssetGraphic() : Paths.image('freeplay/freeplayBGdad'));
 
         daPage.arrowLeft.frames = daPage.arrowRight.frames = Paths.getSparrowAtlas(daStyle?.getSelectorAssetKey() ?? 'freeplay/freeplaySelector');
         daPage.arrowLeft.animation.addByPrefix('shine', 'arrow pointer loop', 24);
@@ -84,7 +84,7 @@ class FreeplayStyleDialog extends DefaultPageDialog
         });
 
         daPage.useStyle = styleID;
-      }
+      };
       else if (optionMakeNew.selected)
       {
         var dadBitmap = BitmapData.fromBytes(CharCreatorUtil.gimmeTheBytes(fieldBGAsset.text?.length > 0 ? fieldBGAsset.text : Paths.image('freeplay/freeplayBGdad')));
@@ -96,7 +96,7 @@ class FreeplayStyleDialog extends DefaultPageDialog
         var numbersXML = CharCreatorUtil.gimmeTheBytes(fieldNumbers.text.replace(".png", ".xml"));
         var capsuleXML = CharCreatorUtil.gimmeTheBytes(fieldCapsule.text.replace(".png", ".xml"));
 
-        daPage.bgDad.loadGraphic(dadBitmap);
+        daPage.bg.loadGraphic(dadBitmap);
 
         daPage.arrowLeft.frames = daPage.arrowRight.frames = FlxAtlasFrames.fromSparrow(arrowBitmap,
           arrowXML?.toString() ?? Paths.file("images/freeplay/freeplaySelector.xml"));

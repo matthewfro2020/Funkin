@@ -92,7 +92,7 @@ class StickerSubState extends MusicBeatSubState
       while (soundSelections.contains(i))
       {
         soundSelections.remove(i);
-      }
+      };
       soundSelections.push(i);
     }
 
@@ -107,7 +107,7 @@ class StickerSubState extends MusicBeatSubState
     {
       sounds[i] = sounds[i].replace('assets/shared/sounds/', '');
       sounds[i] = sounds[i].substring(0, sounds[i].lastIndexOf('.'));
-    }
+    };
 
     // makes the stickers on the most recent camera, which is more often than not... a UI camera!!
     // grpStickers.cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];

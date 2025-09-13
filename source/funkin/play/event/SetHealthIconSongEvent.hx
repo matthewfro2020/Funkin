@@ -62,7 +62,7 @@ class SetHealthIconSongEvent extends SongEvent
         PlayState.instance.iconP2.configure(healthIconData);
       default:
         trace('[WARN] Unknown character index: ' + data.value.char);
-    }
+    };
   }
 
   public override function getTitle():String

@@ -130,7 +130,7 @@ class DebugTallies
       case EXCELLENT_RANK: EXCELLENT;
       case PERFECT_RANK: PERFECT;
       case PERFECT_GOLD_RANK: PERFECT_GOLD;
-    }
+    };
   }
 
   public static var DEBUG_RANKS:Array<DebugRank> = [

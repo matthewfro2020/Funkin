@@ -21,13 +21,13 @@ class StageEditorStageToolbox extends StageEditorDefaultToolbox
     stageNameText.onChange = function(_) {
       state.stageName = stageNameText.text;
       state.saved = false;
-    }
+    };
 
     stageZoomStepper.onChange = function(_) {
       state.stageZoom = stageZoomStepper.pos;
       state.updateMarkerPos();
       state.saved = false;
-    }
+    };
 
     final EXCLUDE_LIBS = ["art", "default", "vlc", "videos", "songs", "libvlc"];
     var allLibs = [];
@@ -48,7 +48,7 @@ class StageEditorStageToolbox extends StageEditorDefaultToolbox
 
     stageLibraryDrop.onChange = function(_) {
       state.stageFolder = stageLibraryDrop.selectedItem.text;
-    }
+    };
 
     refresh();
 

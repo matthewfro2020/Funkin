@@ -23,7 +23,7 @@ class Lock extends FlxAtlasSprite
     var func = function(name) {
       var symbol = anim.symbolDictionary[name];
       if (symbol != null && symbol.timeline.get("color") != null) symbol.timeline.get("color").get(0).colorEffect = tint;
-    }
+    };
     for (symbol in arr)
     {
       func(symbol);

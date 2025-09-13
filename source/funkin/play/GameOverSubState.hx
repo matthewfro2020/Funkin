@@ -388,7 +388,7 @@ class GameOverSubState extends MusicBeatSubState
             FlxG.camera.fade(FlxColor.BLACK, 1, true, null, true);
           if (parentPlayState != null) parentPlayState.needsReset = true;
 
-          if ((parentPlayState?.isMinimalMode ?? true) || boyfriend == null) {}
+          if ((parentPlayState?.isMinimalMode ?? true) || boyfriend == null) {};
           else
           {
             // Readd Boyfriend to the stage.
@@ -499,7 +499,7 @@ class GameOverSubState extends MusicBeatSubState
           // We need to force to ensure that the non-starting music plays.
           startDeathMusic(0.0, true);
         };
-      }
+      };
     }
 
     if (musicPath == null)

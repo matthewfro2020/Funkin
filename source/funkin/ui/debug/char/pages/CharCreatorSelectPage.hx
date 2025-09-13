@@ -278,7 +278,7 @@ class CharCreatorSelectPage extends CharCreatorDefaultPage
     // callbacks
     openPos.onClick = function(_) {
       cast(subPages[IndexSubPage], CharSelectIndexSubPage).open();
-    }
+    };
 
     openFile.onClick = function(_) {
       FileUtil.browseForBinaryFile("Load Pixel Icon File", [FileUtil.FILE_EXTENSION_INFO_PNG], function(_) {
@@ -296,7 +296,7 @@ class CharCreatorSelectPage extends CharCreatorDefaultPage
 
         cast(subPages[IndexSubPage], CharSelectIndexSubPage).resetIconTexture();
       });
-    }
+    };
 
     gfFile.onClick = function(_) {
       FileUtil.browseForBinaryFile("Load Girlfriend Atlas File", [FileUtil.FILE_EXTENSION_INFO_ZIP], function(_) {
@@ -309,7 +309,7 @@ class CharCreatorSelectPage extends CharCreatorDefaultPage
         if (gf.anim == null || gf.frames == null)
         {
           return;
-        }
+        };
 
         this.gfFile = {name: data.characterID + "-gf.zip", bytes: daZipBytes};
 
@@ -324,7 +324,7 @@ class CharCreatorSelectPage extends CharCreatorDefaultPage
       FileUtil.browseForBinaryFile("Load Nametag Image", [FileUtil.FILE_EXTENSION_INFO_PNG], function(_) {
         if (_?.fullPath == null) return;
 
-        nametagFile = {name: _.fullPath, bytes: FileUtil.readBytesFromPath(_.fullPath)}
+        nametagFile = {name: _.fullPath, bytes: FileUtil.readBytesFromPath(_.fullPath)};
 
         nametag.loadGraphic(openfl.display.BitmapData.fromBytes(nametagFile.bytes));
         nametag.updateHitbox();
@@ -340,7 +340,7 @@ class CharCreatorSelectPage extends CharCreatorDefaultPage
 
     settingsDialog.onClick = function(_) {
       dialogMap[SettingsDialog].hidden = !settingsDialog.selected;
-    }
+    };
   }
 
   function updateNametagPos()

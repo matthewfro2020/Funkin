@@ -66,7 +66,7 @@ class Page<T:PageName> extends FlxGroup
     prompt.closeCallback = function() {
       enabled = true;
       if (onClose != null) onClose();
-    }
+    };
 
     FlxG.state.openSubState(prompt);
   }

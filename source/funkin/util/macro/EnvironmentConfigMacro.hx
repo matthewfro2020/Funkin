@@ -104,7 +104,7 @@ class EnvironmentConfigMacro
             kind: FVar(macro :funkin.util.macro.EnvironmentConfigMacro.EnvironmentConfig, expr),
             pos: pos,
           };
-      }
+      };
     }
 
     return newFields;

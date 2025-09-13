@@ -126,7 +126,7 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
           state.removeUnusedBitmaps();
         });
       });
-    }
+    };
 
     objectLoadInternetButton.onClick = function(_) {
       if (linkedObject == null) return;
@@ -136,14 +136,14 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
         linkedObject.updateHitbox();
         refresh();
       });
-    }
+    };
 
     objectDownloadImageButton.onClick = function(_) {
       if (linkedObject == null) return;
 
       FileUtil.saveFile(linkedObject.pixels.image.encode(PNG), [FileUtil.FILE_FILTER_PNG], null, null,
         linkedObject.name + "-graphic.png"); // i'on need any callbacks
-    }
+    };
 
     objectZIdxStepper.max = StageEditorState.MAX_Z_INDEX;
     objectZIdxStepper.onChange = function(_) {
@@ -151,7 +151,7 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
       {
         linkedObject.zIndex = Std.int(objectZIdxStepper.pos);
         state.sortAssets();
-      }
+      };
     }
 
     // numeric callbacks
@@ -180,7 +180,7 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
         objectSizeYStepper.pos = linkedObject.height;
 
         linkedObject.playAnim(linkedObject.animation.name); // load offsets
-      }
+      };
     };
 
     objectSizeXStepper.onChange = objectSizeYStepper.onChange = function(_) {
@@ -192,7 +192,7 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
         objectScaleYStepper.pos = linkedObject.scale.y;
 
         linkedObject.playAnim(linkedObject.animation.name); // load offsets
-      }
+      };
     };
 
     objectScrollXSlider.onChange = objectScrollYSlider.onChange = function(_) {
@@ -208,7 +208,7 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
 
         state.notifyChange("Frame Text Loaded", "The Text File " + selectedFile.name + " has been loaded.");
       });
-    }
+    };
 
     objectFrameTextSparrow.onClick = function(_) {
       if (linkedObject == null || objectFrameText.text == null || objectFrameText.text == "") return;
@@ -216,7 +216,7 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
       try
       {
         linkedObject.frames = FlxAtlasFrames.fromSparrow(linkedObject.graphic, objectFrameText.text);
-      }
+      };
       catch (e)
       {
         state.notifyChange("Frame Setup Error", e.toString(), true);
@@ -238,7 +238,7 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
       try // crash prevention
       {
         linkedObject.frames = FlxAtlasFrames.fromSpriteSheetPacker(linkedObject.graphic, objectFrameText.text);
-      }
+      };
       catch (e)
       {
         state.notifyChange("Frame Setup Error", e.toString(), true);
@@ -266,7 +266,7 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
       {
         linkedObject.frames.framesHash.set("Frame" + i, linkedObject.frames.frames[i]);
         linkedObject.frames.frames[i].name = "Frame" + i;
-      }
+      };
 
       // might as well clear animations because frames SUCK
       linkedObject.animDatas.clear();
@@ -289,7 +289,7 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
         objectAnimFrames.text = "";
 
         return;
-      }
+      };
 
       var animData = linkedObject.animDatas[objectAnimDropdown.selectedItem.text];
       if (animData == null) return;
@@ -314,7 +314,7 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
       {
         state.notifyChange("Animation Saving Error", "Invalid Animation Name!", true);
         return;
-      }
+      };
 
       if (objectAnimPrefix.text == null || objectAnimPrefix.text == "")
       {
@@ -382,11 +382,11 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
       updateAnimList();
 
       objectAnimDropdown.selectedIndex = objectAnimDropdown.dataSource.size - 1;
-    }
+    };
 
     objectAnimDanceBeat.onChange = function(_) {
       if (linkedObject != null) linkedObject.danceEvery = Std.int(objectAnimDanceBeat.pos);
-    }
+    };
 
     objectAnimStart.onChange = function(_) {
       if (linkedObject != null)
@@ -396,23 +396,23 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
           objectAnimStart.styleString = "color: indianred";
 
         linkedObject.startingAnimation = objectAnimStart.text;
-      }
+      };
     }
 
     // misc
     objectMiscAntialias.onClick = function(_) {
       if (linkedObject != null) linkedObject.antialiasing = objectMiscAntialias.selected;
-    }
+    };
 
     objectMiscBlendDrop.onChange = function(_) {
       if (linkedObject != null)
         linkedObject.blend = objectMiscBlendDrop.selectedItem.text == "NONE" ? null : AssetDataHandler.blendFromString(objectMiscBlendDrop.selectedItem.text);
-    }
+    };
 
     objectMiscColor.onChange = function(_) {
       if (linkedObject != null) linkedObject.color = FlxColor.fromRGB(objectMiscColor.currentColor.r, objectMiscColor.currentColor.g,
         objectMiscColor.currentColor.b);
-    }
+    };
 
     // reset button callbacks
     objectResetImageButton.onClick = function(_) {
@@ -424,12 +424,12 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
 
         // remove unused bitmaps
         state.removeUnusedBitmaps();
-      }
+      };
     }
 
     objectZIdxReset.onClick = function(_) {
       if (linkedObject != null) objectZIdxStepper.pos = 0; // corner cutting because onChange will activate with this
-    }
+    };
 
     objectPosResetButton.onClick = function(_) {
       if (linkedObject != null)
@@ -437,16 +437,16 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
         linkedObject.screenCenter();
         objectPosXStepper.pos = linkedObject.x;
         objectPosYStepper.pos = linkedObject.y;
-      }
+      };
     }
 
     objectAlphaResetButton.onClick = function(_) {
       if (linkedObject != null) linkedObject.alpha = objectAlphaSlider.pos = 1;
-    }
+    };
 
     objectAngleResetButton.onClick = function(_) {
       if (linkedObject != null) linkedObject.angle = objectAngleSlider.pos = 0;
-    }
+    };
 
     objectScaleResetButton.onClick = objectSizeResetButton.onClick = function(_) // the corner cutting goes crazy
     {
@@ -459,7 +459,7 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
 
     objectScrollResetButton.onClick = function(_) {
       if (linkedObject != null) linkedObject.scrollFactor.x = linkedObject.scrollFactor.y = objectScrollXSlider.pos = objectScrollYSlider.pos = 1;
-    }
+    };
 
     objectFrameReset.onClick = function(_) {
       if (linkedObject == null) return;
@@ -468,27 +468,27 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
       linkedObject.animDatas.clear();
       linkedObject.animation.destroyAnimations();
       refresh();
-    }
+    };
 
     objectMiscAntialiasReset.onClick = function(_) {
       if (linkedObject != null) objectMiscAntialias.selected = true;
-    }
+    };
 
     objectMiscBlendReset.onClick = function(_) {
       if (linkedObject != null) objectMiscBlendDrop.selectedItem = "NORMAL";
-    }
+    };
 
     objectMiscColorReset.onClick = function(_) {
       if (linkedObject != null) objectMiscColor.currentColor = Color.fromString("white");
-    }
+    };
 
     objectAnimDanceBeatReset.onClick = function(_) {
       if (linkedObject != null) objectAnimDanceBeat.pos = 0;
-    }
+    };
 
     objectAnimStartReset.onClick = function(_) {
       if (linkedObject != null) objectAnimStart.text = "";
-    }
+    };
 
     refresh();
   }

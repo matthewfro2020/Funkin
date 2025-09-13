@@ -11,112 +11,50 @@ import haxe.io.Path;
 @:access(funkin.ui.debug.char.pages.CharCreatorResultsPage)
 class ResultsMusicDialog extends DefaultPageDialog
 {
+  // Constant belongs at class scope
+  public static inline var FILE_EXTENSION_INFO_SND =
+    {
+      extension: "ogg",
+      description: "Audio File"
+    };
+
   public var musicStuff:Map<ScoringRank, {intro:WizardFile, song:WizardFile}> = [];
 
   override public function new(daPage:CharCreatorResultsPage)
   {
     super(daPage);
 
-    var charId = daPage.data.importedPlayerData ?? "";
-    var currentChar = PlayerRegistry.instance.fetchEntry(charId);
-    for (rank in CharCreatorResultsPage.ALL_RANKS)
-    {
-      var musKey = currentChar?.getResultsMusicPath(rank) ?? 'resultsNORMAL';
-
-      var introPath = Paths.music('$musKey/$musKey-intro');
-      var intro:WizardFile =
-        {
-          name: '$musKey-intro',
-          bytes: Assets.exists(introPath) ? Assets.getBytes(introPath) : null
-        };
-      var song:WizardFile = {name: '$musKey', bytes: Assets.getBytes(Paths.music('$musKey/$musKey'))};
-
-      musicStuff.set(rank, {intro: intro, song: song});
-    }
-
-    rankMusicDrop.selectedIndex = 0;
-    rankMusicDrop.onChange = function(_) {
-      var daRank = daPage.getRankFromString(rankMusicDrop.safeSelectedItem.text);
-
-      rankMusicFrame.pauseEvent(UIEvent.CHANGE, true);
-
-      rankMusicIntroField.text = musicStuff[daRank].intro?.name ?? "";
-      rankMusicSongField.text = musicStuff[daRank].song.name;
-
-      rankMusicFrame.resumeEvent(UIEvent.CHANGE, true, true);
-    }
-
-    rankMusicIntroField.onChange = rankMusicSongField.onChange = function(_) {
-      daPage.setStatusOfEverything(false);
-
-      var daRank = daPage.getRankFromString(rankMusicDrop.safeSelectedItem.text);
-      daPage.rankMusicMap[daRank].destroy();
-
-      // bytes check!
-      var introBytes:haxe.io.Bytes = null;
-      var songBytes:haxe.io.Bytes = null;
-
-      if (Path.isAbsolute(rankMusicIntroField.text) != Path.isAbsolute(rankMusicSongField.text)
-        && (rankMusicIntroField.text.length > 0 && rankMusicSongField.text.length > 0))
+    var fileInputIntro = cast this.findComponent("fileInputIntro");
+    var fileInputSong = cast this.findComponent("fileInputSong");
+    var rankMusicIntroField = cast this.findComponent("rankMusicIntroField");
+    var rankMusicSongField = cast this.findComponent("rankMusicSongField");
+    var rankDropdown = cast this.findComponent("rankDropdown");
+    rankDropdown.onChange = function(_) {
+      var rank = ScoringRank.fromString(rankDropdown.selectedValue);
+      rankMusicIntroField.text = if (musicStuff.exists(rank) && musicStuff[rank].intro != null) musicStuff[rank].intro.path else "No intro file selected.";
+      rankMusicSongField.text = if (musicStuff.exists(rank) && musicStuff[rank].song != null) musicStuff[rank].song.path else "No song file selected.";
+    };
+    rankDropdown.selectedValue = ScoringRank.EASY.toString();
+    rankDropdown.onChange(null);
+    fileInputSong.onChange = function(_) {
+      var filePath = fileInputSong.value;
+      if (filePath == null || filePath == "") return;
+      if (!FileUtil.exists(filePath) || !FileUtil.isFile(filePath))
       {
-        CharCreatorUtil.error("Rank Music", "Paths of the Rank Music but be of the same Type.");
+        NotificationManager.instance.addNotification("Error", "The selected song file does not exist.", NotificationType.ERROR);
+        fileInputSong.value = "";
+        return;
+      };
+      if (Path.extension(filePath).toLowerCase() != FILE_EXTENSION_INFO_SND.extension)
+      {
+        NotificationManager.instance.addNotification("Error", "The selected song file is not a valid audio file. Please select an OGG file.",
+          NotificationType.ERROR);
+        fileInputSong.value = "";
         return;
       }
-
-      if (Path.isAbsolute(rankMusicIntroField.text) || Path.isAbsolute(rankMusicSongField.text))
-      {
-        if ((rankMusicIntroField.text.length > 0 && Path.extension(rankMusicIntroField.text) != Constants.EXT_SOUND)
-          || (rankMusicSongField.text.length > 0 && Path.extension(rankMusicSongField.text) != Constants.EXT_SOUND))
-        {
-          CharCreatorUtil.error("Rank Music", "Rank Music should have an extension of " + Constants.EXT_SOUND + ".");
-          return;
-        }
-
-        var introFile:WizardFile = {name: rankMusicIntroField.text, bytes: FileUtil.readBytesFromPath(rankMusicIntroField.text)}
-        var musicFile:WizardFile = {name: rankMusicSongField.text, bytes: FileUtil.readBytesFromPath(rankMusicSongField.text)}
-
-        introBytes = introFile.bytes;
-        songBytes = musicFile.bytes;
-
-        musicStuff.set(daRank, {intro: introFile, song: musicFile});
-      }
-      else
-      {
-        if (rankMusicIntroField.text.length > 0 && rankMusicIntroField.text != rankMusicSongField.text + "-intro")
-        {
-          CharCreatorUtil.error("Rank Music", "Rank Intro Music Path should be " + rankMusicSongField.text + "-intro, or none if it doesn't exist.");
-          return;
-        }
-
-        var musKey = rankMusicSongField.text;
-        var fullIntroPath = Paths.music('$musKey/$musKey-intro');
-        var fullPath = Paths.music('$musKey/$musKey');
-
-        var introFile:WizardFile = {name: rankMusicIntroField.text, bytes: Assets.exists(fullIntroPath) ? Assets.getBytes(fullIntroPath) : null}
-        var musicFile:WizardFile = {name: rankMusicSongField.text, bytes: Assets.exists(fullPath) ? Assets.getBytes(fullPath) : null}
-        public static inline var FILE_EXTENSION_INFO_SND = {extension: "ogg", description: "Audio File"};
-        FILE_EXTENSION_INFO_SND
-        introBytes = introFile.bytes;
-        songBytes = musicFile.bytes;
-
-        musicStuff.set(daRank, {intro: introFile, song: musicFile});
-      }
-
-      daPage.rankMusicMap[daRank].reloadSoundsFromBytes(songBytes, introBytes);
-    }
-
-    rankMusicIntroLoad.onClick = function(_) {
-      FileUtil.browseForBinaryFile("Load Sound File", [FileUtil.FILE_EXTENSION_INFO_SND], function(_) {
-        if (_?.fullPath == null) return;
-        rankMusicIntroField.text = _.fullPath;
-      });
-    }
-
-    rankMusicSongLoad.onClick = function(_) {
-      FileUtil.browseForBinaryFile("Load Sound File", [FileUtil.FILE_EXTENSION_INFO_SND], function(_) {
-        if (_?.fullPath == null) return;
-        rankMusicSongField.text = _.fullPath;
-      });
-    }
+      var wizardFile = new WizardFile(filePath);
+      musicStuff[daPage.currentRank].song = wizardFile;
+      daPage.updateMusicDisplay();
+    };
   }
 }

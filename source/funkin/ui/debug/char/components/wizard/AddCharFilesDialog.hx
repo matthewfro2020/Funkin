@@ -90,7 +90,7 @@ class AddCharFilesDialog extends DefaultWizardDialog
     // check if the files even exist
     for (thingy in uploadBoxes)
     {
-      if (!FileUtil.exists(path).(thingy.daField.text) && !openfl.Assets.exists(thingy.daField.text))
+      if (!FileUtil.exists(path) && !openfl.Assets.exists(thingy.daField.text))
       {
         CharCreatorUtil.error("Add Files", "Path: " + thingy.daField.text + " doesn't exist. Is the spelling correct?");
         return false;
@@ -105,7 +105,7 @@ class AddCharFilesDialog extends DefaultWizardDialog
   {
     switch (params.renderType)
     {
-      case CharacterRenderType.Sparrow | CharacterRenderType.MultiSparrow:
+      case CharacterRenderType.Sparrow, CharacterRenderType.MultiSparrow:
         var files = [];
         for (uploadBox in uploadBoxes)
         {
@@ -318,7 +318,7 @@ class AddAssetBox extends HBox
       var newBox = new UploadAssetsBox(firstBox.daField.placeholder, firstBox.lookFor);
       parentList.addComponentAt(newBox, parentList.childComponents.length - 1); // considering this box is last
       removeButton.disabled = false;
-    }
+    };
 
     removeButton.disabled = true;
     removeButton.onClick = function(_) {
@@ -327,7 +327,7 @@ class AddAssetBox extends HBox
 
       parentList.removeComponentAt(parentList.childComponents.length - 2);
       if (parentList.childComponents.length <= 2) removeButton.disabled = true;
-    }
+    };
 
     addComponent(addButton);
     addComponent(removeButton);
@@ -365,6 +365,6 @@ class UploadAssetsBox extends HBox
       FileUtil.browseForBinaryFile("Load File", [lookFor], function(_) {
         if (_?.fullPath != null) daField.text = _.fullPath;
       });
-    }
+    };
   }
 }

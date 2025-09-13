@@ -35,7 +35,7 @@ class ComboMilestone extends FlxTypedSpriteGroup<FlxSprite>
 
     grpNumbers = new FlxTypedGroup<ComboMilestoneNumber>();
     // add(grpNumbers);
-  }
+  };
 
   public function forceFinish():Void
   {

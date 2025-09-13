@@ -30,21 +30,21 @@ class CharMetadataDialog extends DefaultPageDialog
     charOffsetsX.onChange = charOffsetsY.onChange = function(_) {
       char.globalOffsets = [charOffsetsX.pos, charOffsetsY.pos];
       daPage.updateCharPerStageData(char.characterType);
-    }
+    };
 
     charCamOffsetsX.onChange = charCamOffsetsY.onChange = function(_) char.characterCameraOffsets = [charCamOffsetsX.pos, charCamOffsetsY.pos];
 
     charScale.onChange = function(_) {
       char.characterScale = charScale.pos;
       daPage.updateCharPerStageData(char.characterType);
-    }
+    };
 
     charHoldTimer.onChange = function(_) char.holdTimer = charHoldTimer.pos;
 
     charFlipX.onChange = function(_) {
       char.characterFlipX = charFlipX.selected;
       daPage.updateCharPerStageData(char.characterType);
-    }
+    };
 
     charIsPixel.onChange = function(_) {
       char.isPixel = charIsPixel.selected;
@@ -52,7 +52,7 @@ class CharMetadataDialog extends DefaultPageDialog
       char.antialiasing = !char.isPixel;
       char.pixelPerfectRender = char.isPixel;
       char.pixelPerfectPosition = char.isPixel;
-    }
+    };
 
     // death
     charHasDeathData.onChange = function(_) {
@@ -64,18 +64,18 @@ class CharMetadataDialog extends DefaultPageDialog
         } : null;
 
       charDeathBox.disabled = !charHasDeathData.selected;
-    }
+    };
 
     charDeathCamOffsetX.onChange = charDeathCamOffsetY.onChange = function(_) {
       if (char.deathData != null) char.deathData.cameraOffsets = [charDeathCamOffsetX.pos, charDeathCamOffsetY.pos];
-    }
+    };
 
     charDeathCamZoom.onChange = function(_) {
       if (char.deathData != null) char.deathData.cameraZoom = charDeathCamZoom.pos;
-    }
+    };
 
     charDeathTransDelay.onChange = function(_) {
       if (char.deathData != null) char.deathData.preTransitionDelay = charDeathTransDelay.pos;
-    }
+    };
   }
 }

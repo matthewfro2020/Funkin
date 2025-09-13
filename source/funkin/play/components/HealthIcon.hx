@@ -379,7 +379,7 @@ class HealthIcon extends FunkinSprite
         {
           playAnimation(Winning, Idle);
         }
-      case FromLosing | FromWinning:
+      case FromLosing, FromWinning:
         if (isAnimationFinished())
         {
           playAnimation(Idle);

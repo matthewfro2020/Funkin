@@ -122,7 +122,7 @@ class FileUtil
       if (button == DialogButton.OK && selectedFiles.length > 0)
       {
         onSelect(selectedFiles[0]);
-      }
+      };
       else if (onCancel != null)
       {
         onCancel();
@@ -155,7 +155,7 @@ class FileUtil
       if (button == DialogButton.OK && selectedFiles.length > 0)
       {
         onSelect(selectedFiles[0]);
-      }
+      };
       else if (onCancel != null)
       {
         onCancel();
@@ -418,7 +418,7 @@ class FileUtil
       if (onSave != null)
       {
         onSave([path]);
-      }
+      };
     };
 
     // Prompt the user to save the ZIP file.
@@ -440,7 +440,7 @@ class FileUtil
       if (onSave != null)
       {
         onSave([path]);
-      }
+      };
     };
     // Prompt the user to save the ZIP file.
     saveFile(zipBytes, [FILE_FILTER_FNFC], onSave, onCancel, defaultPath, 'Save chart as FNFC...');

@@ -21,7 +21,7 @@ class NewObjDialog extends Dialog
 
     field.onChange = function(_) {
       field.removeClasses(["invalid-value", "valid-value"]);
-    }
+    };
 
     buttons = DialogButton.CANCEL | "{{Create}}";
     defaultButton = "{{Create}}";

@@ -52,7 +52,7 @@ class ChartEditorEventDataToolbox extends ChartEditorBaseToolbox
       if (event.data == null)
       {
         trace('ChartEditorEventDataToolbox: Event data is null');
-      }
+      };
 
       var eventType:String = event.data.id;
       var sameEvent:Bool = (eventType == chartEditorState.eventKindToPlace);
@@ -269,7 +269,7 @@ class ChartEditorEventDataToolbox extends ChartEditorBaseToolbox
         {
           var drp:DropDown = cast event.target;
           value = drp.selectedItem?.value ?? field.defaultValue;
-        }
+        };
         else if (field.type == BOOL)
         {
           var chk:CheckBox = cast event.target;

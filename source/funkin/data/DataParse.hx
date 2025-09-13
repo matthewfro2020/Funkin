@@ -121,7 +121,7 @@ class DataParse
     }
   }
 
-  public static function inputOffsetMs(json:Json, name:String, hxjsonast.Json, String):funkin.data.dialogue.ConversationData.BackdropData
+  public static function inputOffsetMs(json:Json, name:String, String):funkin.data.dialogue.ConversationData.BackdropData
   {
     switch (json.value)
     {
@@ -135,7 +135,7 @@ class DataParse
           {
             case 'type':
               backdropType = Tools.getValue(field.value);
-          }
+          };
           Reflect.setField(result, field.name, Tools.getValue(field.value));
         }
 
@@ -166,7 +166,7 @@ class DataParse
           {
             case 'type':
               outroType = Tools.getValue(field.value);
-          }
+          };
           Reflect.setField(result, field.name, Tools.getValue(field.value));
         }
 
@@ -213,7 +213,7 @@ class DataParse
     for (field in fields)
     {
       Reflect.setField(result, field.name, Tools.getValue(field.value));
-    }
+    };
     return result;
   }
 
@@ -265,7 +265,7 @@ class DataParse
               result.changeBPM = Tools.getValue(field.value);
             case 'bpm':
               result.bpm = Tools.getValue(field.value);
-          }
+          };
         }
         return result;
       default:

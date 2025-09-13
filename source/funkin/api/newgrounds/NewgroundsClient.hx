@@ -131,7 +131,7 @@ class NewgroundsClient
     if (onSuccess != null && onError != null)
     {
       NG.core.requestLogin(onLoginResolvedWithCallbacks.bind(_, onSuccess, onError), dummyPassport);
-    }
+    };
     else
     {
       NG.core.requestLogin(onLoginResolved, dummyPassport);

@@ -258,10 +258,10 @@ class LatencyState extends MusicBeatSubState
     // localConductor.songPosition += (Timer.stamp() * 1000) - FlxG.sound.music.prevTimestamp;
 
     songPosVis.x = songPosToX(localConductor.songPosition);
-    songVisFollowAudio.x = songPosToX(localConductor.songPosition - localConductor.audioVisualOffset);
+    songVisFollowAudio.x = songPosToX(localConductor.songPosition - localConductor.audioVisualOffsetMs);
     songVisFollowVideo.x = songPosToX(localConductor.songPosition - localConductor.inputOffsetMs);
 
-    visualOffsetText.text = "Visual Offset: " + localConductor.audioVisualOffset + "ms";
+    visualOffsetText.text = "Visual Offset: " + localConductor.audioVisualOffsetMs + "ms";
     visualOffsetText.text += "\n\nYou can press SPACE+Left/Right to change this value.";
     visualOffsetText.text += "\n\nYou can hold SHIFT to step 1ms at a time";
 
@@ -290,12 +290,12 @@ class LatencyState extends MusicBeatSubState
     {
       if (FlxG.keys.justPressed.RIGHT)
       {
-        localConductor.audioVisualOffset += 1 * multiply;
+        localConductor.audioVisualOffsetMs += 1 * multiply;
       }
 
       if (FlxG.keys.justPressed.LEFT)
       {
-        localConductor.audioVisualOffset -= 1 * multiply;
+        localConductor.audioVisualOffsetMs -= 1 * multiply;
       }
     }
     else
@@ -343,7 +343,7 @@ class LatencyState extends MusicBeatSubState
     var getDiff:Float = localConductor.getTimeWithDiff(swagSong) - (closestBeat * (localConductor.stepLengthMs * 2));
     // getDiff -= localConductor.inputOffsetMs;
     getDiff -= inputLatencyMs;
-    getDiff -= localConductor.audioVisualOffset;
+    getDiff -= localConductor.audioVisualOffsetMs;
 
     // lil fix for end of song
     if (closestBeat == 0 && getDiff >= localConductor.stepLengthMs * 2) getDiff -= swagSong.length;

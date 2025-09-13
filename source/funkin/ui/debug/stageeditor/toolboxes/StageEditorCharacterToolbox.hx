@@ -42,41 +42,41 @@ class StageEditorCharacterToolbox extends StageEditorDefaultToolbox
     // Numeric callbacks.
     charPosX.onChange = charPosY.onChange = function(_) {
       repositionCharacter();
-    }
+    };
 
     charZIdx.max = StageEditorState.MAX_Z_INDEX;
     charZIdx.onChange = function(_) {
       state.charGroups[state.selectedChar.characterType].zIndex = Std.int(charZIdx.pos);
       state.sortAssets();
-    }
+    };
 
     charCamX.onChange = charCamY.onChange = function(_) {
       state.charCamOffsets[state.selectedChar.characterType] = [charCamX.pos, charCamY.pos];
       state.updateMarkerPos();
-    }
+    };
 
     charScale.onChange = function(_) {
       state.selectedChar.setScale(state.selectedChar.getBaseScale() * charScale.pos);
       repositionCharacter();
-    }
+    };
 
     charAlpha.onChange = function(_) {
       state.selectedChar.alpha = charAlpha.pos;
-    }
+    };
 
     charAngle.onChange = function(_) {
       state.selectedChar.angle = charAngle.pos;
-    }
+    };
 
     charScrollX.onChange = charScrollY.onChange = function(_) {
       state.selectedChar.scrollFactor.set(charScrollX.pos, charScrollY.pos);
-    }
+    };
 
     // character button
     charType.onClick = function(_) {
       charMenu = new StageEditorCharacterMenu(state, this);
       Screen.instance.addComponent(charMenu);
-    }
+    };
 
     refresh();
 

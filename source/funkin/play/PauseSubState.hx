@@ -892,7 +892,7 @@ class PauseSubState extends MusicBeatSubState
 
     switch (this.currentMode)
     {
-      case Standard | Difficulty:
+      case Standard, Difficulty:
         metadataDeaths.text = '${PlayState.instance?.deathCounter} Blue Balls';
       case Charting:
         metadataDeaths.text = 'Chart Editor Preview';
