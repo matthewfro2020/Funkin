@@ -1,5 +1,8 @@
 package funkin.ui.debug.charting.toolboxes;
 
+import funkin.play.character.BaseCharacter.CharacterType;
+import funkin.data.stage.StageData;
+import funkin.play.event.SongEvent;
 import funkin.data.event.SongEventSchema;
 import funkin.ui.debug.charting.util.ChartEditorDropdowns;
 import haxe.ui.components.CheckBox;

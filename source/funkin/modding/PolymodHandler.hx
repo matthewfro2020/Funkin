@@ -15,7 +15,7 @@ import funkin.data.stage.StageRegistry;
 import funkin.data.stickers.StickerRegistry;
 import funkin.data.freeplay.album.AlbumRegistry;
 import funkin.modding.module.ModuleHandler;
-import funkin.play.character.CharacterData.CharacterDataParser;
+import funkin.data.character.CharacterRegistry;
 import funkin.save.Save;
 import funkin.util.FileUtil;
 import funkin.util.macro.ClassMacro;
@@ -257,6 +257,8 @@ class PolymodHandler
     Polymod.addImportAlias('flixel.math.FlxPoint', flixel.math.FlxPoint.FlxBasePoint);
 
     Polymod.addImportAlias('funkin.data.event.SongEventSchema', funkin.data.event.SongEventSchema.SongEventSchemaRaw);
+
+    Polymod.addImportAlias('funkin.play.character.CharacterDataParser', funkin.data.character.CharacterRegistry);
 
     // `lime.utils.Assets` literally just has a private `resolveClass` function for some reason? so we replace it with our own.
     Polymod.addImportAlias('lime.utils.Assets', funkin.Assets);
@@ -584,7 +586,7 @@ class PolymodHandler
     StickerRegistry.instance.loadEntries();
     FreeplayStyleRegistry.instance.loadEntries();
 
-    CharacterDataParser.loadCharacterCache(); // TODO: Migrate characters to BaseRegistry.
+    CharacterRegistry.loadCharacterCache(); // TODO: Migrate characters to BaseRegistry.
     NoteKindManager.loadScripts();
     ModuleHandler.loadModuleCache();
   }

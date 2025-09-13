@@ -279,6 +279,12 @@ class PlayerCharSelectData
    */
   @:optional
   public var gf:PlayerCharSelectGFData;
+
+  public function new(?position:Int, ?gf:PlayerCharSelectGFData)
+  {
+    this.position = position;
+    this.gf = gf;
+  }
 }
 
 typedef PlayerCharSelectGFData =
