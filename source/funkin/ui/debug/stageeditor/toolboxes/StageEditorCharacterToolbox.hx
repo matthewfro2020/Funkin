@@ -13,6 +13,7 @@ import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 import haxe.ui.containers.Grid;
 import funkin.data.character.CharacterData;
+import haxe.ui.events.UIEvent;
 
 using StringTools;
 
