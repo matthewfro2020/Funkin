@@ -4,7 +4,7 @@ import funkin.play.cutscene.dialogue.DialogueBox;
 import funkin.data.dialogue.dialoguebox.DialogueBoxData;
 import funkin.play.cutscene.dialogue.ScriptedDialogueBox;
 
-class DialogueBoxRegistry extends BaseRegistry<DialogueBox, DialogueBoxData>
+class DialogueBoxRegistry extends BaseRegistry<DialogueBox, DialogueBoxData, String>
 {
   /**
    * The current version string for the dialogue box data format.
