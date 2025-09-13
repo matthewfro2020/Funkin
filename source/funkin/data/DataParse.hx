@@ -17,7 +17,7 @@ import thx.semver.VersionRule;
  * It also allows for validation, since throwing an error in this function will cause the issue to be properly caught.
  * Parsing will fail and `parser.errors` will contain the thrown exception.
  *
- * Functions must be of the signature `(hxjsonast.Json, String) -> T`, where the String is the property name and `T` is the type of the property.
+ * Functions must be of the signature `(String) -> T`, where the String is the property name and `T` is the type of the property.
  */
 @:nullSafety
 class DataParse
