@@ -87,7 +87,7 @@ class GitCommit
       output = branchProcess.stdout.readLine();
       branchProcess.close();
     }
-    catch (e)
+    catch (e:Dynamic)
     {
       if (e.message == 'Eof')
       {

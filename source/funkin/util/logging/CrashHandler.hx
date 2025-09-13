@@ -306,7 +306,7 @@ class CrashHandler
         default: 'UNKNOWN';
       }
     }
-    catch (e)
+    catch (e:Dynamic)
     {
       'ERROR ON QUERY RENDER METHOD: ${e}';
     }

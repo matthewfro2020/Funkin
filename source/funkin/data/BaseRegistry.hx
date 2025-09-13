@@ -87,7 +87,7 @@ abstract class BaseRegistry<T:(IRegistryEntry<J> & Constructible<EntryConstructo
       {
         entry = createScriptedEntry(entryCls);
       }
-      catch (e)
+      catch (e:Dynamic)
       {
         log('Failed to create scripted entry (${entryCls})');
         continue;
@@ -124,7 +124,7 @@ abstract class BaseRegistry<T:(IRegistryEntry<J> & Constructible<EntryConstructo
           entries.set(entry.id, entry);
         }
       }
-      catch (e)
+      catch (e:Dynamic)
       {
         // Print the error.
         trace('  Failed to load entry data: ${entryId}');

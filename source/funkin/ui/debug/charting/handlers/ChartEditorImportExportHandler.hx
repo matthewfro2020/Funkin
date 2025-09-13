@@ -482,7 +482,7 @@ class ChartEditorImportExportHandler
           // On success.
           if (onSaveCb != null) onSaveCb(targetPath);
         }
-        catch (e)
+        catch (e:Dynamic)
         {
           // On failure.
           if (onCancelCb != null) onCancelCb();
@@ -499,7 +499,7 @@ class ChartEditorImportExportHandler
           state.saveDataDirty = false;
           if (onSaveCb != null) onSaveCb(targetPath);
         }
-        catch (e)
+        catch (e:Dynamic)
         {
           // On failure.
           if (onCancelCb != null) onCancelCb();
@@ -535,7 +535,7 @@ class ChartEditorImportExportHandler
         FileUtil.saveChartAsFNFC(zipEntries, onSave, onCancel, '${state.currentSongId}.${Constants.EXT_CHART}');
         state.saveDataDirty = false;
       }
-      catch (e) {}
+      catch (e:Dynamic) {}
     }
   }
 }

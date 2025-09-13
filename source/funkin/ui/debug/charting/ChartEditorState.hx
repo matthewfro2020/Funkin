@@ -6021,7 +6021,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
     {
       targetSong = Song.buildRaw(currentSongId, songMetadata.values(), availableVariations, songChartData, playtestSongScripts, false);
     }
-    catch (e)
+    catch (e:Dynamic)
     {
       this.error('Could Not Playtest', 'Got an error trying to playtest the song.\n${e}');
       return;

@@ -193,7 +193,7 @@ class StageEditorObjectGraphicToolbox extends StageEditorDefaultToolbox
         linkedObj.frames = FlxAtlasFrames.fromSparrow(linkedObj.graphic, objFrameTxt.text);
       }
     }
-    catch (e)
+    catch (e:Dynamic)
     {
       stageEditorState.notifyChange("Frame Setup Error", e.toString(), true);
       return;

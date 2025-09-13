@@ -65,7 +65,7 @@ class CharacterDataParser
           characterCache.set(charId, charData);
         }
       }
-      catch (e)
+      catch (e:Dynamic)
       {
         // Assume error was already logged.
         continue;
@@ -90,7 +90,7 @@ class CharacterDataParser
           trace('  Initialized character ${character.characterName}');
           characterScriptedClass.set(character.characterId, charCls);
         }
-        catch (e)
+        catch (e:Dynamic)
         {
           trace('    FAILED to instantiate scripted Sparrow character: ${charCls}');
           trace(e);
@@ -109,7 +109,7 @@ class CharacterDataParser
           var character:PackerCharacter = ScriptedPackerCharacter.init(charCls, DEFAULT_CHAR_ID);
           characterScriptedClass.set(character.characterId, charCls);
         }
-        catch (e)
+        catch (e:Dynamic)
         {
           trace('    FAILED to instantiate scripted Packer character: ${charCls}');
           trace(e);
@@ -128,7 +128,7 @@ class CharacterDataParser
           var character:MultiSparrowCharacter = ScriptedMultiSparrowCharacter.init(charCls, DEFAULT_CHAR_ID);
           characterScriptedClass.set(character.characterId, charCls);
         }
-        catch (e)
+        catch (e:Dynamic)
         {
           trace('    FAILED to instantiate scripted Multi-Sparrow character: ${charCls}');
           trace(e);
@@ -147,7 +147,7 @@ class CharacterDataParser
           var character:AnimateAtlasCharacter = ScriptedAnimateAtlasCharacter.init(charCls, DEFAULT_CHAR_ID);
           characterScriptedClass.set(character.characterId, charCls);
         }
-        catch (e)
+        catch (e:Dynamic)
         {
           trace('    FAILED to instantiate scripted Animate Atlas character: ${charCls}');
           trace(e);
@@ -397,7 +397,7 @@ class CharacterDataParser
       var charData:CharacterData = cast Json.parse(rawJson);
       return charData;
     }
-    catch (e)
+    catch (e:Dynamic)
     {
       trace('  Error parsing data for character: ${charId}');
       trace('    ${e}');

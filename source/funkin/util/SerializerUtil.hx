@@ -38,7 +38,7 @@ class SerializerUtil
     {
       return Json.parse(input);
     }
-    catch (e)
+    catch (e:Dynamic)
     {
       trace('An error occurred while parsing JSON from string data');
       trace(e);

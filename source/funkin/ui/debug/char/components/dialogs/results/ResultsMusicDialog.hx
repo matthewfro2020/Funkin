@@ -1,0 +1,60 @@
+package funkin.ui.debug.char.components.dialogs.results;
+
+import funkin.data.freeplay.player.PlayerRegistry;
+import funkin.play.scoring.Scoring.ScoringRank;
+import funkin.ui.debug.char.pages.CharCreatorResultsPage;
+import funkin.util.FileUtil;
+import haxe.ui.events.UIEvent;
+import haxe.io.Path;
+
+@:build(haxe.ui.macros.ComponentMacros.build("assets/exclude/data/ui/char-creator/dialogs/results/results-music-dialog.xml"))
+@:access(funkin.ui.debug.char.pages.CharCreatorResultsPage)
+class ResultsMusicDialog extends DefaultPageDialog
+{
+  // Constant belongs at class scope
+  public static inline var FILE_EXTENSION_INFO_SND =
+    {
+      extension: "ogg",
+      description: "Audio File"
+    };
+
+  public var musicStuff:Map<ScoringRank, {intro:WizardFile, song:WizardFile}> = [];
+
+  override public function new(daPage:CharCreatorResultsPage)
+  {
+    super(daPage);
+
+    var fileInputIntro = cast this.findComponent("fileInputIntro");
+    var fileInputSong = cast this.findComponent("fileInputSong");
+    var rankMusicIntroField = cast this.findComponent("rankMusicIntroField");
+    var rankMusicSongField = cast this.findComponent("rankMusicSongField");
+    var rankDropdown = cast this.findComponent("rankDropdown");
+    rankDropdown.onChange = function(_) {
+      var rank = ScoringRank.fromString(rankDropdown.selectedValue);
+      rankMusicIntroField.text = if (musicStuff.exists(rank) && musicStuff[rank].intro != null) musicStuff[rank].intro.path else "No intro file selected.";
+      rankMusicSongField.text = if (musicStuff.exists(rank) && musicStuff[rank].song != null) musicStuff[rank].song.path else "No song file selected.";
+    };
+    rankDropdown.selectedValue = ScoringRank.EASY.toString();
+    rankDropdown.onChange(null);
+    fileInputSong.onChange = function(_) {
+      var filePath = fileInputSong.value;
+      if (filePath == null || filePath == "") return;
+      if (!FileUtil.exists(filePath) || !FileUtil.isFile(filePath))
+      {
+        NotificationManager.instance.addNotification("Error", "The selected song file does not exist.", NotificationType.ERROR);
+        fileInputSong.value = "";
+        return;
+      };
+      if (Path.extension(filePath).toLowerCase() != FILE_EXTENSION_INFO_SND.extension)
+      {
+        NotificationManager.instance.addNotification("Error", "The selected song file is not a valid audio file. Please select an OGG file.",
+          NotificationType.ERROR);
+        fileInputSong.value = "";
+        return;
+      }
+      var wizardFile = new WizardFile(filePath);
+      musicStuff[daPage.currentRank].song = wizardFile;
+      daPage.updateMusicDisplay();
+    };
+  }
+}
