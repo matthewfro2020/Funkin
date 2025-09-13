@@ -191,7 +191,7 @@ class LetterSort extends FlxSpriteGroup
       ezTimer(1, sep, positions[1] * multiPosOrNeg);
       ezTimer(2, sep, positions[2] * multiPosOrNeg);
       ezTimer(3, sep, positions[3] * multiPosOrNeg);
-    };
+    }
 
     for (index => letter in letters)
     {

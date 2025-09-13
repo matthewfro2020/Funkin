@@ -301,7 +301,7 @@ class PreferencesMenu extends Page<OptionsState.OptionsMenuPageName>
     items.addItem(prefName, item);
     preferenceItems.add(item.lefthandText);
     preferenceDesc.push(prefDesc);
-  };
+  }
 
   /**
    * Creates a pref item that works with enums

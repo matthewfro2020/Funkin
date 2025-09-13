@@ -415,7 +415,7 @@ class MainMenuState extends MusicBeatState
     prompt.closeCallback = function() {
       // in our closeSubstate override, we set the uiStateMachine, so no need to set here
       if (onClose != null) onClose();
-    };
+    }
 
     openSubState(prompt);
   }

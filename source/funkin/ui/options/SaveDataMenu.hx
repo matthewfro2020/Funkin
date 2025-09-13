@@ -92,14 +92,14 @@ class SaveDataMenu extends Page<OptionsState.OptionsMenuPageName>
         prompt.close();
         prompt.destroy();
         prompt = null;
-      };
+      }
     };
 
     prompt.onNo = function() {
       prompt.close();
       prompt.destroy();
       prompt = null;
-    };
+    }
   }
   public function openSaveDataPrompt()
   {
