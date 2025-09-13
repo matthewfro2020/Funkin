@@ -704,7 +704,7 @@ class FreeplayState extends MusicBeatSubState
           onComplete: function(_) {
             blackOverlayBullshitLOLXD.visible = false;
           }
-        });
+        }
       }
 
       FlxTween.cancelTweensOf(grpDifficulties);
