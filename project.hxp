@@ -1308,7 +1308,7 @@ class Project extends HXProject
     if (isAndroid())
     {
       // Adaptive icons
-      adaptiveIcon = new AdaptiveIcon('art/icons/android/', true);
+      //var adaptiveIcon = new AdaptiveIcon('art/icons/android/', true);
     }
     else if (isIOS())
     {
