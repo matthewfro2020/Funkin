@@ -265,14 +265,12 @@ class PlayerFreeplayDJData
 
 class PlayerCharSelectData
 {
-  /**
-   * A zero-indexed number for the character's preferred position in the grid.
-   * 0 = top left, 4 = center, 8 = bottom right
-   * In the event of a conflict, the first character alphabetically gets it,
-   * and others get shifted over.
-   */
-  @:optional
-  public var position:Null<Int>;
+  function create()
+  {
+    return new PlayerCharSelectData();
+  }
+    * / @:optional
+    var position:Null<Int>;
 
   /**
    * The GF name to assign for this character.

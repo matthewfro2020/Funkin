@@ -29,5 +29,5 @@ This version introduces changes to save data loading in order to improve compati
 
 ## [2.0.3] - 2024-01-09
 ### Added
-- `inputOffset:Float` to `SongDataOptions`
+- `inputOffsetMs:Float` to `SongDataOptions`
 - `audioVisualOffset:Float` to `SongDataOptions`

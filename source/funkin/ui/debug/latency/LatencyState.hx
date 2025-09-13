@@ -259,13 +259,13 @@ class LatencyState extends MusicBeatSubState
 
     songPosVis.x = songPosToX(localConductor.songPosition);
     songVisFollowAudio.x = songPosToX(localConductor.songPosition - localConductor.audioVisualOffset);
-    songVisFollowVideo.x = songPosToX(localConductor.songPosition - localConductor.inputOffset);
+    songVisFollowVideo.x = songPosToX(localConductor.songPosition - localConductor.inputOffsetMs);
 
     visualOffsetText.text = "Visual Offset: " + localConductor.audioVisualOffset + "ms";
     visualOffsetText.text += "\n\nYou can press SPACE+Left/Right to change this value.";
     visualOffsetText.text += "\n\nYou can hold SHIFT to step 1ms at a time";
 
-    offsetText.text = "INPUT Offset (Left/Right to change): " + localConductor.inputOffset + "ms";
+    offsetText.text = "INPUT Offset (Left/Right to change): " + localConductor.inputOffsetMs + "ms";
     offsetText.text += "\n\nYou can hold SHIFT to step 1ms at a time";
 
     var avgOffsetInput:Float = 0;
@@ -304,12 +304,12 @@ class LatencyState extends MusicBeatSubState
       {
         if (FlxG.keys.justPressed.RIGHT)
         {
-          localConductor.inputOffset += 1 * multiply;
+          localConductor.inputOffsetMs += 1 * multiply;
         }
 
         if (FlxG.keys.justPressed.LEFT)
         {
-          localConductor.inputOffset -= 1 * multiply;
+          localConductor.inputOffsetMs -= 1 * multiply;
         }
 
         // reset the average, so you don't need to wait a full loop to start getting averages
@@ -341,7 +341,7 @@ class LatencyState extends MusicBeatSubState
 
     var closestBeat:Int = Math.round(localConductor.getTimeWithDiff(swagSong) / (localConductor.stepLengthMs * 2)) % diffGrp.members.length;
     var getDiff:Float = localConductor.getTimeWithDiff(swagSong) - (closestBeat * (localConductor.stepLengthMs * 2));
-    // getDiff -= localConductor.inputOffset;
+    // getDiff -= localConductor.inputOffsetMs;
     getDiff -= inputLatencyMs;
     getDiff -= localConductor.audioVisualOffset;
 

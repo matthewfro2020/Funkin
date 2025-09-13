@@ -695,16 +695,16 @@ class FreeplayState extends MusicBeatSubState
         // render optimisation
         if (_parentState != null) _parentState.persistentDraw = false;
 
-        FlxTween.color(backingImage, 0.6, 0xFF000000, 0xFFFFFFFF,
-          {
-            ease: FlxEase.expoOut,
-            onUpdate: function(_) {
-              angleMaskShader.extraColor = backingImage.color;
-            },
-            onComplete: function(_) {
-              blackOverlayBullshitLOLXD.visible = false;
-            }
-          });
+        FlxTween.color(bg, 3 / 24, 0xFF29232C, 0xFF808080);
+        {
+          ease: FlxEase.expoOut,
+          onUpdate: function(_) {
+            angleMaskShader.extraColor = backingImage.color;
+          },
+          onComplete: function(_) {
+            blackOverlayBullshitLOLXD.visible = false;
+          }
+        });
       }
 
       FlxTween.cancelTweensOf(grpDifficulties);
@@ -1702,7 +1702,7 @@ class FreeplayState extends MusicBeatSubState
       _pressedOnCapsule = false;
     }
 
-// AUTO-COMMENTED:     if (!TouchUtil.pressed && !FlxG.touches.flickManager.initialized)
+    // AUTO-COMMENTED:     if (!TouchUtil.pressed && !FlxG.touches.flickManager.initialized)
     {
       _flickEnded = true;
       draggingDifficulty = false;
@@ -1905,12 +1905,12 @@ class FreeplayState extends MusicBeatSubState
     }
     if (!TouchUtil.overlaps(capsuleHitbox, funnyCam) && TouchUtil.justReleased)
     {
-// AUTO-COMMENTED:       FlxG.touches.flickManager.destroy();
+      // AUTO-COMMENTED:       FlxG.touches.flickManager.destroy();
     }
 
-// AUTO-COMMENTED:     if (FlxG.touches.flickManager.initialized)
+    // AUTO-COMMENTED:     if (FlxG.touches.flickManager.initialized)
     {
-// AUTO-COMMENTED:       var flickVelocity = FlxG.touches.flickManager.velocity.y;
+      // AUTO-COMMENTED:       var flickVelocity = FlxG.touches.flickManager.velocity.y;
       if (Math.isFinite(flickVelocity))
       {
         _flickEnded = false;
@@ -1923,15 +1923,15 @@ class FreeplayState extends MusicBeatSubState
         updateSongsScroll();
       }
     }
-    else if (!_flickEnded)
+  else if (!_flickEnded)
+  {
+    _flickEnded = true;
+    if (_moveLength > 0)
     {
-      _flickEnded = true;
-      if (_moveLength > 0)
-      {
-        _moveLength = 0.0;
-        changeSelection(0);
-      }
+      _moveLength = 0.0;
+      changeSelection(0);
     }
+  }
 
     curSelectedFloat = curSelectedFloat.clamp(0, grpCapsules.countLiving() - 1);
     curSelected = Math.round(curSelectedFloat);
@@ -1941,9 +1941,9 @@ class FreeplayState extends MusicBeatSubState
       grpCapsules.members[i].selected = (i == curSelected);
     }
 
-// AUTO-COMMENTED:     if (!TouchUtil.pressed && (curSelected == 0 || curSelected == grpCapsules.countLiving() - 1) && FlxG.touches.flickManager.initialized)
+    // AUTO-COMMENTED:     if (!TouchUtil.pressed && (curSelected == 0 || curSelected == grpCapsules.countLiving() - 1) && FlxG.touches.flickManager.initialized)
     {
-// AUTO-COMMENTED:       FlxG.touches.flickManager.destroy();
+      // AUTO-COMMENTED:       FlxG.touches.flickManager.destroy();
       _flickEnded = true;
       if (_moveLength > 0)
       {
@@ -1967,13 +1967,13 @@ class FreeplayState extends MusicBeatSubState
           dj?.resetAFKTimer();
           changeDiff(-1, false, true);
           _pressedOnSelected = false;
-// AUTO-COMMENTED:           FlxG.touches.flickManager.destroy();
+          // AUTO-COMMENTED:           FlxG.touches.flickManager.destroy();
           _flickEnded = true;
 
           new FlxTimer().start(0.21, (afteranim) -> {
             currentCapsule.doLerp = true;
             generateSongList(currentFilter, true, false, true);
-// AUTO-COMMENTED:             FlxG.touches.flickManager.destroy();
+            // AUTO-COMMENTED:             FlxG.touches.flickManager.destroy();
           });
           new FlxTimer().start(0.3, (afteranim) -> {
             draggingDifficulty = false;
@@ -1986,13 +1986,13 @@ class FreeplayState extends MusicBeatSubState
           dj?.resetAFKTimer();
           changeDiff(1, false, true);
           _pressedOnSelected = false;
-// AUTO-COMMENTED:           FlxG.touches.flickManager.destroy();
+          // AUTO-COMMENTED:           FlxG.touches.flickManager.destroy();
           _flickEnded = true;
 
           new FlxTimer().start(0.21, (afteranim) -> {
             currentCapsule.doLerp = true;
             generateSongList(currentFilter, true, false, true);
-// AUTO-COMMENTED:             FlxG.touches.flickManager.destroy();
+            // AUTO-COMMENTED:             FlxG.touches.flickManager.destroy();
           });
           new FlxTimer().start(0.3, (afteranim) -> {
             draggingDifficulty = false;
@@ -2000,7 +2000,7 @@ class FreeplayState extends MusicBeatSubState
           return;
         }
 
-// AUTO-COMMENTED:         if (TouchUtil.touch.ticksDeltaSincePress >= 500)
+        // AUTO-COMMENTED:         if (TouchUtil.touch.ticksDeltaSincePress >= 500)
         {
           _pressedOnSelected = false;
           draggingDifficulty = false;
@@ -2037,7 +2037,7 @@ class FreeplayState extends MusicBeatSubState
 
       if (TouchUtil.justReleased)
       {
-// AUTO-COMMENTED:         FlxG.touches.flickManager.destroy();
+        // AUTO-COMMENTED:         FlxG.touches.flickManager.destroy();
         handleDiffDragRelease(currentDifficultySprite);
         return;
       }
@@ -2336,7 +2336,7 @@ class FreeplayState extends MusicBeatSubState
           ease: FlxEase.circInOut,
           onComplete: function(_) {
             #if FEATURE_TOUCH_CONTROLS
-// AUTO-COMMENTED:             FlxG.touches.flickManager.destroy();
+            // AUTO-COMMENTED:             FlxG.touches.flickManager.destroy();
             _flickEnded = true;
             #end
           }
@@ -2403,7 +2403,7 @@ class FreeplayState extends MusicBeatSubState
     dj?.resetAFKTimer();
     changeDiff(change);
     generateSongList(currentFilter, true, false);
-// AUTO-COMMENTED:     FlxG.touches.flickManager.destroy();
+    // AUTO-COMMENTED:     FlxG.touches.flickManager.destroy();
     _flickEnded = true;
     _dragOffset = 0;
     draggingDifficulty = false;

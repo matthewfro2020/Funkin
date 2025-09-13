@@ -121,7 +121,7 @@ class DataParse
     }
   }
 
-  public static function backdropData(json:Json, name:String):funkin.data.dialogue.ConversationData.BackdropData
+  public static function inputOffsetMs(json:Json, name:String, hxjsonast.Json, String):funkin.data.dialogue.ConversationData.BackdropData
   {
     switch (json.value)
     {

@@ -132,7 +132,7 @@ private class AddOwnedCharBox extends HBox
   {
     return [
       for (dropDown in dropDowns)
-        dropDown.safeSelectedItem.id
+        dropDown.selectedItem.id
     ];
   }
 }

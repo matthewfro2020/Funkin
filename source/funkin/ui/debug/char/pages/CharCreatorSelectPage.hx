@@ -290,7 +290,7 @@ class CharCreatorSelectPage extends CharCreatorDefaultPage
         pixelIconFiles = [
           {name: daImgPath, bytes: FileUtil.readBytesFromPath(daImgPath)}];
 
-        if (FileUtil.doesFileExist(daXmlPath)) pixelIconFiles.push({name: daXmlPath, bytes: FileUtil.readBytesFromPath(daXmlPath)});
+        if (FileUtil.exists(daXmlPath)) pixelIconFiles.push({name: daXmlPath, bytes: FileUtil.readBytesFromPath(daXmlPath)});
 
         openFile.tooltip = "File Path: " + daImgPath;
 

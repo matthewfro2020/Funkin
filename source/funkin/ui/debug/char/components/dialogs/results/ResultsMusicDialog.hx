@@ -94,7 +94,8 @@ class ResultsMusicDialog extends DefaultPageDialog
 
         var introFile:WizardFile = {name: rankMusicIntroField.text, bytes: Assets.exists(fullIntroPath) ? Assets.getBytes(fullIntroPath) : null}
         var musicFile:WizardFile = {name: rankMusicSongField.text, bytes: Assets.exists(fullPath) ? Assets.getBytes(fullPath) : null}
-
+        public static inline var FILE_EXTENSION_INFO_SND = {extension: "ogg", description: "Audio File"};
+        FILE_EXTENSION_INFO_SND
         introBytes = introFile.bytes;
         songBytes = musicFile.bytes;
 
