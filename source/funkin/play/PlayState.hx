@@ -1977,7 +1977,7 @@ class PlayState extends MusicBeatSubState
     //
     // GIRLFRIEND
     //
-    var girlfriend:Null<BaseCharacter> = CharacterDataParser.fetchCharacter(currentCharacterData.girlfriend);
+    var girlfriend:BaseCharacter = CharacterRegistry.fetchCharacter(currentCharacterData.girlfriend);
 
     if (girlfriend != null)
     {
@@ -1995,7 +1995,7 @@ class PlayState extends MusicBeatSubState
     //
     // DAD
     //
-    var dad:Null<BaseCharacter> = CharacterDataParser.fetchCharacter(currentCharacterData.opponent);
+    var dad:BaseCharacter = CharacterRegistry.fetchCharacter(currentCharacterData.opponent);
 
     if (dad != null)
     {
@@ -2018,7 +2018,7 @@ class PlayState extends MusicBeatSubState
     //
     // BOYFRIEND
     //
-    var boyfriend:Null<BaseCharacter> = CharacterDataParser.fetchCharacter(currentCharacterData.player);
+    var boyfriend:BaseCharacter = CharacterRegistry.fetchCharacter(currentCharacterData.player);
 
     if (boyfriend != null)
     {
