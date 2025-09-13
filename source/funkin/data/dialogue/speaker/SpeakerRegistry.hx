@@ -4,7 +4,7 @@ import funkin.play.cutscene.dialogue.Speaker;
 import funkin.data.dialogue.speaker.SpeakerData;
 import funkin.play.cutscene.dialogue.ScriptedSpeaker;
 
-class SpeakerRegistry extends BaseRegistry<Speaker, SpeakerData>
+class SpeakerRegistry extends BaseRegistry<Speaker, SpeakerData, String>
 {
   /**
    * The current version string for the speaker data format.
