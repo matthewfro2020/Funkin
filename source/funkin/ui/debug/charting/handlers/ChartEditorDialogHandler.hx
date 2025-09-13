@@ -9,9 +9,7 @@ import funkin.data.song.SongData.SongMetadata;
 import funkin.data.song.SongData.SongTimeChange;
 import funkin.data.song.SongRegistry;
 import funkin.input.Cursor;
-import funkin.play.character.BaseCharacter;
-import funkin.play.song.Song;
-import funkin.data.stage.StageData;
+import funkin.play.character.BaseCharacter.CharacterType;
 import funkin.ui.debug.charting.dialogs.ChartEditorAboutDialog;
 import funkin.ui.debug.charting.dialogs.ChartEditorBaseDialog.DialogDropTarget;
 import funkin.ui.debug.charting.dialogs.ChartEditorCharacterIconSelectorMenu;
@@ -1331,7 +1329,7 @@ class ChartEditorDialogHandler
         state.isHaxeUIDialogOpen = false;
         if (button == DialogButton.YES)
         {
-          state.autofunkin.save.Save();
+          state.autoSave();
           state.quitChartEditor();
         }
       }

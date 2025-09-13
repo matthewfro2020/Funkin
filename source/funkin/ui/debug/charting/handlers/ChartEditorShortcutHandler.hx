@@ -13,7 +13,7 @@ class ChartEditorShortcutHandler
   {
     state.menubarItemNewChart.shortcutText = ctrlOrCmd('N');
     state.menubarItemOpenChart.shortcutText = ctrlOrCmd('O');
-    state.menubarItemfunkin.save.SaveChartAs.shortcutText = ctrlOrCmd(shift('S'));
+    state.menubarItemSaveChartAs.shortcutText = ctrlOrCmd(shift('S'));
     state.menubarItemExit.shortcutText = ctrlOrCmd('Q');
 
     state.menubarItemUndo.shortcutText = ctrlOrCmd('Z');

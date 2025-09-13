@@ -1,11 +1,11 @@
 package funkin.save;
 
-import flixel.util.Flxfunkin.save.Save;
+import flixel.util.FlxSave;
 import funkin.input.Controls.Device;
 import funkin.play.character.CharacterData.CharacterDataParser;
 import funkin.play.scoring.Scoring;
 import funkin.play.scoring.Scoring.ScoringRank;
-import funkin.save.migrator.Rawfunkin.save.SaveData_v1_0_0;
+import funkin.save.migrator.RawSaveData_v1_0_0;
 import funkin.save.migrator.SaveDataMigrator;
 import funkin.ui.debug.charting.ChartEditorState.ChartEditorLiveInputStyle;
 import funkin.ui.debug.charting.ChartEditorState.ChartEditorTheme;
@@ -21,7 +21,7 @@ import funkin.api.newgrounds.Leaderboards;
 #end
 
 @:nullSafety
-class funkin.save.Save implements ConsoleClass
+class Save implements ConsoleClass
 {
   public static final SAVE_DATA_VERSION:thx.semver.Version = "2.1.1";
   public static final SAVE_DATA_VERSION_RULE:thx.semver.VersionRule = ">=2.1.0 <2.2.0";
@@ -39,10 +39,10 @@ class funkin.save.Save implements ConsoleClass
    */
   static final BASE_SAVE_SLOT:Int = 1;
 
-  public static var instance(get, never):funkin.save.Save;
-  static var _instance:Null<funkin.save.Save> = null;
+  public static var instance(get, never):Save;
+  static var _instance:Null<Save> = null;
 
-  static function get_instance():funkin.save.Save
+  static function get_instance():Save
   {
     if (_instance == null)
     {
@@ -51,17 +51,17 @@ class funkin.save.Save implements ConsoleClass
     return _instance;
   }
 
-  var data:Rawfunkin.save.SaveData;
+  var data:RawSaveData;
 
-  public static function load():funkin.save.Save
+  public static function load():Save
   {
     trace("[SAVE] Loading save...");
 
     // Bind save data.
-    var loadedfunkin.save.Save:funkin.save.Save = loadFromSlot(BASE_SAVE_SLOT);
-    if (_instance == null) _instance = loadedfunkin.save.Save;
+    var loadedSave:Save = loadFromSlot(BASE_SAVE_SLOT);
+    if (_instance == null) _instance = loadedSave;
 
-    return loadedfunkin.save.Save;
+    return loadedSave;
   }
 
   public static function clearData():Void
@@ -70,11 +70,11 @@ class funkin.save.Save implements ConsoleClass
   }
 
   /**
-   * Constructing a new funkin.save.Save will load the default values.
+   * Constructing a new Save will load the default values.
    */
-  public function new(?data:Rawfunkin.save.SaveData)
+  public function new(?data:RawSaveData)
   {
-    if (data == null) this.data = funkin.save.Save.getDefault();
+    if (data == null) this.data = Save.getDefault();
     else
       this.data = data;
 
@@ -82,7 +82,7 @@ class funkin.save.Save implements ConsoleClass
     updateVersionToLatest();
   }
 
-  public static function getDefault():Rawfunkin.save.SaveData
+  public static function getDefault():RawSaveData
   {
     #if mobile
     var refreshRate:Int = FlxG.stage.window.displayMode.refreshRate;
@@ -93,7 +93,7 @@ class funkin.save.Save implements ConsoleClass
     return {
       // Version number is an abstract(Array) internally.
       // This means it copies by reference, so merging save data overides the version number lol.
-      version: thx.Dynamics.clone(funkin.save.Save.SAVE_DATA_VERSION),
+      version: thx.Dynamics.clone(Save.SAVE_DATA_VERSION),
 
       volume: 1.0,
       mute: false,
@@ -137,7 +137,7 @@ class funkin.save.Save implements ConsoleClass
             {
               shouldHideMouse: true,
               fancyPreview: true,
-              previewOnfunkin.save.Save: true,
+              previewOnSave: true,
             },
 
           controls:
@@ -213,29 +213,29 @@ class funkin.save.Save implements ConsoleClass
   }
 
   /**
-   * NOTE: Modifications will not be saved without calling `funkin.save.Save.flush()`!
+   * NOTE: Modifications will not be saved without calling `Save.flush()`!
    */
-  public var options(get, never):funkin.save.SaveDataOptions;
+  public var options(get, never):SaveDataOptions;
 
-  function get_options():funkin.save.SaveDataOptions
+  function get_options():SaveDataOptions
   {
     return data.options;
   }
 
   #if mobile
   /**
-   * NOTE: Modifications will not be saved without calling `funkin.save.Save.flush()`!
+   * NOTE: Modifications will not be saved without calling `Save.flush()`!
    */
-  public var mobileOptions(get, never):funkin.save.SaveDataMobileOptions;
+  public var mobileOptions(get, never):SaveDataMobileOptions;
 
-  function get_mobileOptions():funkin.save.SaveDataMobileOptions
+  function get_mobileOptions():SaveDataMobileOptions
   {
     return data.mobileOptions;
   }
   #end
 
   /**
-   * NOTE: Modifications will not be saved without calling `funkin.save.Save.flush()`!
+   * NOTE: Modifications will not be saved without calling `Save.flush()`!
    */
   public var modOptions(get, never):Map<String, Dynamic>;
 
@@ -661,7 +661,7 @@ class funkin.save.Save implements ConsoleClass
   function get_stageBoyfriendChar():String
   {
     if (data.optionsStageEditor.bfChar == null
-      || funkin.data.character.CharacterDataParser.fetchCharacterData(data.optionsStageEditor.bfChar) == null) data.optionsStageEditor.bfChar = "bf";
+      || CharacterDataParser.fetchCharacterData(data.optionsStageEditor.bfChar) == null) data.optionsStageEditor.bfChar = "bf";
 
     return data.optionsStageEditor.bfChar;
   }
@@ -679,7 +679,7 @@ class funkin.save.Save implements ConsoleClass
   function get_stageGirlfriendChar():String
   {
     if (data.optionsStageEditor.gfChar == null
-      || funkin.data.character.CharacterDataParser.fetchCharacterData(data.optionsStageEditor.gfChar ?? "") == null) data.optionsStageEditor.gfChar = "gf";
+      || CharacterDataParser.fetchCharacterData(data.optionsStageEditor.gfChar ?? "") == null) data.optionsStageEditor.gfChar = "gf";
 
     return data.optionsStageEditor.gfChar;
   }
@@ -697,7 +697,7 @@ class funkin.save.Save implements ConsoleClass
   function get_stageDadChar():String
   {
     if (data.optionsStageEditor.dadChar == null
-      || funkin.data.character.CharacterDataParser.fetchCharacterData(data.optionsStageEditor.dadChar ?? "") == null) data.optionsStageEditor.dadChar = "dad";
+      || CharacterDataParser.fetchCharacterData(data.optionsStageEditor.dadChar ?? "") == null) data.optionsStageEditor.dadChar = "dad";
 
     return data.optionsStageEditor.dadChar;
   }
@@ -732,7 +732,7 @@ class funkin.save.Save implements ConsoleClass
    * @param difficultyId The difficulty to check.
    * @return A data structure containing score, judgement counts, and accuracy. Returns `null` if no score is saved.
    */
-  public function getLevelScore(levelId:String, difficultyId:String = 'normal'):Null<funkin.save.SaveScoreData>
+  public function getLevelScore(levelId:String, difficultyId:String = 'normal'):Null<SaveScoreData>
   {
     if (data.scores?.levels == null)
     {
@@ -763,7 +763,7 @@ class funkin.save.Save implements ConsoleClass
   /**
    * Apply the score the user achieved for a given level on a given difficulty.
    */
-  public function setLevelScore(levelId:String, difficultyId:String, score:funkin.save.SaveScoreData):Void
+  public function setLevelScore(levelId:String, difficultyId:String, score:SaveScoreData):Void
   {
     var level = data.scores.levels.get(levelId);
     if (level == null)
@@ -776,7 +776,7 @@ class funkin.save.Save implements ConsoleClass
     flush();
   }
 
-  public function isLevelHighScore(levelId:String, difficultyId:String = 'normal', score:funkin.save.SaveScoreData):Bool
+  public function isLevelHighScore(levelId:String, difficultyId:String = 'normal', score:SaveScoreData):Bool
   {
     var level = data.scores.levels.get(levelId);
     if (level == null)
@@ -806,7 +806,7 @@ class funkin.save.Save implements ConsoleClass
     }
     for (difficulty in difficultyList)
     {
-      var score:Null<funkin.save.SaveScoreData> = getLevelScore(levelId, difficulty);
+      var score:Null<SaveScoreData> = getLevelScore(levelId, difficulty);
       if (score != null)
       {
         if (score.score > 0)
@@ -832,7 +832,7 @@ class funkin.save.Save implements ConsoleClass
    * @param variation The variation to check. Defaults to empty string. Appended to difficulty with `-`, e.g. `easy-pico`.
    * @return A data structure containing score, judgement counts, and accuracy. Returns `null` if no score is saved.
    */
-  public function getSongScore(songId:String, difficultyId:String = 'normal', ?variation:String):Null<funkin.save.SaveScoreData>
+  public function getSongScore(songId:String, difficultyId:String = 'normal', ?variation:String):Null<SaveScoreData>
   {
     var song = data.scores.songs.get(songId);
     if (song == null)
@@ -861,7 +861,7 @@ class funkin.save.Save implements ConsoleClass
   /**
    * Directly set the score the user achieved for a given song on a given difficulty.
    */
-  public function setSongScore(songId:String, difficultyId:String, score:funkin.save.SaveScoreData):Void
+  public function setSongScore(songId:String, difficultyId:String, score:SaveScoreData):Void
   {
     var song = data.scores.songs.get(songId);
     if (song == null)
@@ -877,7 +877,7 @@ class funkin.save.Save implements ConsoleClass
   /**
    * Only replace the ranking data for the song, because the old score is still better.
    */
-  public function applySongRank(songId:String, difficultyId:String, newScoreData:funkin.save.SaveScoreData):Void
+  public function applySongRank(songId:String, difficultyId:String, newScoreData:SaveScoreData):Void
   {
     var newRank = Scoring.calculateRank(newScoreData);
     if (newScoreData == null || newRank == null) return;
@@ -902,7 +902,7 @@ class funkin.save.Save implements ConsoleClass
     }
 
     // Set the high score and the high rank separately.
-    var newScore:funkin.save.SaveScoreData =
+    var newScore:SaveScoreData =
       {
         score: (previousScoreData.score > newScoreData.score) ? previousScoreData.score : newScoreData.score,
         tallies: (previousRank > newRank
@@ -921,7 +921,7 @@ class funkin.save.Save implements ConsoleClass
    * @param score The score to check.
    * @return Whether the score is better than the current high score.
    */
-  public function isSongHighScore(songId:String, difficultyId:String = 'normal', score:funkin.save.SaveScoreData):Bool
+  public function isSongHighScore(songId:String, difficultyId:String = 'normal', score:SaveScoreData):Bool
   {
     var song = data.scores.songs.get(songId);
     if (song == null)
@@ -946,7 +946,7 @@ class funkin.save.Save implements ConsoleClass
    * @param score The score to check the rank for.
    * @return Whether the score's rank is better than the current rank.
    */
-  public function isSongHighRank(songId:String, difficultyId:String = 'normal', score:funkin.save.SaveScoreData):Bool
+  public function isSongHighRank(songId:String, difficultyId:String = 'normal', score:SaveScoreData):Bool
   {
     var newScoreRank = Scoring.calculateRank(score);
     if (newScoreRank == null)
@@ -999,7 +999,7 @@ class funkin.save.Save implements ConsoleClass
     {
       if (variation != '') difficulty = '${difficulty}-${variation}';
 
-      var score:Null<funkin.save.SaveScoreData> = getSongScore(songId, difficulty);
+      var score:Null<SaveScoreData> = getSongScore(songId, difficulty);
       if (score != null)
       {
         #if NO_UNLOCK_EVERYTHING
@@ -1050,7 +1050,7 @@ class funkin.save.Save implements ConsoleClass
     }
   }
 
-  public function getControls(playerId:Int, inputType:Device):Null<funkin.save.SaveControlsData>
+  public function getControls(playerId:Int, inputType:Device):Null<SaveControlsData>
   {
     switch (inputType)
     {
@@ -1070,7 +1070,7 @@ class funkin.save.Save implements ConsoleClass
     return controlsFields.length > 0;
   }
 
-  public function setControls(playerId:Int, inputType:Device, controls:funkin.save.SaveControlsData):Void
+  public function setControls(playerId:Int, inputType:Device, controls:SaveControlsData):Void
   {
     switch (inputType)
     {
@@ -1154,7 +1154,7 @@ class funkin.save.Save implements ConsoleClass
    * @param slot
    */
   @:haxe.warning("-WDeprecated")
-  static function loadFromSlot(slot:Int):funkin.save.Save
+  static function loadFromSlot(slot:Int):Save
   {
     trace('[SAVE] Loading save from slot $slot...');
 
@@ -1163,38 +1163,38 @@ class funkin.save.Save implements ConsoleClass
     switch (FlxG.save.status)
     {
       case EMPTY:
-        trace('[SAVE] funkin.save.Save data in slot ${slot} is empty, checking for legacy save data...');
-        var legacyfunkin.save.SaveData = fetchLegacyfunkin.save.SaveData();
-        if (legacyfunkin.save.SaveData != null)
+        trace('[SAVE] Save data in slot ${slot} is empty, checking for legacy save data...');
+        var legacySaveData = fetchLegacySaveData();
+        if (legacySaveData != null)
         {
           trace('[SAVE] Found legacy save data, converting...');
-          var gamefunkin.save.Save = funkin.save.SaveDataMigrator.migrateFromLegacy(legacyfunkin.save.SaveData);
-          FlxG.save.mergeData(gamefunkin.save.Save.data, true);
-          return gamefunkin.save.Save;
+          var gameSave = SaveDataMigrator.migrateFromLegacy(legacySaveData);
+          FlxG.save.mergeData(gameSave.data, true);
+          return gameSave;
         }
         else
         {
           trace('[SAVE] No legacy save data found.');
-          var gamefunkin.save.Save = new funkin.save.Save();
-          FlxG.save.mergeData(gamefunkin.save.Save.data, true);
-          return gamefunkin.save.Save;
+          var gameSave = new Save();
+          FlxG.save.mergeData(gameSave.data, true);
+          return gameSave;
         }
       case ERROR(_): // DEPRECATED: Unused
-        return handlefunkin.save.SaveDataError(slot);
+        return handleSaveDataError(slot);
       case SAVE_ERROR(_):
-        return handlefunkin.save.SaveDataError(slot);
+        return handleSaveDataError(slot);
       case LOAD_ERROR(_):
-        return handlefunkin.save.SaveDataError(slot);
+        return handleSaveDataError(slot);
       case BOUND(_, _):
         trace('[SAVE] Loaded existing save data in slot ${slot}.');
-        var gamefunkin.save.Save = funkin.save.SaveDataMigrator.migrate(FlxG.save.data);
-        FlxG.save.mergeData(gamefunkin.save.Save.data, true);
+        var gameSave = SaveDataMigrator.migrate(FlxG.save.data);
+        FlxG.save.mergeData(gameSave.data, true);
 
-        return gamefunkin.save.Save;
+        return gameSave;
     }
   }
 
-  static function clearSlot(slot:Int):funkin.save.Save
+  static function clearSlot(slot:Int):Save
   {
     FlxG.save.bind('$SAVE_NAME${slot}', SAVE_PATH);
 
@@ -1202,26 +1202,26 @@ class funkin.save.Save implements ConsoleClass
     {
       // Archive the save data just in case.
       // Not reliable but better than nothing.
-      var backupSlot:Int = funkin.save.Save.archiveBadfunkin.save.SaveData(FlxG.save.data);
+      var backupSlot:Int = Save.archiveBadSaveData(FlxG.save.data);
 
       FlxG.save.erase();
 
-      return new funkin.save.Save();
+      return new Save();
     }
     else
     {
-      return new funkin.save.Save();
+      return new Save();
     }
   }
 
   /**
    * Call this when there is an error loading the save data in slot X.
    */
-  static function handlefunkin.save.SaveDataError(slot:Int):funkin.save.Save
+  static function handleSaveDataError(slot:Int):Save
   {
     var msg = 'There was an error loading your save data in slot ${slot}.';
     msg += '\nPlease report this issue to the developers.';
-    funkin.util.WindowUtil.showError("funkin.save.Save Data Failure", msg);
+    funkin.util.WindowUtil.showError("Save Data Failure", msg);
 
     // Don't touch that slot anymore.
     // Instead, load the next available slot.
@@ -1238,7 +1238,7 @@ class funkin.save.Save implements ConsoleClass
     }
   }
 
-  public static function archiveBadfunkin.save.SaveData(data:Dynamic):Int
+  public static function archiveBadSaveData(data:Dynamic):Int
   {
     // We want to save this somewhere so we can try to recover it for the user in the future!
 
@@ -1247,44 +1247,44 @@ class funkin.save.Save implements ConsoleClass
     return writeToAvailableSlot(RECOVERY_SLOT_START, data);
   }
 
-  public static function debug_queryBadfunkin.save.SaveData():Void
+  public static function debug_queryBadSaveData():Void
   {
     final RECOVERY_SLOT_START = 1000;
     final RECOVERY_SLOT_END = 1100;
-    var firstBadfunkin.save.SaveData = querySlotRange(RECOVERY_SLOT_START, RECOVERY_SLOT_END);
-    if (firstBadfunkin.save.SaveData > 0)
+    var firstBadSaveData = querySlotRange(RECOVERY_SLOT_START, RECOVERY_SLOT_END);
+    if (firstBadSaveData > 0)
     {
-      trace('[SAVE] Found bad save data in slot ${firstBadfunkin.save.SaveData}!');
+      trace('[SAVE] Found bad save data in slot ${firstBadSaveData}!');
       trace('We should look into recovery...');
 
-      trace(haxe.Json.stringify(fetchFromSlotRaw(firstBadfunkin.save.SaveData)));
+      trace(haxe.Json.stringify(fetchFromSlotRaw(firstBadSaveData)));
     }
   }
 
   static function fetchFromSlotRaw(slot:Int):Null<Dynamic>
   {
-    var targetfunkin.save.SaveData = new Flxfunkin.save.Save();
-    targetfunkin.save.SaveData.bind('$SAVE_NAME${slot}', SAVE_PATH);
-    if (targetfunkin.save.SaveData.isEmpty()) return null;
-    return targetfunkin.save.SaveData.data;
+    var targetSaveData = new FlxSave();
+    targetSaveData.bind('$SAVE_NAME${slot}', SAVE_PATH);
+    if (targetSaveData.isEmpty()) return null;
+    return targetSaveData.data;
   }
 
   static function writeToAvailableSlot(slot:Int, data:Dynamic):Int
   {
     trace('[SAVE] Finding slot to write data to (starting with ${slot})...');
 
-    var targetfunkin.save.SaveData = new Flxfunkin.save.Save();
-    targetfunkin.save.SaveData.bind('$SAVE_NAME${slot}', SAVE_PATH);
-    while (!targetfunkin.save.SaveData.isEmpty())
+    var targetSaveData = new FlxSave();
+    targetSaveData.bind('$SAVE_NAME${slot}', SAVE_PATH);
+    while (!targetSaveData.isEmpty())
     {
       // Keep trying to bind to slots until we find an empty slot.
       trace('[SAVE] Slot ${slot} is taken, continuing...');
       slot++;
-      targetfunkin.save.SaveData.bind('$SAVE_NAME${slot}', SAVE_PATH);
+      targetSaveData.bind('$SAVE_NAME${slot}', SAVE_PATH);
     }
 
     trace('[SAVE] Writing data to slot ${slot}...');
-    targetfunkin.save.SaveData.mergeData(data, true);
+    targetSaveData.mergeData(data, true);
 
     trace('[SAVE] Data written to slot ${slot}!');
     return slot;
@@ -1298,9 +1298,9 @@ class funkin.save.Save implements ConsoleClass
   @:haxe.warning("-WDeprecated")
   static function querySlot(slot:Int):Bool
   {
-    var targetfunkin.save.SaveData = new Flxfunkin.save.Save();
-    targetfunkin.save.SaveData.bind('$SAVE_NAME${slot}', SAVE_PATH);
-    switch (targetfunkin.save.SaveData.status)
+    var targetSaveData = new FlxSave();
+    targetSaveData.bind('$SAVE_NAME${slot}', SAVE_PATH);
+    switch (targetSaveData.status)
     {
       case EMPTY:
         return false;
@@ -1333,12 +1333,12 @@ class funkin.save.Save implements ConsoleClass
     return -1;
   }
 
-  static function fetchLegacyfunkin.save.SaveData():Null<Rawfunkin.save.SaveData_v1_0_0>
+  static function fetchLegacySaveData():Null<RawSaveData_v1_0_0>
   {
     trace("[SAVE] Checking for legacy save data...");
-    var legacyfunkin.save.Save:Flxfunkin.save.Save = new Flxfunkin.save.Save();
-    legacyfunkin.save.Save.bind(SAVE_NAME_LEGACY, SAVE_PATH_LEGACY);
-    if (legacyfunkin.save.Save.isEmpty())
+    var legacySave:FlxSave = new FlxSave();
+    legacySave.bind(SAVE_NAME_LEGACY, SAVE_PATH_LEGACY);
+    if (legacySave.isEmpty())
     {
       trace("[SAVE] No legacy save data found.");
       return null;
@@ -1346,13 +1346,13 @@ class funkin.save.Save implements ConsoleClass
     else
     {
       trace("[SAVE] Legacy save data found.");
-      trace(legacyfunkin.save.Save.data);
-      return cast legacyfunkin.save.Save.data;
+      trace(legacySave.data);
+      return cast legacySave.data;
     }
   }
 
   /**
-   * Serialize this funkin.save.Save into a JSON string.
+   * Serialize this Save into a JSON string.
    * @param pretty Whether the JSON should be big ol string (false),
    * or formatted with tabs (true)
    * @return The JSON string.
@@ -1360,21 +1360,21 @@ class funkin.save.Save implements ConsoleClass
   public function serialize(pretty:Bool = true):String
   {
     var ignoreNullOptionals = true;
-    var writer = new json2object.JsonWriter<Rawfunkin.save.SaveData>(ignoreNullOptionals);
+    var writer = new json2object.JsonWriter<RawSaveData>(ignoreNullOptionals);
     return writer.write(data, pretty ? '  ' : null);
   }
 
   public function updateVersionToLatest():Void
   {
-    this.data.version = funkin.save.Save.SAVE_DATA_VERSION;
+    this.data.version = Save.SAVE_DATA_VERSION;
   }
 
-  public function debug_dumpfunkin.save.SaveJsonfunkin.save.Save():Void
+  public function debug_dumpSaveJsonSave():Void
   {
     FileUtil.saveFile(haxe.io.Bytes.ofString(this.serialize()), [FileUtil.FILE_FILTER_JSON], null, null, './save.json', 'Write save data as JSON...');
   }
 
-  public function debug_dumpfunkin.save.SaveJsonPrint():Void
+  public function debug_dumpSaveJsonPrint():Void
   {
     trace(this.serialize());
   }
@@ -1383,29 +1383,29 @@ class funkin.save.Save implements ConsoleClass
   public static function saveToNewgrounds():Void
   {
     if (_instance == null) return;
-    trace('[SAVE] Saving funkin.save.Save Data to Newgrounds...');
-    funkin.api.newgrounds.NGfunkin.save.SaveSlot.instance.save(_instance.data);
+    trace('[SAVE] Saving Save Data to Newgrounds...');
+    funkin.api.newgrounds.NGSaveSlot.instance.save(_instance.data);
   }
 
   public static function loadFromNewgrounds(onFinish:Void->Void):Void
   {
-    trace('[SAVE] Loading funkin.save.Save Data from Newgrounds...');
-    funkin.api.newgrounds.NGfunkin.save.SaveSlot.instance.load(function(data:Dynamic) {
+    trace('[SAVE] Loading Save Data from Newgrounds...');
+    funkin.api.newgrounds.NGSaveSlot.instance.load(function(data:Dynamic) {
       FlxG.save.bind('$SAVE_NAME${BASE_SAVE_SLOT}', SAVE_PATH);
 
       if (FlxG.save.status != EMPTY)
       {
         // best i can do in case the NG file is corrupted or something along those lines
-        var backupSlot:Int = funkin.save.Save.archiveBadfunkin.save.SaveData(FlxG.save.data);
+        var backupSlot:Int = Save.archiveBadSaveData(FlxG.save.data);
         trace('[SAVE] Backed up current save data in case of emergency to $backupSlot!');
       }
 
       FlxG.save.erase();
       FlxG.save.bind('$SAVE_NAME${BASE_SAVE_SLOT}', SAVE_PATH); // forces regeneration of the file as erase deletes it
 
-      var gamefunkin.save.Save = funkin.save.SaveDataMigrator.migrate(data);
-      FlxG.save.mergeData(gamefunkin.save.Save.data, true);
-      _instance = gamefunkin.save.Save;
+      var gameSave = SaveDataMigrator.migrate(data);
+      FlxG.save.mergeData(gameSave.data, true);
+      _instance = gameSave;
       onFinish();
     }, function(error:io.newgrounds.Call.CallError) {
       var errorMsg:String = io.newgrounds.Call.CallErrorTools.toString(error);
@@ -1413,7 +1413,7 @@ class funkin.save.Save implements ConsoleClass
       var msg = 'There was an error loading your save data from Newgrounds.';
       msg += '\n${errorMsg}';
       msg += '\nAre you sure you are connected to the internet?';
-      funkin.util.WindowUtil.showError("Newgrounds funkin.save.Save Slot Failure", msg);
+      funkin.util.WindowUtil.showError("Newgrounds Save Slot Failure", msg);
     });
   }
   #end
@@ -1423,7 +1423,7 @@ class funkin.save.Save implements ConsoleClass
  * An anonymous structure containingg all the user's save data.
  * Isn't stored with JSON, stored with some sort of Haxe built-in serialization?
  */
-typedef Rawfunkin.save.SaveData =
+typedef RawSaveData =
 {
   // Flixel save data.
   var volume:Float;
@@ -1434,25 +1434,25 @@ typedef Rawfunkin.save.SaveData =
    */
   var version:Version;
 
-  var api:funkin.save.SaveApiData;
+  var api:SaveApiData;
 
   /**
    * The user's saved scores.
    */
-  var scores:funkin.save.SaveHighScoresData;
+  var scores:SaveHighScoresData;
 
   /**
    * The user's preferences.
    */
-  var options:funkin.save.SaveDataOptions;
+  var options:SaveDataOptions;
 
-  var unlocks:funkin.save.SaveDataUnlocks;
+  var unlocks:SaveDataUnlocks;
 
   #if mobile
   /**
    * The user's preferences for mobile.
    */
-  var mobileOptions:funkin.save.SaveDataMobileOptions;
+  var mobileOptions:SaveDataMobileOptions;
   #end
 
   /**
@@ -1461,30 +1461,30 @@ typedef Rawfunkin.save.SaveData =
    */
   var favoriteSongs:Array<String>;
 
-  var mods:funkin.save.SaveDataMods;
+  var mods:SaveDataMods;
 
   /**
    * The user's preferences specific to the Chart Editor.
    */
-  var optionsChartEditor:funkin.save.SaveDataChartEditorOptions;
+  var optionsChartEditor:SaveDataChartEditorOptions;
 
   /**
    * The user's preferences specific to the Stage Editor.
    */
-  var optionsStageEditor:funkin.save.SaveDataStageEditorOptions;
+  var optionsStageEditor:SaveDataStageEditorOptions;
 };
 
-typedef funkin.save.SaveApiData =
+typedef SaveApiData =
 {
-  var newgrounds:funkin.save.SaveApiNewgroundsData;
+  var newgrounds:SaveApiNewgroundsData;
 }
 
-typedef funkin.save.SaveApiNewgroundsData =
+typedef SaveApiNewgroundsData =
 {
   var sessionId:Null<String>;
 }
 
-typedef funkin.save.SaveDataUnlocks =
+typedef SaveDataUnlocks =
 {
   /**
    * Every time we see the unlock animation for a character,
@@ -1502,20 +1502,20 @@ typedef funkin.save.SaveDataUnlocks =
 /**
  * An anoymous structure containing options about the user's high scores.
  */
-typedef funkin.save.SaveHighScoresData =
+typedef SaveHighScoresData =
 {
   /**
    * Scores for each level (or week).
    */
-  var levels:funkin.save.SaveScoreLevelsData;
+  var levels:SaveScoreLevelsData;
 
   /**
    * Scores for individual songs.
    */
-  var songs:funkin.save.SaveScoreSongsData;
+  var songs:SaveScoreSongsData;
 };
 
-typedef funkin.save.SaveDataMods =
+typedef SaveDataMods =
 {
   var enabledMods:Array<String>;
 
@@ -1525,24 +1525,24 @@ typedef funkin.save.SaveDataMods =
 }
 
 /**
- * Key is the level ID, value is the funkin.save.SaveScoreLevelData.
+ * Key is the level ID, value is the SaveScoreLevelData.
  */
-typedef funkin.save.SaveScoreLevelsData = Map<String, funkin.save.SaveScoreDifficultiesData>;
+typedef SaveScoreLevelsData = Map<String, SaveScoreDifficultiesData>;
 
 /**
  * Key is the song ID, value is the data for each difficulty.
  */
-typedef funkin.save.SaveScoreSongsData = Map<String, funkin.save.SaveScoreDifficultiesData>;
+typedef SaveScoreSongsData = Map<String, SaveScoreDifficultiesData>;
 
 /**
  * Key is the difficulty ID, value is the score.
  */
-typedef funkin.save.SaveScoreDifficultiesData = Map<String, funkin.save.SaveScoreData>;
+typedef SaveScoreDifficultiesData = Map<String, SaveScoreData>;
 
 /**
  * An individual score. Contains the score, accuracy, and count of each judgement hit.
  */
-typedef funkin.save.SaveScoreData =
+typedef SaveScoreData =
 {
   /**
    * The score achieved.
@@ -1552,10 +1552,10 @@ typedef funkin.save.SaveScoreData =
   /**
    * The count of each judgement hit.
    */
-  var tallies:funkin.save.SaveScoreTallyData;
+  var tallies:SaveScoreTallyData;
 }
 
-typedef funkin.save.SaveScoreTallyData =
+typedef SaveScoreTallyData =
 {
   var sick:Int;
   var good:Int;
@@ -1572,7 +1572,7 @@ typedef funkin.save.SaveScoreTallyData =
  * An anonymous structure containing all the user's options and preferences for the main game.
  * Every time you add a new option, it needs to be added here.
  */
-typedef funkin.save.SaveDataOptions =
+typedef SaveDataOptions =
 {
   /**
    * FPS
@@ -1670,32 +1670,32 @@ typedef funkin.save.SaveDataOptions =
    * Screenshot options
    * @param shouldHideMouse Should the mouse be hidden when taking a screenshot? Default: `true`
    * @param fancyPreview Show a fancy preview? Default: `true`
-   * @param previewOnfunkin.save.Save Only show the fancy preview after a screenshot is saved? Default: `true`
+   * @param previewOnSave Only show the fancy preview after a screenshot is saved? Default: `true`
    */
   var screenshot:
     {
       var shouldHideMouse:Bool;
       var fancyPreview:Bool;
-      var previewOnfunkin.save.Save:Bool;
+      var previewOnSave:Bool;
     };
 
   var controls:
     {
       var p1:
         {
-          var keyboard:funkin.save.SaveControlsData;
-          var gamepad:funkin.save.SaveControlsData;
+          var keyboard:SaveControlsData;
+          var gamepad:SaveControlsData;
         };
       var p2:
         {
-          var keyboard:funkin.save.SaveControlsData;
-          var gamepad:funkin.save.SaveControlsData;
+          var keyboard:SaveControlsData;
+          var gamepad:SaveControlsData;
         };
     };
 };
 
 #if mobile
-typedef funkin.save.SaveDataMobileOptions =
+typedef SaveDataMobileOptions =
 {
   /**
    * If enabled, device will be able to sleep on its own.
@@ -1725,7 +1725,7 @@ typedef funkin.save.SaveDataMobileOptions =
  * If a keybind is `null`, it needs to be reinitialized to the default.
  * If a keybind is `[]`, it is UNBOUND by the user and should not be rebound.
  */
-typedef funkin.save.SaveControlsData =
+typedef SaveControlsData =
 {
   /**
    * Keybind for navigating in the menu.
@@ -1827,7 +1827,7 @@ typedef funkin.save.SaveControlsData =
 /**
  * An anonymous structure containing all the user's options and preferences, specific to the Chart Editor.
  */
-typedef funkin.save.SaveDataChartEditorOptions =
+typedef SaveDataChartEditorOptions =
 {
   /**
    * Whether the Chart Editor created a backup the last time it closed.
@@ -1927,7 +1927,7 @@ typedef funkin.save.SaveDataChartEditorOptions =
   var ?playbackSpeed:Float;
 };
 
-typedef funkin.save.SaveDataStageEditorOptions =
+typedef SaveDataStageEditorOptions =
 {
   // a lot of these things were copied from savedatacharteditoroptions
 

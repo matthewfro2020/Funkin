@@ -251,9 +251,9 @@ class SwipeUtil
   {
     #if FEATURE_TOUCH_CONTROLS
     #if mobile
-// AUTO-COMMENTED:     return FlxG.touches.flickManager.flickUp;
+    return FlxG.touches.flickManager.flickUp;
     #else
-// AUTO-COMMENTED:     return FlxG.mouse.flickManager.flickUp;
+    return FlxG.mouse.flickManager.flickUp;
     #end
     #else
     return false;
@@ -265,9 +265,9 @@ class SwipeUtil
   {
     #if FEATURE_TOUCH_CONTROLS
     #if mobile
-// AUTO-COMMENTED:     return FlxG.touches.flickManager.flickRight;
+    return FlxG.touches.flickManager.flickRight;
     #else
-// AUTO-COMMENTED:     return FlxG.mouse.flickManager.flickRight;
+    return FlxG.mouse.flickManager.flickRight;
     #end
     #else
     return false;
@@ -279,9 +279,9 @@ class SwipeUtil
   {
     #if FEATURE_TOUCH_CONTROLS
     #if mobile
-// AUTO-COMMENTED:     return FlxG.touches.flickManager.flickLeft;
+    return FlxG.touches.flickManager.flickLeft;
     #else
-// AUTO-COMMENTED:     return FlxG.mouse.flickManager.flickLeft;
+    return FlxG.mouse.flickManager.flickLeft;
     #end
     #else
     return false;
@@ -293,9 +293,9 @@ class SwipeUtil
   {
     #if FEATURE_TOUCH_CONTROLS
     #if mobile
-// AUTO-COMMENTED:     return FlxG.touches.flickManager.flickDown;
+    return FlxG.touches.flickManager.flickDown;
     #else
-// AUTO-COMMENTED:     return FlxG.mouse.flickManager.flickDown;
+    return FlxG.mouse.flickManager.flickDown;
     #end
     #else
     return false;
@@ -313,7 +313,7 @@ class SwipeUtil
    */
   public static inline function resetSwipeVelocity():Void
   {
-// AUTO-COMMENTED:     FlxG.mouse.flickManager.destroy();
-// AUTO-COMMENTED:     FlxG.touches.flickManager.destroy();
+    FlxG.mouse.flickManager.destroy();
+    FlxG.touches.flickManager.destroy();
   }
 }

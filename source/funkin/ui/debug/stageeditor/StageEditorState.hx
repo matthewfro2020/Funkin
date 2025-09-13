@@ -13,7 +13,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.addons.display.FlxGridOverlay;
 import funkin.play.character.BaseCharacter;
 import funkin.play.character.BaseCharacter.CharacterType;
-import funkin.data.character.CharacterRegistry;
+import funkin.play.character.CharacterData.CharacterDataParser;
 import funkin.save.Save;
 import funkin.input.Cursor;
 import haxe.ui.backend.flixel.UIState;
@@ -88,8 +88,8 @@ class StageEditorState extends UIState
   var menubarItemNewStage:MenuItem; // new
   var menubarItemOpenStage:MenuItem; // open
   var menubarItemOpenRecent:Menu; // open recent submenu
-  var menubarItemfunkin.save.SaveStage:MenuItem; // save
-  var menubarItemfunkin.save.SaveStageAs:MenuItem; // save as
+  var menubarItemSaveStage:MenuItem; // save
+  var menubarItemSaveStageAs:MenuItem; // save as
   var menubarItemClearAssets:MenuItem; // clear assets
   var menubarItemExit:MenuItem; // exit
 
@@ -182,7 +182,7 @@ class StageEditorState extends UIState
   public var stageName:String = "Unnamed";
   public var stageFolder:String = "shared";
 
-  public var autofunkin.save.SaveTimer:FlxTimer = new FlxTimer();
+  public var autoSaveTimer:FlxTimer = new FlxTimer();
 
   public var saved(default, set):Bool = true;
   public var currentFile(default, set):String = "";
@@ -193,14 +193,14 @@ class StageEditorState extends UIState
 
     updateWindowTitle();
 
-    if (!autofunkin.save.SaveTimer.finished)
+    if (!autoSaveTimer.finished)
     {
-      autofunkin.save.SaveTimer.cancel();
+      autoSaveTimer.cancel();
     }
 
     if (!saved)
     {
-      autofunkin.save.SaveTimer.start(Constants.AUTOSAVE_TIMER_DELAY_SEC, function(tmr:FlxTimer) {
+      autoSaveTimer.start(Constants.AUTOSAVE_TIMER_DELAY_SEC, function(tmr:FlxTimer) {
         FileUtil.createDirIfNotExists(BACKUPS_PATH);
 
         var data = this.packShitToZip();
@@ -212,10 +212,10 @@ class StageEditorState extends UIState
         FileUtil.writeBytesToPath(path, data);
         saved = true;
 
-        funkin.save.Save.instance.stageEditorHasBackup = true;
-        funkin.save.Save.instance.flush();
+        Save.instance.stageEditorHasBackup = true;
+        Save.instance.flush();
 
-        notifyChange("Auto-funkin.save.Save", "A Backup of this Stage has been made.");
+        notifyChange("Auto-Save", "A Backup of this Stage has been made.");
       });
     }
 
@@ -341,12 +341,12 @@ class StageEditorState extends UIState
     WindowManager.instance.container = root;
     Screen.instance.addComponent(root);
 
-    // group shit + assets
-    var gf = CharacterRegistry.fetchCharacter("gf", true);
+    // Characters setup.
+    var gf = CharacterDataParser.fetchCharacter(Save.instance.stageGirlfriendChar, true);
     gf.characterType = CharacterType.GF;
-    var dad = CharacterRegistry.fetchCharacter("dad", true);
+    var dad = CharacterDataParser.fetchCharacter(Save.instance.stageDadChar, true);
     dad.characterType = CharacterType.DAD;
-    var bf = CharacterRegistry.fetchCharacter("bf", true);
+    var bf = CharacterDataParser.fetchCharacter(Save.instance.stageBoyfriendChar, true);
     bf.characterType = CharacterType.BF;
 
     bf.flipX = !bf.getDataFlipX();
@@ -493,7 +493,7 @@ class StageEditorState extends UIState
       welcomeDialog.closable = false;
 
       #if sys
-      if (funkin.save.Save.instance.stageEditorHasBackup)
+      if (Save.instance.stageEditorHasBackup)
       {
         FileUtil.createDirIfNotExists(BACKUPS_PATH);
 
@@ -518,7 +518,7 @@ class StageEditorState extends UIState
     CrashHandler.errorSignal.add(autosavePerCrash);
     CrashHandler.criticalErrorSignal.add(autosavePerCrash);
 
-    funkin.save.Save.instance.stageEditorHasBackup = false;
+    Save.instance.stageEditorHasBackup = false;
 
     Cursor.show();
     FunkinSound.playMusic('chartEditorLoop',
@@ -553,11 +553,11 @@ class StageEditorState extends UIState
 
   override public function update(elapsed:Float):Void
   {
-    // funkin.save.Save the stage if exiting through the F4 keybind, as it moves you to the Main Menu.
+    // Save the stage if exiting through the F4 keybind, as it moves you to the Main Menu.
     if (FlxG.keys.justPressed.F4)
     {
       @:privateAccess
-      if (!autofunkin.save.SaveTimer.finished) autofunkin.save.SaveTimer.onLoopFinished();
+      if (!autoSaveTimer.finished) autoSaveTimer.onLoopFinished();
       resetWindowTitle();
 
       WindowUtil.windowExit.remove(windowClose);
@@ -733,8 +733,8 @@ class StageEditorState extends UIState
           this.createAndPushAction(OBJECT_ROTATED);
         }
 
-        if (FlxG.keys.justPressed.LEFT) selectedSprite.angle -= funkin.save.Save.instance.stageEditorAngleStep;
-        if (FlxG.keys.justPressed.RIGHT) selectedSprite.angle += funkin.save.Save.instance.stageEditorAngleStep;
+        if (FlxG.keys.justPressed.LEFT) selectedSprite.angle -= Save.instance.stageEditorAngleStep;
+        if (FlxG.keys.justPressed.RIGHT) selectedSprite.angle += Save.instance.stageEditorAngleStep;
       }
 
       arrowMovement(selectedSprite);
@@ -827,7 +827,7 @@ class StageEditorState extends UIState
     if (!saved)
     {
       trace("You haven't saved recently, so a backup will be made.");
-      autofunkin.save.SaveTimer.onComplete(autofunkin.save.SaveTimer);
+      autoSaveTimer.onComplete(autoSaveTimer);
     }
   }
 
@@ -838,21 +838,21 @@ class StageEditorState extends UIState
     if (!saved)
     {
       trace("You haven't saved recently, so a backup will be made.");
-      autofunkin.save.SaveTimer.onComplete(autofunkin.save.SaveTimer);
+      autoSaveTimer.onComplete(autoSaveTimer);
     }
   }
 
   public function updateRecentFiles()
   {
-    var files = funkin.save.Save.instance.stageEditorPreviousFiles;
+    var files = Save.instance.stageEditorPreviousFiles;
     files.remove(currentFile);
     files.unshift(currentFile);
 
     while (files.length > Constants.MAX_PREVIOUS_WORKING_FILES)
       files.pop();
 
-    funkin.save.Save.instance.stageEditorPreviousFiles = files;
-    funkin.save.Save.instance.flush();
+    Save.instance.stageEditorPreviousFiles = files;
+    Save.instance.flush();
   }
 
   public function updateMarkerPos()
@@ -990,7 +990,7 @@ class StageEditorState extends UIState
 
   function updateBGColors():Void
   {
-    var colArray = funkin.save.Save.instance.stageEditorTheme == StageEditorTheme.Dark ? DARK_MODE_COLORS : LIGHT_MODE_COLORS;
+    var colArray = Save.instance.stageEditorTheme == StageEditorTheme.Dark ? DARK_MODE_COLORS : LIGHT_MODE_COLORS;
 
     var index = members.indexOf(bg);
     bg.kill();
@@ -1026,8 +1026,8 @@ class StageEditorState extends UIState
   {
     menubarItemNewStage.onClick = function(_) onMenuItemClick("new stage");
     menubarItemOpenStage.onClick = function(_) onMenuItemClick("open stage");
-    menubarItemfunkin.save.SaveStage.onClick = function(_) onMenuItemClick("save stage");
-    menubarItemfunkin.save.SaveStageAs.onClick = function(_) onMenuItemClick("save stage as");
+    menubarItemSaveStage.onClick = function(_) onMenuItemClick("save stage");
+    menubarItemSaveStageAs.onClick = function(_) onMenuItemClick("save stage as");
     menubarItemClearAssets.onClick = function(_) onMenuItemClick("clear assets");
     menubarItemExit.onClick = function(_) onMenuItemClick("exit");
     menubarItemUndo.onClick = function(_) onMenuItemClick("undo");
@@ -1047,7 +1047,7 @@ class StageEditorState extends UIState
     bottomBarSelectText.onClick = function(_) onMenuItemClick("switch focus");
 
     var stepOptions = ["1px", "2px", "3px", "5px", "10px", "25px", "50px", "100px"];
-    bottomBarMoveStepText.text = stepOptions.contains(funkin.save.Save.instance.stageEditorMoveStep) ? funkin.save.Save.instance.stageEditorMoveStep : "1px";
+    bottomBarMoveStepText.text = stepOptions.contains(Save.instance.stageEditorMoveStep) ? Save.instance.stageEditorMoveStep : "1px";
 
     var changeStep = function(change:Int = 0) {
       var id = stepOptions.indexOf(bottomBarMoveStepText.text);
@@ -1056,7 +1056,7 @@ class StageEditorState extends UIState
       if (id >= stepOptions.length) id = stepOptions.length - 1;
       else if (id < 0) id = 0;
 
-      bottomBarMoveStepText.text = funkin.save.Save.instance.stageEditorMoveStep = stepOptions[id];
+      bottomBarMoveStepText.text = Save.instance.stageEditorMoveStep = stepOptions[id];
       var shit = Std.parseInt(StringTools.replace(bottomBarMoveStepText.text, "px", ""));
       moveStep = shit;
 
@@ -1071,17 +1071,17 @@ class StageEditorState extends UIState
     changeStep(); // update
 
     var angleOptions = [0.5, 1, 2, 5, 10, 15, 45, 75, 90, 180];
-    bottomBarAngleStepText.text = (angleOptions.contains(funkin.save.Save.instance.stageEditorAngleStep) ? funkin.save.Save.instance.stageEditorAngleStep : 5) + "°";
+    bottomBarAngleStepText.text = (angleOptions.contains(Save.instance.stageEditorAngleStep) ? Save.instance.stageEditorAngleStep : 5) + "°";
 
     var changeAngle = function(change:Int = 0) {
-      var id = angleOptions.indexOf(funkin.save.Save.instance.stageEditorAngleStep);
+      var id = angleOptions.indexOf(Save.instance.stageEditorAngleStep);
       id += change;
 
       if (id >= angleOptions.length) id = angleOptions.length - 1;
       else if (id < 0) id = 0;
 
-      funkin.save.Save.instance.stageEditorAngleStep = angleOptions[id];
-      bottomBarAngleStepText.text = (angleOptions.contains(funkin.save.Save.instance.stageEditorAngleStep) ? funkin.save.Save.instance.stageEditorAngleStep : 5) + "°";
+      Save.instance.stageEditorAngleStep = angleOptions[id];
+      bottomBarAngleStepText.text = (angleOptions.contains(Save.instance.stageEditorAngleStep) ? Save.instance.stageEditorAngleStep : 5) + "°";
 
       updateDialog(StageEditorDialogType.OBJECT_PROPERTIES);
     }
@@ -1104,17 +1104,17 @@ class StageEditorState extends UIState
     menubarItemWindowStage.onChange = function(_) toggleDialog(StageEditorDialogType.STAGE, menubarItemWindowStage.selected);
 
     menubarItemThemeLight.onClick = function(_) {
-      funkin.save.Save.instance.stageEditorTheme = StageEditorTheme.Light;
+      Save.instance.stageEditorTheme = StageEditorTheme.Light;
       updateBGColors();
     }
 
     menubarItemThemeDark.onClick = function(_) {
-      funkin.save.Save.instance.stageEditorTheme = StageEditorTheme.Dark;
+      Save.instance.stageEditorTheme = StageEditorTheme.Dark;
       updateBGColors();
     }
 
-    menubarItemThemeDark.selected = funkin.save.Save.instance.stageEditorTheme == StageEditorTheme.Dark;
-    menubarItemThemeLight.selected = funkin.save.Save.instance.stageEditorTheme == StageEditorTheme.Light;
+    menubarItemThemeDark.selected = Save.instance.stageEditorTheme == StageEditorTheme.Dark;
+    menubarItemThemeLight.selected = Save.instance.stageEditorTheme == StageEditorTheme.Light;
 
     menubarItemViewChars.onChange = function(_) showChars = menubarItemViewChars.selected;
     menubarItemViewNameText.onChange = function(_) nameTxt.visible = menubarItemViewNameText.selected;
@@ -1139,7 +1139,7 @@ class StageEditorState extends UIState
     for (a in menubarItemOpenRecent.childComponents)
       menubarItemOpenRecent.removeComponent(a);
 
-    for (file in funkin.save.Save.instance.stageEditorPreviousFiles)
+    for (file in Save.instance.stageEditorPreviousFiles)
     {
       var filePath = new haxe.io.Path(file);
       var item = new MenuItem();
@@ -1196,7 +1196,7 @@ class StageEditorState extends UIState
 
         if (bytes == null)
         {
-          notifyChange("Stage funkin.save.Save", "Problem Saving a Stage. Please try again later.", true);
+          notifyChange("Stage Save", "Problem Saving a Stage. Please try again later.", true);
           return;
         }
 
@@ -1216,7 +1216,7 @@ class StageEditorState extends UIState
 
         if (bytes == null)
         {
-          notifyChange("Stage funkin.save.Save", "Problem Saving a Stage. Please try again later.", true);
+          notifyChange("Stage Save", "Problem Saving a Stage. Please try again later.", true);
           return;
         }
 

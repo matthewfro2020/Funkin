@@ -144,7 +144,7 @@ class AddCharFilesDialog extends DefaultWizardDialog
           }
 
           tempSprite.destroy(); // fuck this guy i hate him
-          files = files.concat([
+          files = files.concat([;
             {
               name: imgPath,
               bytes: imgBytes

@@ -67,7 +67,7 @@ class AddAnimDialog extends DefaultPageDialog
       char.playAnimation(charAnimName.text);
     }
 
-    charAnimfunkin.save.Save.onClick = function(_) {
+    charAnimSave.onClick = function(_) {
       if ((charAnimName.text ?? "") == "")
       {
         CharCreatorUtil.error("Add Animation", "Error: Missing name!");

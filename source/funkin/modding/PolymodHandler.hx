@@ -15,7 +15,7 @@ import funkin.data.stage.StageRegistry;
 import funkin.data.stickers.StickerRegistry;
 import funkin.data.freeplay.album.AlbumRegistry;
 import funkin.modding.module.ModuleHandler;
-import funkin.data.character.CharacterRegistry;
+import funkin.play.character.CharacterData.CharacterDataParser;
 import funkin.save.Save;
 import funkin.util.FileUtil;
 import funkin.util.macro.ClassMacro;
@@ -105,7 +105,7 @@ class PolymodHandler
     createModRoot();
     #end
     trace('Initializing Polymod (using configured mods)...');
-    loadModsById(funkin.save.Save.instance.enabledModIds);
+    loadModsById(Save.instance.enabledModIds);
   }
 
   /**
@@ -258,8 +258,6 @@ class PolymodHandler
 
     Polymod.addImportAlias('funkin.data.event.SongEventSchema', funkin.data.event.SongEventSchema.SongEventSchemaRaw);
 
-    Polymod.addImportAlias('funkin.play.character.CharacterDataParser', funkin.data.character.CharacterRegistry);
-
     // `lime.utils.Assets` literally just has a private `resolveClass` function for some reason? so we replace it with our own.
     Polymod.addImportAlias('lime.utils.Assets', funkin.Assets);
     Polymod.addImportAlias('openfl.utils.Assets', funkin.Assets);
@@ -315,9 +313,9 @@ class PolymodHandler
     // Unserializer.DEFAULT_RESOLVER.resolveClass() can access blacklisted packages
     Polymod.blacklistImport('haxe.Unserializer');
 
-    // `flixel.util.Flxfunkin.save.Save`
-    // Flxfunkin.save.Save.resolveFlixelClasses() can access blacklisted packages
-    Polymod.blacklistImport('flixel.util.Flxfunkin.save.Save');
+    // `flixel.util.FlxSave`
+    // FlxSave.resolveFlixelClasses() can access blacklisted packages
+    Polymod.blacklistImport('flixel.util.FlxSave');
 
     // Disable access to AdMob Util
     Polymod.blacklistImport('funkin.mobile.util.AdMobUtil');
@@ -540,7 +538,7 @@ class PolymodHandler
    */
   public static function getEnabledMods():Array<ModMetadata>
   {
-    var modIds:Array<String> = funkin.save.Save.instance.enabledModIds;
+    var modIds:Array<String> = Save.instance.enabledModIds;
     var modMetadata:Array<ModMetadata> = getAllMods();
     var enabledMods:Array<ModMetadata> = [];
     for (item in modMetadata)
@@ -589,7 +587,7 @@ class PolymodHandler
     StickerRegistry.instance.loadEntries();
     FreeplayStyleRegistry.instance.loadEntries();
 
-    CharacterRegistry.loadCharacterCache(); // TODO: Migrate characters to BaseRegistry.
+    CharacterDataParser.loadCharacterCache(); // TODO: Migrate characters to BaseRegistry.
     NoteKindManager.loadScripts();
     ModuleHandler.loadModuleCache();
   }

@@ -287,7 +287,7 @@ class CharCreatorSelectPage extends CharCreatorDefaultPage
         var daImgPath = _.fullPath;
         var daXmlPath = daImgPath.replace(".png", ".xml");
 
-        pixelIconFiles = [
+        pixelIconFiles = [;
           {name: daImgPath, bytes: FileUtil.readBytesFromPath(daImgPath)}];
 
         if (FileUtil.doesFileExist(daXmlPath)) pixelIconFiles.push({name: daXmlPath, bytes: FileUtil.readBytesFromPath(daXmlPath)});
@@ -532,7 +532,7 @@ class CharCreatorSelectPage extends CharCreatorDefaultPage
 
         animFrame = Math.floor(Math.min(12, animFrame));
         animFrame = Math.floor(Math.max(0, animFrame));
-        animFrame = Std.int(Math.abs(animFrame - 12)); // shitty dumbass flip, cuz dave got da shit backwards lol!
+        animFrame = Std.int(Math.abs(animFrame - 12)); // shitty dumbass flip, cuz dave got da shit backwards lol!;
 
         elements[i].symbol.firstFrame = animFrame;
       }

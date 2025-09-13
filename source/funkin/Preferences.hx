@@ -32,7 +32,7 @@ class Preferences
 
     return refreshRate;
     #else
-    return funkin.save.Save?.instance?.options?.framerate ?? 60;
+    return Save?.instance?.options?.framerate ?? 60;
     #end
   }
 
@@ -41,7 +41,7 @@ class Preferences
     #if web
     return 60;
     #else
-    var save:funkin.save.Save = funkin.save.Save.instance;
+    var save:Save = Save.instance;
     save.options.framerate = value;
     save.flush();
     FlxG.updateFramerate = value;
@@ -61,7 +61,7 @@ class Preferences
     #if NO_FEATURE_NAUGHTYNESS
     return false;
     #else
-    return funkin.save.Save?.instance?.options?.naughtyness ?? true;
+    return Save?.instance?.options?.naughtyness ?? true;
     #end
   }
 
@@ -71,7 +71,7 @@ class Preferences
     value = false;
     #end
 
-    var save:funkin.save.Save = funkin.save.Save.instance;
+    var save:Save = Save.instance;
     save.options.naughtyness = value;
     save.flush();
     return value;
@@ -85,12 +85,12 @@ class Preferences
 
   static function get_downscroll():Bool
   {
-    return funkin.save.Save?.instance?.options?.downscroll #if mobile ?? true #else ?? false #end;
+    return Save?.instance?.options?.downscroll #if mobile ?? true #else ?? false #end;
   }
 
   static function set_downscroll(value:Bool):Bool
   {
-    var save:funkin.save.Save = funkin.save.Save.instance;
+    var save:Save = Save.instance;
     save.options.downscroll = value;
     save.flush();
     return value;
@@ -104,12 +104,12 @@ class Preferences
 
   static function get_flashingLights():Bool
   {
-    return funkin.save.Save?.instance?.options?.flashingLights ?? true;
+    return Save?.instance?.options?.flashingLights ?? true;
   }
 
   static function set_flashingLights(value:Bool):Bool
   {
-    var save:funkin.save.Save = funkin.save.Save.instance;
+    var save:Save = Save.instance;
     save.options.flashingLights = value;
     save.flush();
     return value;
@@ -123,12 +123,12 @@ class Preferences
 
   static function get_zoomCamera():Bool
   {
-    return funkin.save.Save?.instance?.options?.zoomCamera ?? true;
+    return Save?.instance?.options?.zoomCamera ?? true;
   }
 
   static function set_zoomCamera(value:Bool):Bool
   {
-    var save:funkin.save.Save = funkin.save.Save.instance;
+    var save:Save = Save.instance;
     save.options.zoomCamera = value;
     save.flush();
     return value;
@@ -146,17 +146,17 @@ class Preferences
     #if mobile
     return false;
     #end
-    return funkin.save.Save?.instance?.options?.debugDisplay ?? false;
+    return Save?.instance?.options?.debugDisplay ?? false;
   }
 
   static function set_debugDisplay(value:Bool):Bool
   {
-    if (value != funkin.save.Save.instance.options.debugDisplay)
+    if (value != Save.instance.options.debugDisplay)
     {
       toggleDebugDisplay(value);
     }
 
-    var save = funkin.save.Save.instance;
+    var save = Save.instance;
     save.options.debugDisplay = value;
     save.flush();
     return value;
@@ -170,7 +170,7 @@ class Preferences
 
   static function get_hapticsMode():HapticsMode
   {
-    var value = funkin.save.Save?.instance?.options?.hapticsMode ?? "All";
+    var value = Save?.instance?.options?.hapticsMode ?? "All";
 
     return switch (value)
     {
@@ -197,7 +197,7 @@ class Preferences
         string = "All";
     };
 
-    var save:funkin.save.Save = funkin.save.Save.instance;
+    var save:Save = Save.instance;
     save.options.hapticsMode = string;
     save.flush();
     return value;
@@ -211,12 +211,12 @@ class Preferences
 
   static function get_hapticsIntensityMultiplier():Float
   {
-    return funkin.save.Save?.instance?.options?.hapticsIntensityMultiplier ?? 1;
+    return Save?.instance?.options?.hapticsIntensityMultiplier ?? 1;
   }
 
   static function set_hapticsIntensityMultiplier(value:Float):Float
   {
-    var save:funkin.save.Save = funkin.save.Save.instance;
+    var save:Save = Save.instance;
     save.options.hapticsIntensityMultiplier = value;
     save.flush();
     return value;
@@ -234,14 +234,14 @@ class Preferences
     #if mobile
     return true;
     #end
-    return funkin.save.Save?.instance?.options?.autoPause ?? true;
+    return Save?.instance?.options?.autoPause ?? true;
   }
 
   static function set_autoPause(value:Bool):Bool
   {
-    if (value != funkin.save.Save.instance.options.autoPause) FlxG.autoPause = value;
+    if (value != Save.instance.options.autoPause) FlxG.autoPause = value;
 
-    var save:funkin.save.Save = funkin.save.Save.instance;
+    var save:Save = Save.instance;
     save.options.autoPause = value;
     save.flush();
     return value;
@@ -255,12 +255,12 @@ class Preferences
 
   static function get_autoFullscreen():Bool
   {
-    return funkin.save.Save?.instance?.options?.autoFullscreen ?? true;
+    return Save?.instance?.options?.autoFullscreen ?? true;
   }
 
   static function set_autoFullscreen(value:Bool):Bool
   {
-    var save:funkin.save.Save = funkin.save.Save.instance;
+    var save:Save = Save.instance;
     save.options.autoFullscreen = value;
     save.flush();
     return value;
@@ -275,12 +275,12 @@ class Preferences
 
   static function get_globalOffset():Int
   {
-    return funkin.save.Save?.instance?.options?.globalOffset ?? 0;
+    return Save?.instance?.options?.globalOffset ?? 0;
   }
 
   static function set_globalOffset(value:Int):Int
   {
-    var save:funkin.save.Save = funkin.save.Save.instance;
+    var save:Save = Save.instance;
     save.options.globalOffset = value;
     save.flush();
     return value;
@@ -294,7 +294,7 @@ class Preferences
 
   static function get_vsyncMode():lime.ui.WindowVSyncMode
   {
-    var value = funkin.save.Save?.instance?.options?.vsyncMode ?? "Off";
+    var value = Save?.instance?.options?.vsyncMode ?? "Off";
 
     return switch (value)
     {
@@ -327,7 +327,7 @@ class Preferences
 
     WindowUtil.setVSyncMode(value);
 
-    var save:funkin.save.Save = funkin.save.Save.instance;
+    var save:Save = Save.instance;
     save.options.vsyncMode = string;
     save.flush();
     return value;
@@ -337,19 +337,19 @@ class Preferences
 
   static function get_unlockedFramerate():Bool
   {
-    return funkin.save.Save?.instance?.options?.unlockedFramerate ?? false;
+    return Save?.instance?.options?.unlockedFramerate ?? false;
   }
 
   static function set_unlockedFramerate(value:Bool):Bool
   {
-    if (value != funkin.save.Save.instance.options.unlockedFramerate)
+    if (value != Save.instance.options.unlockedFramerate)
     {
       #if web
       toggleFramerateCap(value);
       #end
     }
 
-    var save:funkin.save.Save = funkin.save.Save.instance;
+    var save:Save = Save.instance;
     save.options.unlockedFramerate = value;
     save.flush();
     return value;
@@ -384,12 +384,12 @@ class Preferences
 
   static function get_strumlineBackgroundOpacity():Int
   {
-    return (funkin.save.Save?.instance?.options?.strumlineBackgroundOpacity ?? 0);
+    return (Save?.instance?.options?.strumlineBackgroundOpacity ?? 0);
   }
 
   static function set_strumlineBackgroundOpacity(value:Int):Int
   {
-    var save:funkin.save.Save = funkin.save.Save.instance;
+    var save:Save = Save.instance;
     save.options.strumlineBackgroundOpacity = value;
     save.flush();
     return value;
@@ -403,12 +403,12 @@ class Preferences
 
   static function get_shouldHideMouse():Bool
   {
-    return funkin.save.Save?.instance?.options?.screenshot?.shouldHideMouse ?? true;
+    return Save?.instance?.options?.screenshot?.shouldHideMouse ?? true;
   }
 
   static function set_shouldHideMouse(value:Bool):Bool
   {
-    var save:funkin.save.Save = funkin.save.Save.instance;
+    var save:Save = Save.instance;
     save.options.screenshot.shouldHideMouse = value;
     save.flush();
     return value;
@@ -422,12 +422,12 @@ class Preferences
 
   static function get_fancyPreview():Bool
   {
-    return funkin.save.Save?.instance?.options?.screenshot?.fancyPreview ?? true;
+    return Save?.instance?.options?.screenshot?.fancyPreview ?? true;
   }
 
   static function set_fancyPreview(value:Bool):Bool
   {
-    var save:funkin.save.Save = funkin.save.Save.instance;
+    var save:Save = Save.instance;
     save.options.screenshot.fancyPreview = value;
     save.flush();
     return value;
@@ -437,17 +437,17 @@ class Preferences
    * If enabled, the game will show the preview only after a screenshot is saved.
    * @default `true`
    */
-  public static var previewOnfunkin.save.Save(get, set):Bool;
+  public static var previewOnSave(get, set):Bool;
 
-  static function get_previewOnfunkin.save.Save():Bool
+  static function get_previewOnSave():Bool
   {
-    return funkin.save.Save?.instance?.options?.screenshot?.previewOnfunkin.save.Save ?? true;
+    return Save?.instance?.options?.screenshot?.previewOnSave ?? true;
   }
 
-  static function set_previewOnfunkin.save.Save(value:Bool):Bool
+  static function set_previewOnSave(value:Bool):Bool
   {
-    var save:funkin.save.Save = funkin.save.Save.instance;
-    save.options.screenshot.previewOnfunkin.save.Save = value;
+    var save:Save = Save.instance;
+    save.options.screenshot.previewOnSave = value;
     save.flush();
     return value;
   }
@@ -516,14 +516,14 @@ class Preferences
 
   static function get_screenTimeout():Bool
   {
-    return funkin.save.Save?.instance?.mobileOptions?.screenTimeout ?? false;
+    return Save?.instance?.mobileOptions?.screenTimeout ?? false;
   }
 
   static function set_screenTimeout(value:Bool):Bool
   {
-    if (value != funkin.save.Save.instance.mobileOptions.screenTimeout) lime.system.System.allowScreenTimeout = value;
+    if (value != Save.instance.mobileOptions.screenTimeout) lime.system.System.allowScreenTimeout = value;
 
-    var save:funkin.save.Save = funkin.save.Save.instance;
+    var save:Save = Save.instance;
     save.mobileOptions.screenTimeout = value;
     save.flush();
     return value;
@@ -537,12 +537,12 @@ class Preferences
 
   static function get_controlsScheme():String
   {
-    return funkin.save.Save?.instance?.mobileOptions?.controlsScheme ?? FunkinHitboxControlSchemes.Arrows;
+    return Save?.instance?.mobileOptions?.controlsScheme ?? FunkinHitboxControlSchemes.Arrows;
   }
 
   static function set_controlsScheme(value:String):String
   {
-    var save:funkin.save.Save = funkin.save.Save.instance;
+    var save:Save = Save.instance;
     save.mobileOptions.controlsScheme = value;
     save.flush();
     return value;
@@ -560,14 +560,14 @@ class Preferences
   static function get_noAds():Bool
   {
     if (InAppPurchasesUtil.hasInitialized) noAds = InAppPurchasesUtil.isPurchased(InAppPurchasesUtil.UPGRADE_PRODUCT_ID);
-    var returnedValue = funkin.save.Save?.instance?.mobileOptions?.noAds ?? false;
+    var returnedValue = Save?.instance?.mobileOptions?.noAds ?? false;
     return returnedValue;
   }
 
   @:unreflective
   static function set_noAds(value:Bool):Bool
   {
-    var save:funkin.save.Save = funkin.save.Save.instance;
+    var save:Save = Save.instance;
     save.mobileOptions.noAds = value;
     save.flush();
     return value;

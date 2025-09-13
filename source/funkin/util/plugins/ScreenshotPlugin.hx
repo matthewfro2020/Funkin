@@ -269,7 +269,7 @@ class ScreenshotPlugin extends FlxBasic
     var shot:Bitmap = new Bitmap(BitmapData.fromImage(FlxG.stage.window.readPixels()));
     if (screenshotBeingSpammed)
     {
-      // funkin.save.Save the screenshots to the buffer instead
+      // Save the screenshots to the buffer instead
       if (screenshotBuffer.length < 100)
       {
         screenshotBuffer.push(shot);
@@ -289,11 +289,11 @@ class ScreenshotPlugin extends FlxBasic
         wasMouseHidden = false;
         Cursor.show();
       }
-      if (!Preferences.previewOnfunkin.save.Save) showFancyPreview(shot);
+      if (!Preferences.previewOnSave) showFancyPreview(shot);
     }
     else
     {
-      // funkin.save.Save the screenshot immediately, so it doesn't get lost by a state change
+      // Save the screenshot immediately, so it doesn't get lost by a state change
       saveScreenshot(shot, 'screenshot-${DateUtil.generateTimestamp()}', 1, false);
       // Show some feedback.
       showCaptureFeedback();
@@ -302,7 +302,7 @@ class ScreenshotPlugin extends FlxBasic
         wasMouseHidden = false;
         Cursor.show();
       }
-      if (!Preferences.previewOnfunkin.save.Save) showFancyPreview(shot);
+      if (!Preferences.previewOnSave) showFancyPreview(shot);
     }
     onPostScreenshot.dispatch(shot);
   }
@@ -435,7 +435,7 @@ class ScreenshotPlugin extends FlxBasic
     FileUtil.openFolder(SCREENSHOT_FOLDER);
   }
 
-  // funkin.save.Save them, save the screenshots
+  // Save them, save the screenshots
   function onWindowClose(exitCode:Int):Void
   {
     if (noSavingScreenshots) return; // sike
@@ -481,13 +481,13 @@ class ScreenshotPlugin extends FlxBasic
   var previousScreenshotCopyNum:Int = 0;
 
   /**
-   * funkin.save.Save the generated bitmap to a file.
+   * Save the generated bitmap to a file.
    * @param bitmap The bitmap to save.
    * @param targetPath The name of the screenshot.
    * @param screenShotNum Used for the delay save option, to space out the saving of the images.
-   * @param delayfunkin.save.Save If true, the image gets saved with the screenShotNum as the delay.
+   * @param delaySave If true, the image gets saved with the screenShotNum as the delay.
    */
-  function saveScreenshot(bitmap:Bitmap, targetPath = "image", screenShotNum:Int = 0, delayfunkin.save.Save:Bool = true):Void
+  function saveScreenshot(bitmap:Bitmap, targetPath = "image", screenShotNum:Int = 0, delaySave:Bool = true):Void
   {
     makeScreenshotPath();
     // Check that we're not overriding a previous image, and keep making a unique path until we can
@@ -513,8 +513,8 @@ class ScreenshotPlugin extends FlxBasic
     // Maybe save the images into a buffer that you can download as a zip or something? That'd work
     // Shouldn't be too hard to do something similar to the chart editor saving
 
-    if (delayfunkin.save.Save)
-    { // funkin.save.Save the images with a delay (a timer)
+    if (delaySave)
+    { // Save the images with a delay (a timer)
       new FlxTimer().start(screenShotNum, function(_) {
         var pngData:ByteArray = encode(bitmap);
 
@@ -534,11 +534,11 @@ class ScreenshotPlugin extends FlxBasic
           // Remove the screenshot from the unsaved buffer because we literally just saved it
           unsavedScreenshotBuffer.shift();
           unsavedScreenshotNameBuffer.shift();
-          if (Preferences.previewOnfunkin.save.Save) showFancyPreview(bitmap); // Only show the preview after a screenshot is saved
+          if (Preferences.previewOnSave) showFancyPreview(bitmap); // Only show the preview after a screenshot is saved
         }
       });
     }
-    else // funkin.save.Save the screenshot immediately
+    else // Save the screenshot immediately
     {
       var pngData:ByteArray = encode(bitmap);
 
@@ -552,7 +552,7 @@ class ScreenshotPlugin extends FlxBasic
       {
         trace('Saving screenshot to: ' + targetPath);
         FileUtil.writeBytesToPath(targetPath, pngData);
-        if (Preferences.previewOnfunkin.save.Save) showFancyPreview(bitmap); // Only show the preview after a screenshot is saved
+        if (Preferences.previewOnSave) showFancyPreview(bitmap); // Only show the preview after a screenshot is saved
       }
     }
   }
@@ -571,7 +571,7 @@ class ScreenshotPlugin extends FlxBasic
       i++;
     }, 1);
     getCurrentState().add(asyncLoop);
-    if (!Preferences.flashingLights && !Preferences.previewOnfunkin.save.Save)
+    if (!Preferences.flashingLights && !Preferences.previewOnSave)
     {
       showFancyPreview(screenshots[screenshots.length - 1]); // show the preview for the last screenshot
     }

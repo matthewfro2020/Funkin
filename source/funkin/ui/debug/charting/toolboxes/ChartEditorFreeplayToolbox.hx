@@ -160,7 +160,7 @@ class ChartEditorFreeplayToolbox extends ChartEditorBaseToolbox
   function initialize():Void
   {
     // Starting position.
-    // TODO: funkin.save.Save and load this.
+    // TODO: Save and load this.
     this.x = 150;
     this.y = 250;
 

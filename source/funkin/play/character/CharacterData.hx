@@ -14,7 +14,7 @@ import haxe.Json;
 import flixel.graphics.frames.FlxFrame;
 
 @:nullSafety
-class funkin.data.character.CharacterDataParser
+class CharacterDataParser
 {
   /**
    * The current version string for the stage data format.

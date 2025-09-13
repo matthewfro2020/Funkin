@@ -89,7 +89,7 @@ class StageBuilderState extends MusicBeatState
     var imgBtn:FlxButton = new FlxButton(20, 20, "Load Image", loadImage);
     hudGrp.add(imgBtn);
 
-    var saveSceneBtn:FlxButton = new FlxButton(20, 50, "funkin.save.Save Scene", saveScene);
+    var saveSceneBtn:FlxButton = new FlxButton(20, 50, "Save Scene", saveScene);
     hudGrp.add(saveSceneBtn);
 
     #if desktop

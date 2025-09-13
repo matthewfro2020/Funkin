@@ -12,8 +12,8 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import funkin.input.Cursor;
 import funkin.play.character.BaseCharacter;
-import funkin.data.character.CharacterData;
-import funkin.data.character.CharacterRegistry;
+import funkin.play.character.CharacterData;
+import funkin.play.character.CharacterData.CharacterDataParser;
 import funkin.ui.mainmenu.MainMenuState;
 import funkin.util.MouseUtil;
 import funkin.util.SerializerUtil;
@@ -186,9 +186,9 @@ class DebugBoundingState extends FlxState
     txtOffsetShit.y = FlxG.height - 20 - txtOffsetShit.height;
     offsetView.add(txtOffsetShit);
 
-    var characters:Array<String> = CharacterRegistry.listCharacterIds();
+    var characters:Array<String> = CharacterDataParser.listCharacterIds();
     characters = characters.filter(function(charId:String) {
-      var char = CharacterRegistry.fetchCharacterData(charId);
+      var char = CharacterDataParser.fetchCharacterData(charId);
       return char.renderType != AnimateAtlas;
     });
     characters.sort(SortUtil.alphabetically);
@@ -488,7 +488,7 @@ class DebugBoundingState extends FlxState
       swagChar.destroy();
     }
 
-    swagChar = CharacterRegistry.fetchCharacter(char);
+    swagChar = CharacterDataParser.fetchCharacter(char);
     swagChar.x = 100;
     swagChar.y = 100;
     swagChar.debug = true;
@@ -503,7 +503,7 @@ class DebugBoundingState extends FlxState
     bf.pixels = swagChar.pixels;
 
     clearInfo();
-    addInfo(swagChar._data.assetPaths[0], "");
+    addInfo(swagChar._data.assetPath, "");
     addInfo('Width', bf.width);
     addInfo('Height', bf.height);
 
@@ -570,18 +570,18 @@ class DebugBoundingState extends FlxState
     if ((saveString != null) && (saveString.length > 0))
     {
       _file = new FileReference();
-      _file.addEventListener(Event.COMPLETE, onfunkin.save.SaveComplete);
-      _file.addEventListener(Event.CANCEL, onfunkin.save.SaveCancel);
-      _file.addEventListener(IOErrorEvent.IO_ERROR, onfunkin.save.SaveError);
+      _file.addEventListener(Event.COMPLETE, onSaveComplete);
+      _file.addEventListener(Event.CANCEL, onSaveCancel);
+      _file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
       _file.save(saveString, fileName);
     }
   }
 
-  function onfunkin.save.SaveComplete(_):Void
+  function onSaveComplete(_):Void
   {
-    _file.removeEventListener(Event.COMPLETE, onfunkin.save.SaveComplete);
-    _file.removeEventListener(Event.CANCEL, onfunkin.save.SaveCancel);
-    _file.removeEventListener(IOErrorEvent.IO_ERROR, onfunkin.save.SaveError);
+    _file.removeEventListener(Event.COMPLETE, onSaveComplete);
+    _file.removeEventListener(Event.CANCEL, onSaveCancel);
+    _file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
     _file = null;
     FlxG.log.notice("Successfully saved LEVEL DATA.");
   }
@@ -589,22 +589,22 @@ class DebugBoundingState extends FlxState
   /**
    * Called when the save file dialog is cancelled.
    */
-  function onfunkin.save.SaveCancel(_):Void
+  function onSaveCancel(_):Void
   {
-    _file.removeEventListener(Event.COMPLETE, onfunkin.save.SaveComplete);
-    _file.removeEventListener(Event.CANCEL, onfunkin.save.SaveCancel);
-    _file.removeEventListener(IOErrorEvent.IO_ERROR, onfunkin.save.SaveError);
+    _file.removeEventListener(Event.COMPLETE, onSaveComplete);
+    _file.removeEventListener(Event.CANCEL, onSaveCancel);
+    _file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
     _file = null;
   }
 
   /**
    * Called if there is an error while saving the gameplay recording.
    */
-  function onfunkin.save.SaveError(_):Void
+  function onSaveError(_):Void
   {
-    _file.removeEventListener(Event.COMPLETE, onfunkin.save.SaveComplete);
-    _file.removeEventListener(Event.CANCEL, onfunkin.save.SaveCancel);
-    _file.removeEventListener(IOErrorEvent.IO_ERROR, onfunkin.save.SaveError);
+    _file.removeEventListener(Event.COMPLETE, onSaveComplete);
+    _file.removeEventListener(Event.CANCEL, onSaveCancel);
+    _file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
     _file = null;
     FlxG.log.error("Problem saving Level data");
   }

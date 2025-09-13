@@ -1,10 +1,8 @@
 package funkin.ui.debug.charting.toolboxes;
 
-import funkin.play.character.BaseCharacter.CharacterType;
-import funkin.data.stage.StageData;
-import funkin.data.stage.StageRegistry;
-import funkin.ui.debug.charting.commands.ChangeStartingBPMCommand;
-import funkin.ui.debug.charting.util.ChartEditorDropdowns;
+import funkin.data.song.SongData.SongChartData;
+import funkin.data.song.SongData.SongMetadata;
+import funkin.data.song.SongRegistry;
 import haxe.ui.components.Button;
 import haxe.ui.containers.dialogs.Dialogs;
 import haxe.ui.containers.dialogs.Dialog.DialogButton;
@@ -38,8 +36,8 @@ class ChartEditorDifficultyToolbox extends ChartEditorBaseToolbox
   var difficultyToolboxAddVariation:Button;
   var difficultyToolboxAddDifficulty:Button;
   var difficultyToolboxRemoveDifficulty:Button;
-  var difficultyToolboxfunkin.save.SaveMetadata:Button;
-  var difficultyToolboxfunkin.save.SaveChart:Button;
+  var difficultyToolboxSaveMetadata:Button;
+  var difficultyToolboxSaveChart:Button;
   var difficultyToolboxLoadMetadata:Button;
   var difficultyToolboxLoadChart:Button;
 
@@ -60,7 +58,7 @@ class ChartEditorDifficultyToolbox extends ChartEditorBaseToolbox
   function initialize():Void
   {
     // Starting position.
-    // TODO: funkin.save.Save and load this.
+    // TODO: Save and load this.
     this.x = 150;
     this.y = 250;
 
@@ -93,32 +91,32 @@ class ChartEditorDifficultyToolbox extends ChartEditorBaseToolbox
       Dialogs.messageBox("Are you sure? This cannot be undone.", "Remove Difficulty", MessageBoxType.TYPE_YESNO, callback);
     };
 
-    difficultyToolboxfunkin.save.SaveMetadata.onClick = function(_:UIEvent) {
+    difficultyToolboxSaveMetadata.onClick = function(_:UIEvent) {
       var vari:String = chartEditorState.selectedVariation != Constants.DEFAULT_VARIATION ? '-${chartEditorState.selectedVariation}' : '';
       FileUtil.writeFileReference('${chartEditorState.currentSongId}$vari-metadata.json', chartEditorState.currentSongMetadata.serialize(),
         function(notification:String) {
           switch (notification)
           {
             case "success":
-              chartEditorState.success("funkin.save.Saved Metadata", 'Successfully wrote file (${chartEditorState.currentSongId}$vari-metadata.json).');
+              chartEditorState.success("Saved Metadata", 'Successfully wrote file (${chartEditorState.currentSongId}$vari-metadata.json).');
             case "info":
-              chartEditorState.info("Canceled funkin.save.Save Metadata", '(${chartEditorState.currentSongId}$vari-metadata.json)');
+              chartEditorState.info("Canceled Save Metadata", '(${chartEditorState.currentSongId}$vari-metadata.json)');
             case "error":
               chartEditorState.error("Failure", 'Failed to write file (${chartEditorState.currentSongId}$vari-metadata.json).');
           }
         });
     };
 
-    difficultyToolboxfunkin.save.SaveChart.onClick = function(_:UIEvent) {
+    difficultyToolboxSaveChart.onClick = function(_:UIEvent) {
       var vari:String = chartEditorState.selectedVariation != Constants.DEFAULT_VARIATION ? '-${chartEditorState.selectedVariation}' : '';
       FileUtil.writeFileReference('${chartEditorState.currentSongId}$vari-chart.json', chartEditorState.currentSongChartData.serialize(),
         function(notification:String) {
           switch (notification)
           {
             case "success":
-              chartEditorState.success("funkin.save.Saved Chart Data", 'Successfully wrote file (${chartEditorState.currentSongId}$vari-chart.json).');
+              chartEditorState.success("Saved Chart Data", 'Successfully wrote file (${chartEditorState.currentSongId}$vari-chart.json).');
             case "info":
-              chartEditorState.info("Canceled funkin.save.Save Chart Data", '(${chartEditorState.currentSongId}$vari-chart.json)');
+              chartEditorState.info("Canceled Save Chart Data", '(${chartEditorState.currentSongId}$vari-chart.json)');
             case "error":
               chartEditorState.error("Failure", 'Failed to write file (${chartEditorState.currentSongId}$vari-chart.json).');
           }

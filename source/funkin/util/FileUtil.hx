@@ -23,8 +23,6 @@ class FileUtil
 {
   public static final FILE_FILTER_FNFC:FileFilter = new FileFilter("Friday Night Funkin' Chart (.fnfc)", "*.fnfc");
   public static final FILE_FILTER_JSON:FileFilter = new FileFilter("JSON Data File (.json)", "*.json");
-  public static final FILE_FILTER_XML:FileFilter = new FileFilter("XML Data File (.xml)", "*.xml");
-  public static final FILE_FILTER_TXT:FileFilter = new FileFilter("Text File (.txt)", "*.txt");
   public static final FILE_FILTER_ZIP:FileFilter = new FileFilter("ZIP Archive (.zip)", "*.zip");
   public static final FILE_FILTER_PNG:FileFilter = new FileFilter("PNG Image (.png)", "*.png");
   public static final FILE_FILTER_FNFS:FileFilter = new FileFilter("Friday Night Funkin' Stage (.fnfs)", "*.fnfs");
@@ -39,31 +37,10 @@ class FileUtil
       extension: 'zip',
       label: 'ZIP Archive',
     };
-  public static final FILE_EXTENSION_INFO_JSON:FileDialogExtensionInfo =
-    {
-      extension: 'json',
-      label: 'JSON Data File',
-    };
-  public static final FILE_EXTENSION_INFO_XML:FileDialogExtensionInfo =
-    {
-      extension: 'xml',
-      label: 'XML Data File',
-    };
-  public static final FILE_EXTENSION_INFO_TXT:FileDialogExtensionInfo =
-    {
-      extension: 'txt',
-      label: 'Text File',
-    };
   public static final FILE_EXTENSION_INFO_PNG:FileDialogExtensionInfo =
     {
       extension: 'png',
       label: 'PNG Image',
-    };
-
-  public static final FILE_EXTENSION_INFO_SND:FileDialogExtensionInfo =
-    {
-      extension: Constants.EXT_SOUND,
-      label: 'Sound File',
     };
 
   public static final FILE_EXTENSION_INFO_FNFS:FileDialogExtensionInfo =
@@ -144,11 +121,11 @@ class FileUtil
     var onComplete = function(button, selectedFiles) {
       if (button == DialogButton.OK && selectedFiles.length > 0)
       {
-        if (onSelect != null) onSelect(selectedFiles[0]);
+        onSelect(selectedFiles[0]);
       }
       else if (onCancel != null)
       {
-        if (onCancel != null) onCancel();
+        onCancel();
       }
     };
 
@@ -177,11 +154,11 @@ class FileUtil
     var onComplete = function(button, selectedFiles) {
       if (button == DialogButton.OK && selectedFiles.length > 0)
       {
-        if (onSelect != null) onSelect(selectedFiles[0]);
+        onSelect(selectedFiles[0]);
       }
       else if (onCancel != null)
       {
-        if (onCancel != null) onCancel();
+        onCancel();
       }
     };
 
@@ -263,13 +240,13 @@ class FileUtil
   }
 
   /**
-   * Browses for a file location to save to, then calls `onfunkin.save.Save(path)` when a path chosen.
+   * Browses for a file location to save to, then calls `onSave(path)` when a path chosen.
    * Note that on HTML5 you can't do much with this, you should call `saveFile(resource:haxe.io.Bytes)` instead.
    *
    * @param typeFilter TODO What does this do?
    * @return Whether the file dialog was opened successfully.
    */
-  public static function browseForfunkin.save.SaveFile(?typeFilter:Array<FileFilter>, onSelect:(String) -> Void, ?onCancel:() -> Void, ?defaultPath:String,
+  public static function browseForSaveFile(?typeFilter:Array<FileFilter>, onSelect:(String) -> Void, ?onCancel:() -> Void, ?defaultPath:String,
       ?dialogTitle:String):Bool
   {
     #if desktop
@@ -285,7 +262,7 @@ class FileUtil
 
     return true;
     #else
-    trace('WARNING: browseForfunkin.save.SaveFile not implemented for this platform');
+    trace('WARNING: browseForSaveFile not implemented for this platform');
 
     if (onCancel != null)
     {
@@ -297,20 +274,20 @@ class FileUtil
   }
 
   /**
-   * Browses for a single file location, then writes the provided `haxe.io.Bytes` data and calls `onfunkin.save.Save(path)` when done.
+   * Browses for a single file location, then writes the provided `haxe.io.Bytes` data and calls `onSave(path)` when done.
    * Works great on desktop and HTML5.
    *
    * @return Whether the file dialog was opened successfully.
    */
-  public static function saveFile(data:Bytes, ?typeFilter:Array<FileFilter>, ?onfunkin.save.Save:(String) -> Void, ?onCancel:() -> Void, ?defaultFileName:String,
+  public static function saveFile(data:Bytes, ?typeFilter:Array<FileFilter>, ?onSave:(String) -> Void, ?onCancel:() -> Void, ?defaultFileName:String,
       ?dialogTitle:String):Bool
   {
     #if desktop
     var filter:Null<String> = convertTypeFilter(typeFilter);
     var fileDialog:FileDialog = new FileDialog();
-    if (onfunkin.save.Save != null)
+    if (onSave != null)
     {
-      fileDialog.onfunkin.save.Save.add(onfunkin.save.Save);
+      fileDialog.onSave.add(onSave);
     }
 
     if (onCancel != null)
@@ -324,9 +301,9 @@ class FileUtil
     #elseif html5
     var filter:Null<String> = defaultFileName != null ? Path.extension(defaultFileName) : null;
     var fileDialog:FileDialog = new FileDialog();
-    if (onfunkin.save.Save != null)
+    if (onSave != null)
     {
-      fileDialog.onfunkin.save.Save.add(onfunkin.save.Save);
+      fileDialog.onSave.add(onSave);
     }
 
     if (onCancel != null)
@@ -357,7 +334,7 @@ class FileUtil
    * @param typeFilter TODO What does this do?
    * @return Whether the file dialog was opened successfully.
    */
-  public static function saveMultipleFiles(resources:Array<Entry>, ?onfunkin.save.SaveAll:(Array<String>) -> Void, ?onCancel:() -> Void, ?defaultPath:String,
+  public static function saveMultipleFiles(resources:Array<Entry>, ?onSaveAll:(Array<String>) -> Void, ?onCancel:() -> Void, ?defaultPath:String,
       force:Bool = false):Bool
   {
     #if desktop
@@ -396,9 +373,9 @@ class FileUtil
         paths.push(filePath);
       }
 
-      if (onfunkin.save.SaveAll != null)
+      if (onSaveAll != null)
       {
-        onfunkin.save.SaveAll(paths);
+        onSaveAll(paths);
       }
     }
 
@@ -412,7 +389,7 @@ class FileUtil
 
     return true;
     #elseif html5
-    saveFilesAsZIP(resources, onfunkin.save.SaveAll, onCancel, defaultPath, force);
+    saveFilesAsZIP(resources, onSaveAll, onCancel, defaultPath, force);
 
     return true;
     #else
@@ -430,43 +407,43 @@ class FileUtil
   /**
    * Takes an array of file entries and prompts the user to save them as a ZIP file.
    */
-  public static function saveFilesAsZIP(resources:Array<Entry>, ?onfunkin.save.Save:(Array<String>) -> Void, ?onCancel:() -> Void, ?defaultPath:String,
+  public static function saveFilesAsZIP(resources:Array<Entry>, ?onSave:(Array<String>) -> Void, ?onCancel:() -> Void, ?defaultPath:String,
       force:Bool = false):Bool
   {
     // Create a ZIP file.
     var zipBytes:Bytes = createZIPFromEntries(resources);
-    var onfunkin.save.Save:(String) -> Void = function(path:String) {
-      trace('funkin.save.Saved ${resources.length} files to ZIP at "$path"');
+    var onSave:(String) -> Void = function(path:String) {
+      trace('Saved ${resources.length} files to ZIP at "$path"');
 
-      if (onfunkin.save.Save != null)
+      if (onSave != null)
       {
-        onfunkin.save.Save([path]);
+        onSave([path]);
       }
     };
 
     // Prompt the user to save the ZIP file.
-    saveFile(zipBytes, [FILE_FILTER_ZIP], onfunkin.save.Save, onCancel, defaultPath, 'funkin.save.Save files as ZIP...');
+    saveFile(zipBytes, [FILE_FILTER_ZIP], onSave, onCancel, defaultPath, 'Save files as ZIP...');
     return true;
   }
 
   /**
    * Takes an array of file entries and prompts the user to save them as a FNFC file.
    */
-  public static function saveChartAsFNFC(resources:Array<Entry>, ?onfunkin.save.Save:(Array<String>) -> Void, ?onCancel:() -> Void, ?defaultPath:String,
+  public static function saveChartAsFNFC(resources:Array<Entry>, ?onSave:(Array<String>) -> Void, ?onCancel:() -> Void, ?defaultPath:String,
       force:Bool = false):Bool
   {
     // Create a ZIP file.
     var zipBytes:Bytes = createZIPFromEntries(resources);
-    var onfunkin.save.Save:(String) -> Void = function(path:String) {
-      trace('funkin.save.Saved FNFC file to "$path"');
+    var onSave:(String) -> Void = function(path:String) {
+      trace('Saved FNFC file to "$path"');
 
-      if (onfunkin.save.Save != null)
+      if (onSave != null)
       {
-        onfunkin.save.Save([path]);
+        onSave([path]);
       }
     };
     // Prompt the user to save the ZIP file.
-    saveFile(zipBytes, [FILE_FILTER_FNFC], onfunkin.save.Save, onCancel, defaultPath, 'funkin.save.Save chart as FNFC...');
+    saveFile(zipBytes, [FILE_FILTER_FNFC], onSave, onCancel, defaultPath, 'Save chart as FNFC...');
     return true;
   }
 
@@ -1376,34 +1353,34 @@ class FileUtilSandboxed
     return FileUtil.browseForMultipleFiles(typeFilter, onSelect, onCancel, defaultPath, dialogTitle);
   }
 
-  public static function browseForfunkin.save.SaveFile(?typeFilter:Array<FileFilter>, onSelect:(String) -> Void, ?onCancel:() -> Void, ?defaultPath:String,
+  public static function browseForSaveFile(?typeFilter:Array<FileFilter>, onSelect:(String) -> Void, ?onCancel:() -> Void, ?defaultPath:String,
       ?dialogTitle:String):Bool
   {
-    return FileUtil.browseForfunkin.save.SaveFile(typeFilter, onSelect, onCancel, defaultPath, dialogTitle);
+    return FileUtil.browseForSaveFile(typeFilter, onSelect, onCancel, defaultPath, dialogTitle);
   }
 
-  public static function saveFile(data:Bytes, ?typeFilter:Array<FileFilter>, ?onfunkin.save.Save:(String) -> Void, ?onCancel:() -> Void, ?defaultFileName:String,
+  public static function saveFile(data:Bytes, ?typeFilter:Array<FileFilter>, ?onSave:(String) -> Void, ?onCancel:() -> Void, ?defaultFileName:String,
       ?dialogTitle:String):Bool
   {
-    return FileUtil.saveFile(data, typeFilter, onfunkin.save.Save, onCancel, defaultFileName, dialogTitle);
+    return FileUtil.saveFile(data, typeFilter, onSave, onCancel, defaultFileName, dialogTitle);
   }
 
-  public static function saveMultipleFiles(resources:Array<Entry>, ?onfunkin.save.SaveAll:(Array<String>) -> Void, ?onCancel:() -> Void, ?defaultPath:String,
+  public static function saveMultipleFiles(resources:Array<Entry>, ?onSaveAll:(Array<String>) -> Void, ?onCancel:() -> Void, ?defaultPath:String,
       force:Bool = false):Bool
   {
-    return FileUtil.saveMultipleFiles(resources, onfunkin.save.SaveAll, onCancel, defaultPath, force);
+    return FileUtil.saveMultipleFiles(resources, onSaveAll, onCancel, defaultPath, force);
   }
 
-  public static function saveFilesAsZIP(resources:Array<Entry>, ?onfunkin.save.Save:(Array<String>) -> Void, ?onCancel:() -> Void, ?defaultPath:String,
+  public static function saveFilesAsZIP(resources:Array<Entry>, ?onSave:(Array<String>) -> Void, ?onCancel:() -> Void, ?defaultPath:String,
       force:Bool = false):Bool
   {
-    return FileUtil.saveFilesAsZIP(resources, onfunkin.save.Save, onCancel, defaultPath, force);
+    return FileUtil.saveFilesAsZIP(resources, onSave, onCancel, defaultPath, force);
   }
 
-  public static function saveChartAsFNFC(resources:Array<Entry>, ?onfunkin.save.Save:(Array<String>) -> Void, ?onCancel:() -> Void, ?defaultPath:String,
+  public static function saveChartAsFNFC(resources:Array<Entry>, ?onSave:(Array<String>) -> Void, ?onCancel:() -> Void, ?defaultPath:String,
       force:Bool = false):Bool
   {
-    return FileUtil.saveChartAsFNFC(resources, onfunkin.save.Save, onCancel, defaultPath, force);
+    return FileUtil.saveChartAsFNFC(resources, onSave, onCancel, defaultPath, force);
   }
 
   public static function saveFilesAsZIPToPath(resources:Array<Entry>, path:String, mode:FileWriteMode = Skip):Bool
