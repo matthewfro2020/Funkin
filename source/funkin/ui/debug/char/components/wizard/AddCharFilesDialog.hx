@@ -90,7 +90,7 @@ class AddCharFilesDialog extends DefaultWizardDialog
     // check if the files even exist
     for (thingy in uploadBoxes)
     {
-      if (!FileUtil.doesFileExist(thingy.daField.text) && !openfl.Assets.exists(thingy.daField.text))
+      if (!FileUtil.exists(path).(thingy.daField.text) && !openfl.Assets.exists(thingy.daField.text))
       {
         CharCreatorUtil.error("Add Files", "Path: " + thingy.daField.text + " doesn't exist. Is the spelling correct?");
         return false;

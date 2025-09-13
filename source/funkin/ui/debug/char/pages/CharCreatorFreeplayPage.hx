@@ -436,7 +436,7 @@ class CharCreatorFreeplayPage extends CharCreatorDefaultPage
     if (stylishSunglasses != null) useStyle = currentChar.getFreeplayStyleID();
 
     bgDad = new FlxSprite(pinkBack.width * 0.74);
-    bg.loadGraphic(stylishSunglasses == null ? Paths.image('freeplay/freeplayBGdad') : stylishSunglasses.getBgAssetGraphic());
+    bgDad.loadGraphic(stylishSunglasses == null ? Paths.image('freeplay/freeplayBGdad') : stylishSunglasses.getBgAssetGraphic());
     bgDad.setGraphicSize(0, FlxG.height);
     bgDad.updateHitbox();
 

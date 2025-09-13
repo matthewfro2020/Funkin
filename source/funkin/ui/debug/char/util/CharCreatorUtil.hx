@@ -35,7 +35,7 @@ class CharCreatorUtil
   public static function gimmeTheBytes(path:String):haxe.io.Bytes
   {
     if (openfl.Assets.exists(path)) return openfl.Assets.getBytes(path);
-    if (!funkin.util.FileUtil.doesFileExist(path)) return null;
+    if (!funkin.util.FileUtil.exists(path).(path)) return null;
     return funkin.util.FileUtil.readBytesFromPath(path);
   }
 
