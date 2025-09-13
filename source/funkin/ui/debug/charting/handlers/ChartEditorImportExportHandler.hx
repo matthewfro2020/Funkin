@@ -535,7 +535,7 @@ class ChartEditorImportExportHandler
         FileUtil.saveChartAsFNFC(zipEntries, onSave, onCancel, '${state.currentSongId}.${Constants.EXT_CHART}');
         state.saveDataDirty = false;
       };
-      catch (e) {}
+      catch (e) { }
     }
   }
 }
