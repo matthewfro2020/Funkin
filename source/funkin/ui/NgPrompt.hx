@@ -1,7 +1,7 @@
 package funkin.ui;
 
 #if newgrounds
-import funkin.NGio;
+import funkin.api.newgrounds.NGio;
 import funkin.ui.Prompt;
 
 class NgPrompt extends Prompt
