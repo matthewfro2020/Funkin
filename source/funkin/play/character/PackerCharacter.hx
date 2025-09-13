@@ -2,7 +2,7 @@ package funkin.play.character;
 
 import flixel.graphics.frames.FlxFramesCollection;
 import funkin.modding.events.ScriptEvent;
-import funkin.data.character.CharacterData.CharacterRenderType;
+import funkin.play.character.CharacterData.CharacterRenderType;
 import funkin.util.assets.FlxAnimationUtil;
 
 /**
@@ -31,12 +31,12 @@ class PackerCharacter extends BaseCharacter
 
   function loadSpritesheet():Void
   {
-    trace('[PACKERCHAR] Loading spritesheet ${_data.assetPaths[0]} for ${characterId}');
+    trace('Loading assets for Packer character "${characterId}"', flixel.util.FlxColor.fromString("#89CFF0"));
 
-    var tex:FlxFramesCollection = Paths.getPackerAtlas(_data.assetPaths[0]);
+    var tex:FlxFramesCollection = Paths.getPackerAtlas(_data.assetPath);
     if (tex == null)
     {
-      trace('Could not load Packer sprite: ${_data.assetPaths[0]}');
+      trace('Could not load Packer sprite: ${_data.assetPath}');
       return;
     }
 

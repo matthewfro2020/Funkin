@@ -13,7 +13,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.addons.display.FlxGridOverlay;
 import funkin.play.character.BaseCharacter;
 import funkin.play.character.BaseCharacter.CharacterType;
-import funkin.data.character.CharacterRegistry;
+import funkin.play.character.CharacterData.CharacterDataParser;
 import funkin.save.Save;
 import funkin.input.Cursor;
 import haxe.ui.backend.flixel.UIState;
@@ -341,12 +341,12 @@ class StageEditorState extends UIState
     WindowManager.instance.container = root;
     Screen.instance.addComponent(root);
 
-    // group shit + assets
-    var gf = CharacterRegistry.fetchCharacter("gf", true);
+    // Characters setup.
+    var gf = CharacterDataParser.fetchCharacter(Save.instance.stageGirlfriendChar, true);
     gf.characterType = CharacterType.GF;
-    var dad = CharacterRegistry.fetchCharacter("dad", true);
+    var dad = CharacterDataParser.fetchCharacter(Save.instance.stageDadChar, true);
     dad.characterType = CharacterType.DAD;
-    var bf = CharacterRegistry.fetchCharacter("bf", true);
+    var bf = CharacterDataParser.fetchCharacter(Save.instance.stageBoyfriendChar, true);
     bf.characterType = CharacterType.BF;
 
     bf.flipX = !bf.getDataFlipX();

@@ -2,7 +2,8 @@ package funkin.ui.debug.stageeditor.toolboxes;
 
 import haxe.ui.components.NumberStepper;
 import funkin.play.character.BaseCharacter.CharacterType;
-import funkin.data.character.CharacterRegistry;
+import funkin.play.character.CharacterData.CharacterDataParser;
+import funkin.play.character.CharacterData;
 import funkin.util.SortUtil;
 import funkin.save.Save;
 import haxe.ui.components.Button;
@@ -12,7 +13,7 @@ import haxe.ui.core.Screen;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 import haxe.ui.containers.Grid;
-import funkin.data.character.CharacterData;
+import haxe.ui.events.UIEvent;
 
 using StringTools;
 
@@ -114,19 +115,7 @@ class StageEditorCharacterToolbox extends StageEditorDefaultToolbox
     charType.icon = (charData == null ? null : CharacterDataParser.getCharPixelIconAsset(curChar.characterId));
     charType.text = (charData == null ? "None" : charData.name.length > 6 ? '${charData.name.substr(0, 6)}.' : '${charData.name}');
 
-    if (characterScaleSlider.pos != stageEditorState.selectedChar.scale.x / stageEditorState.selectedChar.getBaseScale())
-      characterScaleSlider.pos = stageEditorState.selectedChar.scale.x / stageEditorState.selectedChar.getBaseScale();
-
-    var prevText = characterTypeButton.text;
-
-    var charData = CharacterRegistry.fetchCharacterData(stageEditorState.selectedChar.characterId);
-    characterTypeButton.icon = (charData == null ? null : CharacterRegistry.getCharPixelIconAsset(stageEditorState.selectedChar.characterId));
-    characterTypeButton.text = (charData == null ? "None" : charData.name.length > 6 ? '${charData.name.substr(0, 6)}.' : '${charData.name}');
-
-    if (prevText != characterTypeButton.text)
-    {
-      Screen.instance.removeComponent(charMenu);
-    }
+    if (prevText != charType.text) Screen.instance.removeComponent(charMenu);
   }
 
   public function repositionCharacter()
@@ -161,14 +150,14 @@ class StageEditorCharacterMenu extends Menu // copied from chart editor
     charGrid.width = this.width;
     charSelectScroll.addComponent(charGrid);
 
-    var charIds = CharacterRegistry.listCharacterIds();
+    var charIds = CharacterDataParser.listCharacterIds();
     charIds.sort(SortUtil.alphabetically);
 
     var defaultText:String = '(choose a character)';
 
     for (charIndex => charId in charIds)
     {
-      var charData:CharacterData = CharacterRegistry.fetchCharacterData(charId);
+      var charData:CharacterData = CharacterDataParser.fetchCharacterData(charId);
 
       var charButton = new Button();
       charButton.width = 70;
@@ -186,7 +175,7 @@ class StageEditorCharacterMenu extends Menu // copied from chart editor
       }
 
       var LIMIT = 6;
-      charButton.icon = CharacterRegistry.getCharPixelIconAsset(charId);
+      charButton.icon = CharacterDataParser.getCharPixelIconAsset(charId);
       charButton.text = charData.name.length > LIMIT ? '${charData.name.substr(0, LIMIT)}.' : '${charData.name}';
 
       charButton.onClick = _ -> {
@@ -206,7 +195,13 @@ class StageEditorCharacterMenu extends Menu // copied from chart editor
         // okay i think that was enough cleaning phew you can see how clean this group is now!!!
         // anyways new character!!!!
 
-        var newChar = CharacterRegistry.fetchCharacter(charId, true);
+        var newChar = CharacterDataParser.fetchCharacter(charId, true);
+        if (newChar == null)
+        {
+          state.notifyChange("Switch Character", "Couldn't find character " + charId + ". Switching to default.", true);
+          newChar = CharacterDataParser.fetchCharacter(Constants.DEFAULT_CHARACTER, true);
+        }
+
         newChar.characterType = type;
 
         newChar.resetCharacter(true);

@@ -10,7 +10,7 @@ import haxe.ui.containers.menus.MenuCheckBox;
 import funkin.ui.freeplay.LetterSort;
 import funkin.ui.freeplay.CapsuleText;
 import flixel.text.FlxText;
-import funkin.ui.freeplay.FreeplayState.DifficultySprite;
+import funkin.ui.freeplay.components.DifficultySprite;
 import funkin.ui.debug.char.components.dialogs.freeplay.*;
 import funkin.ui.debug.char.components.dialogs.DefaultPageDialog;
 import funkin.graphics.FunkinSprite;
@@ -434,8 +434,8 @@ class CharCreatorFreeplayPage extends CharCreatorDefaultPage
 
     if (stylishSunglasses != null) useStyle = currentChar.getFreeplayStyleID();
 
-    bgDad = new FlxSprite(pinkBack.width * 0.74)
-      .loadGraphic(stylishSunglasses == null ? Paths.image('freeplay/freeplayBGdad') : stylishSunglasses.getBgAssetGraphic());
+    bgDad = new FlxSprite(pinkBack.width * 0.74);
+    bg.loadGraphic(stylishSunglasses == null ? Paths.image('freeplay/freeplayBGdad') : stylishSunglasses.getBgAssetGraphic());
     bgDad.setGraphicSize(0, FlxG.height);
     bgDad.updateHitbox();
 
