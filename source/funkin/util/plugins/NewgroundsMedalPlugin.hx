@@ -142,7 +142,7 @@ class NewgroundsMedalPlugin extends FlxTypedContainer<FlxBasic>
       instance.medal.anim.play(true);
 
       FunkinSound.playOnce(Paths.sound('NGFadeIn'), 1.0);
-    };
+    }
 
     if (!instance.medal.anim.isPlaying && instance.funcs.length == 0) func();
     else

@@ -46,7 +46,7 @@ class FramesJSFLParser
           scaleY: scaleY
         };
       output.frames.push(shit);
-    };
+    }
 
     return output;
   }

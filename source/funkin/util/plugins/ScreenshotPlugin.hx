@@ -364,7 +364,7 @@ class ScreenshotPlugin extends FlxBasic
     var onHoverOut:MouseEvent->Void = function(e:MouseEvent) {
       if (!changingAlpha) e.target.alpha = 1;
       targetAlpha = 1;
-    };
+    }
 
     // used for movement + button stuff
     previewSprite.buttonMode = true;

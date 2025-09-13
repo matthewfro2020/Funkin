@@ -130,7 +130,7 @@ class Save implements ConsoleClass
           strumlineBackgroundOpacity: 0,
           autoFullscreen: false,
           globalOffset: 0,
-          audioVisualOffsetMs: 0,
+          audioVisualOffset: 0,
           unlockedFramerate: false,
 
           screenshot:
@@ -912,7 +912,7 @@ class Save implements ConsoleClass
     song.set(difficultyId, newScore);
 
     flush();
-  };
+  }
 
   /**
    * Is the provided score data better than the current high score for the given song?
@@ -1658,7 +1658,7 @@ typedef SaveDataOptions =
    * Affects the delay between the audio and the visuals during gameplay.
    * @default `0`
    */
-  var audioVisualOffsetMs:Int;
+  var audioVisualOffset:Int;
 
   /**
    * If we want the framerate to be unlocked on HTML5.

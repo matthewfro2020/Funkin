@@ -51,7 +51,7 @@ class WindowUtil
   {
     // Ensure you can't open protocols such as steam://, file://, etc
     var protocol:Array<String> = targetUrl.split("://");
-    if (protocol.length == 1) targetUrl = 'https://${protocol}';
+    if (protocol.length == 1) targetUrl = 'https://${targetUrl}';
     else if (protocol[0] != 'http' && protocol[0] != 'https') throw "openURL can only open http and https links.";
 
     #if FEATURE_OPEN_URL
