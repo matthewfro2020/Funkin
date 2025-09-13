@@ -301,7 +301,11 @@ class FunkinSound extends FlxSound implements ICloneable<FunkinSound>
     // Clone the sound by creating one with the same data buffer.
     // Reusing the `Sound` object directly causes issues with playback.
     @:privateAccess
-    sound._sound = openfl.media.Sound.fromAudioBuffer(this._sound.__buffer);
+    sound._sound = (function(buf) {
+      var s = new Sound();
+      s.loadFromBuffer(buf);
+      return s;
+    })(this._sound.__buffer);
 
     // Call init to ensure the FlxSound is properly initialized.
     sound.init(this.looped, this.autoDestroy, this.onComplete);
@@ -580,7 +584,7 @@ class FunkinSound extends FlxSound implements ICloneable<FunkinSound>
     position.z = -1 * Math.sqrt(1 - Math.pow(pan, 2));
     audioSource.position = position;
 
-    _channel = new SoundChannel(_sound, audioSource, _transform);
+    _channel = new SoundChannel(audioSource, _transform);
     _channel.addEventListener(Event.SOUND_COMPLETE, stopped);
     pitch = _pitch;
     active = true;

@@ -88,7 +88,7 @@ class AnimateAtlasCharacter extends BaseCharacter
 
       loadAnimations();
     }
-    catch (e)
+    catch (e:Dynamic)
     {
       throw "Exception thrown while building FlxAtlasSprite: " + e;
     }

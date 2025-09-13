@@ -26,7 +26,7 @@ class VersionUtil
       var versionRaw:thx.semver.Version.SemVer = version;
       return version.satisfies(versionRule);
     }
-    catch (e)
+    catch (e:Dynamic)
     {
       trace('[VERSIONUTIL] Invalid semantic version: ${version}');
       return false;
@@ -83,7 +83,7 @@ class VersionUtil
       var versionRule:thx.semver.VersionRule = versionRule;
       return version.satisfies(versionRule);
     }
-    catch (e)
+    catch (e:Dynamic)
     {
       trace('[VERSIONUTIL] Invalid semantic version: ${version}');
       return false;

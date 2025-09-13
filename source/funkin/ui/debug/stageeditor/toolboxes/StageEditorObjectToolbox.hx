@@ -217,7 +217,7 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
       {
         linkedObject.frames = FlxAtlasFrames.fromSparrow(linkedObject.graphic, objectFrameText.text);
       }
-      catch (e)
+      catch (e:Dynamic)
       {
         state.notifyChange("Frame Setup Error", e.toString(), true);
         return;
@@ -239,7 +239,7 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
       {
         linkedObject.frames = FlxAtlasFrames.fromSpriteSheetPacker(linkedObject.graphic, objectFrameText.text);
       }
-      catch (e)
+      catch (e:Dynamic)
       {
         state.notifyChange("Frame Setup Error", e.toString(), true);
         return;

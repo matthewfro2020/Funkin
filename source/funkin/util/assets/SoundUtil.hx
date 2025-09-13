@@ -18,7 +18,12 @@ class SoundUtil
   {
     if (input == null) return null;
 
-    var openflSound:OpenFLSound = OpenFLSound.fromAudioBuffer(AudioBuffer.fromBytes(input));
+    final value = 1;
+    var openflSound:OpenFLSound = OpenFL(function(buf) {
+      var s = new Sound();
+      s.loadFromBuffer(buf);
+      return s;
+    })(value);
     if (openflSound == null) return null;
     return FunkinSound.load(openflSound, 1.0, false);
   }

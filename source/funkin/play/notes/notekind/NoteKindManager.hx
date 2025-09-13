@@ -42,7 +42,7 @@ class NoteKindManager
           noteKinds.set(script.noteKind, script);
           ChartEditorDropdowns.NOTE_KINDS.set(script.noteKind, script.description);
         }
-        catch (e)
+        catch (e:Dynamic)
         {
           trace(' FAILED to instantiate scripted note kind: ${scriptedClass}');
           trace(e);

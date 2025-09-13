@@ -232,7 +232,7 @@ class RegistryMacro
           throw '${cls.name}: Type parameter for Entry must be a Class or typedef';
       }
     }
-    catch (e)
+    catch (e:Dynamic)
     {
       throw '${cls.name}: IRegistryEntry must be the last implemented interface';
     }

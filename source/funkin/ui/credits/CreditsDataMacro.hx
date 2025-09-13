@@ -56,7 +56,7 @@ class CreditsDataMacro
       // TODO: Use something with better validation but that still works at macro time.
       return haxe.Json.parse(json);
     }
-    catch (e)
+    catch (e:Dynamic)
     {
       trace('[ERROR] Failed to parse JSON data for credits.');
       trace(e);

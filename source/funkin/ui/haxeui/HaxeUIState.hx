@@ -37,7 +37,7 @@ class HaxeUIState extends MusicBeatState
     {
       return RuntimeComponentBuilder.fromAsset(assetPath);
     }
-    catch (e)
+    catch (e:Dynamic)
     {
       Application.current.window.alert('Error building component "$assetPath": $e', 'HaxeUI Parsing Error');
       // trace('[ERROR] Failed to build component from asset: ' + assetPath);

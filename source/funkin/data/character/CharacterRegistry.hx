@@ -75,7 +75,7 @@ class CharacterRegistry
           characterCache.set(charId, charData);
         }
       }
-      catch (e)
+      catch (e:Dynamic)
       {
         // Assume error was already logged.
         continue;
@@ -100,7 +100,7 @@ class CharacterRegistry
           trace('  Initialized character ${character.characterName}');
           characterScriptedClass.set(character.characterId, charCls);
         }
-        catch (e)
+        catch (e:Dynamic)
         {
           trace('    FAILED to instantiate scripted Sparrow character: ${charCls}');
           trace(e);
@@ -119,7 +119,7 @@ class CharacterRegistry
           var character:PackerCharacter = ScriptedPackerCharacter.init(charCls, DEFAULT_CHAR_ID);
           characterScriptedClass.set(character.characterId, charCls);
         }
-        catch (e)
+        catch (e:Dynamic)
         {
           trace('    FAILED to instantiate scripted Packer character: ${charCls}');
           trace(e);
@@ -138,7 +138,7 @@ class CharacterRegistry
           var character:MultiSparrowCharacter = ScriptedMultiSparrowCharacter.init(charCls, DEFAULT_CHAR_ID);
           characterScriptedClass.set(character.characterId, charCls);
         }
-        catch (e)
+        catch (e:Dynamic)
         {
           trace('    FAILED to instantiate scripted Multi-Sparrow character: ${charCls}');
           trace(e);
@@ -157,7 +157,7 @@ class CharacterRegistry
           var character:AnimateAtlasCharacter = ScriptedAnimateAtlasCharacter.init(charCls, DEFAULT_CHAR_ID);
           characterScriptedClass.set(character.characterId, charCls);
         }
-        catch (e)
+        catch (e:Dynamic)
         {
           trace('    FAILED to instantiate scripted Animate Atlas character: ${charCls}');
           trace(e);

@@ -136,7 +136,7 @@ class AddCharFilesDialog extends DefaultWizardDialog
 
             if (tempSprite.frames == null) throw "";
           }
-          catch (e)
+          catch (e:Dynamic)
           {
             CharCreatorUtil.error("Add Files", "The provided Bytes cannot be used to make Character Frames.");
             tempSprite.destroy();
@@ -187,7 +187,7 @@ class AddCharFilesDialog extends DefaultWizardDialog
 
           if (tempSprite.frames == null) throw "";
         }
-        catch (e)
+        catch (e:Dynamic)
         {
           CharCreatorUtil.error("Add Files", "The provided Bytes cannot be used to make Character Frames.");
           tempSprite.destroy();
