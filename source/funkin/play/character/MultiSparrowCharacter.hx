@@ -59,13 +59,6 @@ class MultiSparrowCharacter extends BaseCharacter
     trace('Loading assets for Multi-Sparrow character "${characterId}"', flixel.util.FlxColor.fromString("#89CFF0"));
 
     var assetList = [];
-    for (anim in _data.animations)
-    {
-      if (anim.assetPath != null && !assetList.contains(anim.assetPath))
-      {
-        assetList.push(anim.assetPath);
-      }
-    }
 
     var texture:FlxAtlasFrames = Paths.getSparrowAtlas(_data.assetPath);
 
