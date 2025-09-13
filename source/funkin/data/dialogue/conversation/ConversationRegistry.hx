@@ -3,7 +3,7 @@ package funkin.data.dialogue.conversation;
 import funkin.play.cutscene.dialogue.Conversation;
 import funkin.play.cutscene.dialogue.ScriptedConversation;
 
-class ConversationRegistry extends BaseRegistry<Conversation, ConversationData>
+class ConversationRegistry extends BaseRegistry<Conversation, ConversationData, String>
 {
   /**
    * The current version string for the dialogue box data format.
