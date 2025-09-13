@@ -2,8 +2,6 @@ package funkin.graphics.shaders;
 
 import openfl.display.BitmapData;
 import openfl.display.BlendMode;
-import flixel.graphics.FlxGraphic;
-import flixel.system.FlxAssets.FlxShader;
 
 class RuntimeCustomBlendShader extends RuntimePostEffectShader
 {
@@ -12,8 +10,7 @@ class RuntimeCustomBlendShader extends RuntimePostEffectShader
 
   function set_sourceSwag(value:BitmapData):BitmapData
   {
-    // in OpenFL, textures are set via .data.<uniform>.input
-    this.data.source.input = value;
+    this.setBitmapData("sourceSwag", value);
     return sourceSwag = value;
   }
 
@@ -22,8 +19,7 @@ class RuntimeCustomBlendShader extends RuntimePostEffectShader
 
   function set_blendSwag(value:BlendMode):BlendMode
   {
-    // in OpenFL, int/float uniforms are set via .data.<uniform>.value = [ ... ]
-    this.data.blendMode.value = [cast value];
+    this.setInt("blendMode", cast value);
     return blendSwag = value;
   }
 

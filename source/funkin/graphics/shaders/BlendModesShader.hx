@@ -18,18 +18,7 @@ class BlendModesShader extends FlxRuntimeShader
   public function setCamera(cameraData:BitmapData):Void
   {
     this.cameraData = cameraData;
-    if (camera == null)
-    {
-      camera = new ShaderInput<BitmapData>();
-      shader.data.uCamera.input = camera;
-    }
-  }
 
-  public function updateCamera():Void
-  {
-    if (camera != null && cameraData != null)
-    {
-      camera.setBitmapData(cameraData);
-    }
+    this.setBitmapData('camera', this.cameraData);
   }
 }

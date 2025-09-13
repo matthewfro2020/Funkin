@@ -322,7 +322,7 @@ class InAppPurchasesUtil
           trace('iOS purchase is deferred.');
         case IAPPurchaseState.FAILED:
           trace('iOS purchase failed: ${purchase.getTransactionError()}.');
-        case IAPPurchaseState.PURCHASED, IAPPurchaseState.RESTORED:
+        case IAPPurchaseState.PURCHASED | IAPPurchaseState.RESTORED:
           trace('iOS purchase successful or restored.');
 
           if (!alreadyTracked)
