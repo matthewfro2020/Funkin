@@ -4,7 +4,7 @@ import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxFramesCollection;
 import funkin.modding.events.ScriptEvent;
 import funkin.util.assets.FlxAnimationUtil;
-import funkin.data.character.CharacterData.CharacterRenderType;
+import funkin.play.character.CharacterData.CharacterRenderType;
 
 /**
  * For some characters which use Sparrow atlases, the spritesheets need to be split
@@ -56,34 +56,39 @@ class MultiSparrowCharacter extends BaseCharacter
 
   function buildSpritesheet():Void
   {
-    var texture:FlxAtlasFrames = Paths.getSparrowAtlas(_data.assetPaths[0]);
+    trace('Loading assets for Multi-Sparrow character "${characterId}"', flixel.util.FlxColor.fromString("#89CFF0"));
+
+    var assetList = [];
+    for (anim in _data.animations)
+    {
+      if (anim.assetPath != null && !assetList.contains(anim.assetPath))
+      {
+        assetList.push(anim.assetPath);
+      }
+    }
+
+    var texture:FlxAtlasFrames = Paths.getSparrowAtlas(_data.assetPath);
 
     if (texture == null)
     {
-      trace('Multi-Sparrow atlas could not load PRIMARY texture: ${_data.assetPaths[0]}');
-      FlxG.log.error('Multi-Sparrow atlas could not load PRIMARY texture: ${_data.assetPaths[0]}');
+      trace('Multi-Sparrow atlas could not load PRIMARY texture: ${_data.assetPath}');
+      FlxG.log.error('Multi-Sparrow atlas could not load PRIMARY texture: ${_data.assetPath}');
       return;
     }
     else
     {
-      trace('Creating multi-sparrow atlas: ${_data.assetPaths[0]}');
+      trace('Creating multi-sparrow atlas: ${_data.assetPath}');
       texture.parent.destroyOnNoUse = false;
     }
 
-    for (i => asset in _data.assetPaths)
+    for (asset in assetList)
     {
-      if (i == 0)
-      {
-        continue;
-      }
-
       var subTexture:FlxAtlasFrames = Paths.getSparrowAtlas(asset);
       // If we don't do this, the unused textures will be removed as soon as they're loaded.
 
       if (subTexture == null)
       {
         trace('Multi-Sparrow atlas could not load subtexture: ${asset}');
-        continue;
       }
       else
       {
