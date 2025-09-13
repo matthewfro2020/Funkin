@@ -566,7 +566,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
   function get_noteSnapQuant():Int
   {
     return SNAP_QUANTS[noteSnapQuantIndex];
-  };
+  }
 
   /**
    * The ratio of the current note snapping value to the default.
@@ -2466,7 +2466,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
           if (result.length == 0)
           {
             this.success('Loaded Chart', 'Loaded chart (${chartPath.toString()})');
-          };
+          }
           else
           {
             this.warning('Loaded Chart', 'Loaded chart with issues (${chartPath.toString()})\n${result.join("\n")}');
@@ -2807,7 +2807,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
       {
         playbarHeadDraggingWasPlaying = true;
         stopAudioPlayback();
-      };
+      }
       else
       {
         playbarHeadDraggingWasPlaying = false;
@@ -2820,7 +2820,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
         // Update the conductor and audio tracks to match.
         currentScrollEase = d.value;
         easeSongToScrollPosition(currentScrollEase);
-      };
+      }
     }
 
     playbarHeadLayout.playbarHead.onDragEnd = function(_:DragEvent) {
@@ -2833,7 +2833,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
 
         // Disabled code to resume song playback on drag.
         startAudioPlayback();
-      };
+      }
     }
 
     add(playbarHeadLayout);
@@ -3043,7 +3043,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
       if (currentNoteSelection.length > 0 && currentEventSelection.length > 0)
       {
         performCommand(new RemoveItemsCommand(currentNoteSelection, currentEventSelection));
-      };
+      }
       else if (currentNoteSelection.length > 0)
       {
         performCommand(new RemoveNotesCommand(currentNoteSelection));
@@ -3159,7 +3159,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
         this.isHaxeUIDialogOpen = false;
         this.switchToCurrentInstrumental();
         this.postLoadInstrumental();
-      };
+      }
     };
 
     menubarItemLoadVocals.onClick = _ -> {
@@ -3169,7 +3169,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
         this.isHaxeUIDialogOpen = false;
         this.switchToCurrentInstrumental();
         this.postLoadInstrumental();
-      };
+      }
     };
 
     menubarItemVolumeMetronome.onChange = event -> {
@@ -3831,7 +3831,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
         var holdNoteFactory = function() {
           // TODO: Print some kind of warning if `renderedHoldNotes.members` is too high?
           return new ChartEditorHoldNoteSprite(this);
-        };
+        }
         var holdNoteSprite:ChartEditorHoldNoteSprite = renderedHoldNotes.recycle(holdNoteFactory);
 
         var noteLengthPixels:Float = noteData.getStepLength() * GRID_SIZE;
@@ -6677,7 +6677,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
           audioInstTrack.pause();
           // Keep the track at the end.
           audioInstTrack.time = audioInstTrack.length;
-        };
+        }
         audioVocalTrackGroup.pause();
       };
       audioInstTrack.volume = instTargetVolume;

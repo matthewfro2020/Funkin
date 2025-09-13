@@ -156,7 +156,7 @@ class ChartEditorDialogHandler
       {
         // User loaded the backup! Close the welcome dialog behind this.
         if (welcomeDialog != null) welcomeDialog.hideDialog(DialogButton.APPLY);
-      };
+      }
       else
       {
         // User cancelled the dialog, don't close the welcome dialog so we aren't in a broken state.
@@ -180,7 +180,7 @@ class ChartEditorDialogHandler
     buttonCancel.onClick = function(_) {
       // Don't hide the welcome dialog behind this.
       dialog.hideDialog(DialogButton.CANCEL);
-    };
+    }
 
     var buttonGoToFolder:Null<Button> = dialog.findComponent('buttonGoToFolder', Button);
     if (buttonGoToFolder == null) throw 'Could not locate buttonGoToFolder button in Backup Available dialog';
@@ -188,7 +188,7 @@ class ChartEditorDialogHandler
       state.openBackupsFolder();
       // Don't hide the welcome dialog behind this.
       // Don't close this dialog.
-    };
+    }
 
     var buttonOpenBackup:Null<Button> = dialog.findComponent('buttonOpenBackup', Button);
     if (buttonOpenBackup == null) throw 'Could not locate buttonOpenBackup button in Backup Available dialog';
@@ -202,7 +202,7 @@ class ChartEditorDialogHandler
         {
           // No warnings.
           state.success('Loaded Chart', 'Loaded chart (${latestBackupPath})');
-        };
+        }
         else
         {
           // One or more warnings.
@@ -252,7 +252,7 @@ class ChartEditorDialogHandler
               state.currentWorkingFilePath = null; // Built from parts, so no .fnfc to save to.
               state.switchToCurrentInstrumental();
               state.postLoadInstrumental();
-            };
+            }
           }
           else
           {
@@ -293,7 +293,7 @@ class ChartEditorDialogHandler
               state.currentWorkingFilePath = null; // New file, so no path.
               state.switchToCurrentInstrumental();
               state.postLoadInstrumental();
-            };
+            }
           }
           else
           {
@@ -332,7 +332,7 @@ class ChartEditorDialogHandler
               state.currentWorkingFilePath = null; // New file, so no path.
               state.switchToCurrentInstrumental();
               state.postLoadInstrumental();
-            };
+            }
           }
           else
           {
@@ -371,7 +371,7 @@ class ChartEditorDialogHandler
               state.currentWorkingFilePath = null; // New file, so no path.
               state.switchToCurrentInstrumental();
               state.postLoadInstrumental();
-            };
+            }
           }
           else
           {
@@ -430,7 +430,7 @@ class ChartEditorDialogHandler
                         state.currentWorkingFilePath = null; // New file, so no path.
                         state.switchToCurrentInstrumental();
                         state.postLoadInstrumental();
-                      };
+                      }
                     }
                     else
                     {
@@ -479,7 +479,7 @@ class ChartEditorDialogHandler
 
     buttonCancel.onClick = function(_) {
       dialog.hideDialog(DialogButton.CANCEL);
-    };
+    }
 
     var instrumentalBox:Null<Box> = dialog.findComponent('instrumentalBox', Box);
     if (instrumentalBox == null) throw 'Could not locate instrumentalBox in Upload Instrumental dialog';
@@ -487,12 +487,12 @@ class ChartEditorDialogHandler
     instrumentalBox.onMouseOver = function(_) {
       instrumentalBox.swapClass('upload-bg', 'upload-bg-hover');
       Cursor.cursorMode = Pointer;
-    };
+    }
 
     instrumentalBox.onMouseOut = function(_) {
       instrumentalBox.swapClass('upload-bg-hover', 'upload-bg');
       Cursor.cursorMode = Default;
-    };
+    }
 
     var instId:String = state.currentInstrumentalId;
 
@@ -510,11 +510,11 @@ class ChartEditorDialogHandler
               state.switchToCurrentInstrumental();
               dialog.hideDialog(DialogButton.APPLY);
               state.removeDropHandler(dropHandler);
-            };
+            }
             else
             {
               state.error('Failed to Load Instrumental', 'Failed to load instrumental track (${selectedFile.name}) for variation (${state.selectedVariation})');
-            };
+            }
           }
       });
     }
@@ -530,7 +530,7 @@ class ChartEditorDialogHandler
         state.switchToCurrentInstrumental();
         dialog.hideDialog(DialogButton.APPLY);
         state.removeDropHandler(dropHandler);
-      };
+      }
       else
       {
         var message:String = if (!ChartEditorState.SUPPORTED_MUSIC_FORMATS.contains(path.ext ?? ''))
@@ -579,7 +579,7 @@ class ChartEditorDialogHandler
     buttonCancel.onClick = function(_) {
       state.isHaxeUIDialogOpen = false;
       dialog.hideDialog(DialogButton.CANCEL);
-    };
+    }
 
     var newSongMetadata:SongMetadata = new SongMetadata('', '', '', Constants.DEFAULT_VARIATION);
 
@@ -595,7 +595,7 @@ class ChartEditorDialogHandler
       {
         inputSongName.removeClass('invalid-value');
         newSongMetadata.songName = event.target.text;
-      };
+      }
       else
       {
         newSongMetadata.songName = "";
@@ -612,7 +612,7 @@ class ChartEditorDialogHandler
       {
         inputSongArtist.removeClass('invalid-value');
         newSongMetadata.artist = event.target.text;
-      };
+      }
       else
       {
         newSongMetadata.artist = "";
@@ -629,7 +629,7 @@ class ChartEditorDialogHandler
       {
         inputSongCharter.removeClass('invalid-value');
         newSongMetadata.charter = event.target.text;
-      };
+      }
       else
       {
         newSongMetadata.charter = "";
@@ -694,7 +694,7 @@ class ChartEditorDialogHandler
       if (timeChanges == null || timeChanges.length == 0)
       {
         timeChanges = [new SongTimeChange(0, event.value)];
-      };
+      }
       else
       {
         timeChanges[0].bpm = event.value;
@@ -746,7 +746,7 @@ class ChartEditorDialogHandler
     if (buttonCancel == null) throw 'Could not locate dialogCancel button in Open Chart dialog';
     buttonCancel.onClick = function(_) {
       dialog.hideDialog(DialogButton.CANCEL);
-    };
+    }
 
     var chartContainerA:Null<Component> = dialog.findComponent('chartContainerA');
     if (chartContainerA == null) throw 'Could not locate chartContainerA in Open Chart dialog';
@@ -762,7 +762,7 @@ class ChartEditorDialogHandler
       state.loadSong(songMetadata, songChartData);
 
       dialog.hideDialog(DialogButton.APPLY);
-    };
+    }
 
     var onDropFileMetadataVariation:String->Label->String->Void;
     var onClickMetadataVariation:String->Label->UIEvent->Void;
@@ -774,7 +774,7 @@ class ChartEditorDialogHandler
       while (chartContainerB.getComponentAt(0) != null)
       {
         chartContainerB.removeComponent(chartContainerB.getComponentAt(0));
-      };
+      }
 
       // Build an entry for -chart.json.
       var songDefaultChartDataEntry:Component = RuntimeComponentBuilder.fromAsset(CHART_EDITOR_DIALOG_OPEN_CHART_PARTS_ENTRY_LAYOUT);
@@ -809,11 +809,11 @@ class ChartEditorDialogHandler
         songVariationMetadataEntry.onMouseOver = function(_) {
           songVariationMetadataEntry.swapClass('upload-bg', 'upload-bg-hover');
           Cursor.cursorMode = Pointer;
-        };
+        }
         songVariationMetadataEntry.onMouseOut = function(_) {
           songVariationMetadataEntry.swapClass('upload-bg-hover', 'upload-bg');
           Cursor.cursorMode = Default;
-        };
+        }
         songVariationMetadataEntry.onClick = onClickMetadataVariation.bind(variation).bind(songVariationMetadataEntryLabel);
         #if FILE_DROP_SUPPORTED
         state.addDropHandler(
@@ -837,11 +837,11 @@ class ChartEditorDialogHandler
         songVariationChartDataEntry.onMouseOver = function(_) {
           songVariationChartDataEntry.swapClass('upload-bg', 'upload-bg-hover');
           Cursor.cursorMode = Pointer;
-        };
+        }
         songVariationChartDataEntry.onMouseOut = function(_) {
           songVariationChartDataEntry.swapClass('upload-bg-hover', 'upload-bg');
           Cursor.cursorMode = Default;
-        };
+        }
         songVariationChartDataEntry.onClick = onClickChartDataVariation.bind(variation).bind(songVariationChartDataEntryLabel);
         #if FILE_DROP_SUPPORTED
         state.addDropHandler(
@@ -866,7 +866,7 @@ class ChartEditorDialogHandler
         // Tell the user the load was not successful.
         state.error('Failure', 'Could not parse metadata file version (${path.file}.${path.ext})');
         return;
-      };
+      }
 
       var songMetadataVariation:Null<SongMetadata> = SongRegistry.instance.parseEntryMetadataRawWithMigration(songMetadataTxt, path.toString(),
         songMetadataVersion);
@@ -907,7 +907,7 @@ class ChartEditorDialogHandler
               // Tell the user the load was not successful.
               state.error('Failure', 'Could not parse metadata file version (${selectedFile.name})');
               return;
-            };
+            }
 
             var songMetadataVariation:Null<SongMetadata> = SongRegistry.instance.parseEntryMetadataRawWithMigration(songMetadataTxt, selectedFile.name,
               songMetadataVersion);
@@ -948,7 +948,7 @@ class ChartEditorDialogHandler
         // Tell the user the load was not successful.
         state.error('Failure', 'Could not parse chart data file version (${path.file}.${path.ext})');
         return;
-      };
+      }
 
       var songChartDataVariation:Null<SongChartData> = SongRegistry.instance.parseEntryChartDataRawWithMigration(songChartDataTxt, path.toString(),
         songChartDataVersion);
@@ -991,7 +991,7 @@ class ChartEditorDialogHandler
               // Tell the user the load was not successful.
               state.error('Failure', 'Could not parse chart data file version (${selectedFile.name})');
               return;
-            };
+            }
 
             var songChartDataVariation:Null<SongChartData> = SongRegistry.instance.parseEntryChartDataRawWithMigration(songChartDataTxt, selectedFile.name,
               songChartDataVersion);
@@ -1031,11 +1031,11 @@ class ChartEditorDialogHandler
     metadataEntry.onMouseOver = function(_event) {
       metadataEntry.swapClass('upload-bg', 'upload-bg-hover');
       Cursor.cursorMode = Pointer;
-    };
+    }
     metadataEntry.onMouseOut = function(_) {
       metadataEntry.swapClass('upload-bg-hover', 'upload-bg');
       Cursor.cursorMode = Default;
-    };
+    }
 
     chartContainerA.addComponent(metadataEntry);
 
@@ -1082,7 +1082,7 @@ class ChartEditorDialogHandler
     buttonCancel.onClick = function(_) {
       state.isHaxeUIDialogOpen = false;
       dialog.hideDialog(DialogButton.CANCEL);
-    };
+    }
 
     var importBox:Null<Box> = dialog.findComponent('importBox', Box);
     if (importBox == null) throw 'Could not locate importBox in Import Chart dialog';
@@ -1090,11 +1090,11 @@ class ChartEditorDialogHandler
     importBox.onMouseOver = function(_) {
       importBox.swapClass('upload-bg', 'upload-bg-hover');
       Cursor.cursorMode = Pointer;
-    };
+    }
     importBox.onMouseOut = function(_) {
       importBox.swapClass('upload-bg-hover', 'upload-bg');
       Cursor.cursorMode = Default;
-    };
+    }
 
     var onDropFile:String->Void;
 
@@ -1110,7 +1110,7 @@ class ChartEditorDialogHandler
           {
             state.error('Failure', 'Failed to parse FNF chart file (${selectedFile.name})');
             return;
-          };
+          }
 
           var songMetadata:SongMetadata = FNFLegacyImporter.migrateMetadata(fnfLegacyData);
           var songChartData:SongChartData = FNFLegacyImporter.migrateChartData(fnfLegacyData);
@@ -1132,7 +1132,7 @@ class ChartEditorDialogHandler
       {
         state.error('Failure', 'Failed to parse FNF chart file (${path.file}.${path.ext})');
         return;
-      };
+      }
 
       var songMetadata:SongMetadata = FNFLegacyImporter.migrateMetadata(selectedFileData);
       var songChartData:SongChartData = FNFLegacyImporter.migrateChartData(selectedFileData);
@@ -1177,14 +1177,14 @@ class ChartEditorDialogHandler
     if (buttonCancel == null) throw 'Could not locate dialogCancel button in Add Variation dialog';
     buttonCancel.onClick = function(_) {
       dialog.hideDialog(DialogButton.CANCEL);
-    };
+    }
 
     var buttonAdd:Null<Button> = dialog.findComponent('dialogAdd', Button);
     if (buttonAdd == null) throw 'Could not locate dialogAdd button in Add Variation dialog';
     buttonAdd.onClick = function(_) {
       // This performs validation before the onSubmit callback is called.
       variationForm.submit();
-    };
+    }
 
     var dialogSongName:Null<TextField> = dialog.findComponent('dialogSongName', TextField);
     if (dialogSongName == null) throw 'Could not locate dialogSongName TextField in Add Variation dialog';
@@ -1253,7 +1253,7 @@ class ChartEditorDialogHandler
       state.success('Add Variation', 'Added new variation "${pendingVariation.variation}"');
 
       dialog.hideDialog(DialogButton.APPLY);
-    };
+    }
 
     return dialog;
   }
@@ -1276,14 +1276,14 @@ class ChartEditorDialogHandler
     if (buttonCancel == null) throw 'Could not locate dialogCancel button in Add Difficulty dialog';
     buttonCancel.onClick = function(_) {
       dialog.hideDialog(DialogButton.CANCEL);
-    };
+    }
 
     var buttonAdd:Null<Button> = dialog.findComponent('dialogAdd', Button);
     if (buttonAdd == null) throw 'Could not locate dialogAdd button in Add Difficulty dialog';
     buttonAdd.onClick = function(_) {
       // This performs validation before the onSubmit callback is called.
       difficultyForm.submit();
-    };
+    }
 
     var dialogVariation:Null<DropDown> = dialog.findComponent('dialogVariation', DropDown);
     if (dialogVariation == null) throw 'Could not locate dialogVariation DropDown in Add Variation dialog';
@@ -1311,7 +1311,7 @@ class ChartEditorDialogHandler
       state.success('Add Difficulty', 'Added new difficulty "${dialogDifficultyName.text.toLowerCase()}"');
 
       dialog.hideDialog(DialogButton.APPLY);
-    };
+    }
 
     return dialog;
   }
@@ -1345,7 +1345,7 @@ class ChartEditorDialogHandler
     dialog.zIndex = 1000;
 
     return dialog;
-  };
+  }
 
   /**
    * Builds and opens a dialog from a given layout path.
@@ -1369,7 +1369,7 @@ class ChartEditorDialogHandler
     dialog.zIndex = 1000;
 
     return dialog;
-  };
+  }
 
   // ===============
   //  DROP HANDLERS

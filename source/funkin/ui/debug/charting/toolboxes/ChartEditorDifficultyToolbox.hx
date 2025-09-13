@@ -85,7 +85,7 @@ class ChartEditorDifficultyToolbox extends ChartEditorBaseToolbox
             refresh();
           case DialogButton.NO: // Do nothing.
           default: // Do nothing.
-        };
+        }
       }
 
       Dialogs.messageBox("Are you sure? This cannot be undone.", "Remove Difficulty", MessageBoxType.TYPE_YESNO, callback);
@@ -103,7 +103,7 @@ class ChartEditorDifficultyToolbox extends ChartEditorBaseToolbox
               chartEditorState.info("Canceled Save Metadata", '(${chartEditorState.currentSongId}$vari-metadata.json)');
             case "error":
               chartEditorState.error("Failure", 'Failed to write file (${chartEditorState.currentSongId}$vari-metadata.json).');
-          };
+          }
         });
     };
 
@@ -119,7 +119,7 @@ class ChartEditorDifficultyToolbox extends ChartEditorBaseToolbox
               chartEditorState.info("Canceled Save Chart Data", '(${chartEditorState.currentSongId}$vari-chart.json)');
             case "error":
               chartEditorState.error("Failure", 'Failed to write file (${chartEditorState.currentSongId}$vari-chart.json).');
-          };
+          }
         });
     };
 
@@ -143,7 +143,7 @@ class ChartEditorDifficultyToolbox extends ChartEditorBaseToolbox
           chartEditorState.healthIconsDirty = true;
           chartEditorState.refreshToolbox(ChartEditorState.CHART_EDITOR_TOOLBOX_METADATA_LAYOUT);
           chartEditorState.success('Replaced Metadata', 'Replaced metadata with file (${fileReference.name})');
-        };
+        }
         else
         {
           chartEditorState.error('Failure', 'Failed to load metadata file (${fileReference.name})');
@@ -178,7 +178,7 @@ class ChartEditorDifficultyToolbox extends ChartEditorBaseToolbox
           chartEditorState.notePreviewDirty = true;
           chartEditorState.noteTooltipsDirty = true;
           chartEditorState.notePreviewViewportBoundsDirty = true;
-        };
+        }
         else
         {
           chartEditorState.error('Failure', 'Failed to load chart data file (${fileReference.name})');

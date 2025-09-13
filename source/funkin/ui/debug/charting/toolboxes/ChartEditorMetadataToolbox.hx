@@ -1,9 +1,8 @@
 package funkin.ui.debug.charting.toolboxes;
 
 import funkin.play.character.BaseCharacter.CharacterType;
-import funkin.data.character.CharacterData;
-import funkin.data.character.CharacterRegistry;
-import funkin.data.stage.StageData;
+import funkin.play.character.CharacterData;
+import funkin.data.song.importer.ChartManifestData;
 import funkin.data.stage.StageRegistry;
 import funkin.data.notestyle.NoteStyleRegistry;
 import funkin.play.notes.notestyle.NoteStyle;
@@ -70,7 +69,7 @@ class ChartEditorMetadataToolbox extends ChartEditorBaseToolbox
       {
         inputSongId.removeClass('invalid-value');
         chartEditorState.songManifestData.songId = event.target.text;
-      };
+      }
       else
       {
         chartEditorState._songManifestData = null;
@@ -84,7 +83,7 @@ class ChartEditorMetadataToolbox extends ChartEditorBaseToolbox
       {
         inputSongName.removeClass('invalid-value');
         chartEditorState.currentSongMetadata.songName = event.target.text;
-      };
+      }
       else
       {
         chartEditorState.currentSongMetadata.songName = '';
@@ -98,7 +97,7 @@ class ChartEditorMetadataToolbox extends ChartEditorBaseToolbox
       {
         inputSongArtist.removeClass('invalid-value');
         chartEditorState.currentSongMetadata.artist = event.target.text;
-      };
+      }
       else
       {
         chartEditorState.currentSongMetadata.artist = '';
@@ -112,7 +111,7 @@ class ChartEditorMetadataToolbox extends ChartEditorBaseToolbox
       {
         inputSongCharter.removeClass('invalid-value');
         chartEditorState.currentSongMetadata.charter = event.target.text;
-      };
+      }
       else
       {
         chartEditorState.currentSongMetadata.charter = null;
@@ -125,7 +124,7 @@ class ChartEditorMetadataToolbox extends ChartEditorBaseToolbox
       if (valid)
       {
         chartEditorState.currentSongMetadata.playData.stage = event.data.id;
-      };
+      }
     };
     var startingValueStage = ChartEditorDropdowns.populateDropdownWithStages(inputStage, chartEditorState.currentSongMetadata.playData.stage);
     inputStage.value = startingValueStage;
@@ -136,7 +135,7 @@ class ChartEditorMetadataToolbox extends ChartEditorBaseToolbox
       if (valid)
       {
         chartEditorState.currentSongNoteStyle = event.data.id;
-      };
+      }
     };
     var startingValueNoteStyle = ChartEditorDropdowns.populateDropdownWithNoteStyles(inputNoteStyle, chartEditorState.currentSongMetadata.playData.noteStyle);
     inputNoteStyle.value = startingValueNoteStyle;
@@ -148,7 +147,7 @@ class ChartEditorMetadataToolbox extends ChartEditorBaseToolbox
       if (event.value != Conductor.instance.bpm)
       {
         chartEditorState.performCommand(new ChangeStartingBPMCommand(event.value));
-      };
+      }
     };
 
     inputTimeSignature.onChange = function(event:UIEvent) {
@@ -178,7 +177,7 @@ class ChartEditorMetadataToolbox extends ChartEditorBaseToolbox
       {
         inputScrollSpeed.removeClass('invalid-value');
         chartEditorState.currentSongChartScrollSpeed = event.target.value;
-      };
+      }
       else
       {
         chartEditorState.currentSongChartScrollSpeed = 1.0;
@@ -203,7 +202,7 @@ class ChartEditorMetadataToolbox extends ChartEditorBaseToolbox
     };
 
     refresh();
-  };
+  }
 
   public override function refresh():Void
   {

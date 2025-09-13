@@ -447,7 +447,7 @@ class StageEditorState extends UIState
 
         objNameDialog.onDialogClosed = function(_) {
           objNameDialog = null;
-        };
+        }
 
         return;
       }
@@ -1063,7 +1063,7 @@ class StageEditorState extends UIState
       updateDialog(StageEditorDialogType.OBJECT_PROPERTIES);
       updateDialog(StageEditorDialogType.CHARACTER);
       updateDialog(StageEditorDialogType.STAGE);
-    };
+    }
 
     bottomBarMoveStepText.onClick = function(_) changeStep(1);
     bottomBarMoveStepText.onRightClick = function(_) changeStep(-1);
@@ -1084,7 +1084,7 @@ class StageEditorState extends UIState
       bottomBarAngleStepText.text = (angleOptions.contains(Save.instance.stageEditorAngleStep) ? Save.instance.stageEditorAngleStep : 5) + "°";
 
       updateDialog(StageEditorDialogType.OBJECT_PROPERTIES);
-    };
+    }
 
     bottomBarAngleStepText.onClick = function(_) changeAngle(1);
     bottomBarAngleStepText.onRightClick = function(_) changeAngle(-1);
@@ -1106,12 +1106,12 @@ class StageEditorState extends UIState
     menubarItemThemeLight.onClick = function(_) {
       Save.instance.stageEditorTheme = StageEditorTheme.Light;
       updateBGColors();
-    };
+    }
 
     menubarItemThemeDark.onClick = function(_) {
       Save.instance.stageEditorTheme = StageEditorTheme.Dark;
       updateBGColors();
-    };
+    }
 
     menubarItemThemeDark.selected = Save.instance.stageEditorTheme == StageEditorTheme.Dark;
     menubarItemThemeLight.selected = Save.instance.stageEditorTheme == StageEditorTheme.Light;
@@ -1123,12 +1123,12 @@ class StageEditorState extends UIState
     menubarItemViewFloorLines.onChange = function(_) {
       for (awesome in floorLines)
         awesome.visible = menubarItemViewFloorLines.selected;
-    };
+    }
 
     menubarItemViewPosMarkers.onChange = function(_) {
       for (coolbeans in posCircles)
         coolbeans.visible = menubarItemViewPosMarkers.selected;
-    };
+    }
 
     sprDependant = [menubarItemCopy, menubarItemCut, menubarItemDelete];
     reloadRecentFiles();
@@ -1152,7 +1152,7 @@ class StageEditorState extends UIState
         this.unpackShitFromZip(FileUtil.readBytesFromPath(file));
 
         reloadRecentFiles();
-      };
+      }
 
       item.onClick = function(_) {
         if (!saved)
@@ -1163,7 +1163,7 @@ class StageEditorState extends UIState
               {
                 saved = true;
                 load(file);
-              };
+              }
           });
         }
         else
@@ -1329,7 +1329,7 @@ class StageEditorState extends UIState
 
         objNameDialog.onDialogClosed = function(_) {
           objNameDialog = null;
-        };
+        }
 
       case "find object":
         findObjDialog.hideDialog(DialogButton.CANCEL);
@@ -1346,7 +1346,7 @@ class StageEditorState extends UIState
 
         userGuideDialog.onDialogClosed = function(_) {
           userGuideDialog = null;
-        };
+        }
 
       case "open folder":
         #if sys
@@ -1465,7 +1465,7 @@ class StageEditorState extends UIState
           updateDialog(StageEditorDialogType.OBJECT_PROPERTIES);
           updateDialog(StageEditorDialogType.CHARACTER);
           updateDialog(StageEditorDialogType.STAGE);
-        };
+        }
     }
   }
 
@@ -1538,7 +1538,7 @@ class StageEditorState extends UIState
     loadUrlDialog = new LoadFromUrlDialog(onComplete, onFail);
     loadUrlDialog.onDialogClosed = function(_) {
       loadUrlDialog = null;
-    };
+    }
 
     loadUrlDialog.showDialog();
   }

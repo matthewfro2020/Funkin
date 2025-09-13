@@ -59,16 +59,16 @@ class ChartEditorSelectionContextMenu extends ChartEditorBaseContextMenu
 
     contextmenuFlip.onClick = function(_) {
       chartEditorState.performCommand(new FlipNotesCommand(chartEditorState.currentNoteSelection));
-    };
+    }
 
     contextmenuSelectAll.onClick = function(_) {
       chartEditorState.performCommand(new SelectAllItemsCommand(true, false));
-    };
+    }
     contextmenuSelectInverse.onClick = function(_) {
       chartEditorState.performCommand(new InvertSelectedItemsCommand());
-    };
+    }
     contextmenuSelectNone.onClick = function(_) {
       chartEditorState.performCommand(new DeselectAllItemsCommand());
-    };
+    }
   }
 }

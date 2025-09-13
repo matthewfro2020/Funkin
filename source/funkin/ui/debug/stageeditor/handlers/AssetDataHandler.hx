@@ -49,7 +49,7 @@ class AssetDataHandler
         blend: obj.blend == null ? "" : Std.string(obj.blend),
         color: obj.color.toWebString(),
         animData: ""
-      };
+      }
 
     if (useBitmaps)
     {

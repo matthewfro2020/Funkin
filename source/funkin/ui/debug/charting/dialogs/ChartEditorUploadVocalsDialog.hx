@@ -40,7 +40,7 @@ class ChartEditorUploadVocalsDialog extends ChartEditorBaseDialog
 
     dialogCancel.onClick = function(_) {
       hideDialog(DialogButton.CANCEL);
-    };
+    }
 
     dialogNoVocals.onClick = function(_) {
       // Dismiss
@@ -54,7 +54,7 @@ class ChartEditorUploadVocalsDialog extends ChartEditorBaseDialog
     };
 
     buildDropHandlers();
-  };
+  }
 
   function buildDropHandlers():Void
   {
@@ -86,7 +86,7 @@ class ChartEditorUploadVocalsDialog extends ChartEditorBaseDialog
 
           dialogNoVocals.hidden = true;
           chartEditorState.removeDropHandler(dropHandler);
-        };
+        }
         else
         {
           trace('Failed to load vocal track (${path.file}.${path.ext})');
@@ -99,7 +99,7 @@ class ChartEditorUploadVocalsDialog extends ChartEditorBaseDialog
           #else
           vocalsEntry.vocalsEntryLabel.text = 'Click to browse for vocals for $charName.';
           #end
-        };
+        }
       };
 
       vocalsEntry.onClick = function(_event) {
@@ -123,7 +123,7 @@ class ChartEditorUploadVocalsDialog extends ChartEditorBaseDialog
                 #end
 
                 dialogNoVocals.hidden = true;
-              };
+              }
               else
               {
                 trace('Failed to load vocal track (${selectedFile.fullPath})');
@@ -299,11 +299,11 @@ class ChartEditorUploadVocalsEntry extends Box
       // if (this.locked) return;
       this.swapClass('upload-bg', 'upload-bg-hover');
       Cursor.cursorMode = Pointer;
-    };
+    }
 
     this.onMouseOut = function(_event) {
       this.swapClass('upload-bg-hover', 'upload-bg');
       Cursor.cursorMode = Default;
-    };
+    }
   }
 }

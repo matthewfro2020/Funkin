@@ -58,13 +58,13 @@ class BackupAvailableDialog extends Dialog
       var absoluteBackupsPath:String = Path.join([Sys.getCwd(), StageEditorState.BACKUPS_PATH]);
       FileUtil.openFolder(absoluteBackupsPath);
       #end
-    };
+    }
 
     buttonOpenBackup.onClick = function(_) {
       if (FileUtil.fileExists(filePath) && state.welcomeDialog != null) // doing a check in case a sleezy FUCK decides to delete the backup file AFTER dialog opens
       {
         state.welcomeDialog.loadFromFilePath(filePath);
-      };
+      }
       hideDialog(DialogButton.APPLY);
     }
 
@@ -73,7 +73,7 @@ class BackupAvailableDialog extends Dialog
       if (event.button == DialogButton.APPLY)
       {
         if (state.welcomeDialog != null) state.welcomeDialog.hideDialog(DialogButton.APPLY);
-      };
+      }
     };
   }
 }

@@ -49,7 +49,7 @@ class ResultsDebugSubState extends MusicBeatSubState
             FlxG.cameras.reset();
           };
           openSubState(resultState);
-        };
+        }
         else
           FlxG.switchState(() -> new funkin.play.ResultState(resultsParams));
       });
@@ -87,7 +87,7 @@ class ResultsDebugSubState extends MusicBeatSubState
       toggle = !toggle;
       onChange(toggle);
     };
-  };
+  }
 
   /**
    * Toggles between different options in a list
@@ -114,7 +114,7 @@ class ResultsDebugSubState extends MusicBeatSubState
     };
 
     return menuItem;
-  };
+  }
 
   function initResultsParams():Void
   {

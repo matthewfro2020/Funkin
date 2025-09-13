@@ -28,14 +28,14 @@ class ChartEditorHoldNoteContextMenu extends ChartEditorBaseContextMenu
     // NOTE: Remember to use commands here to ensure undo/redo works properly
     contextmenuFlip.onClick = function(_) {
       chartEditorState.performCommand(new FlipNotesCommand([data]));
-    };
+    }
 
     contextmenuRemoveHold.onClick = function(_) {
       chartEditorState.performCommand(new ExtendNoteLengthCommand(data, 0));
-    };
+    }
 
     contextmenuDelete.onClick = function(_) {
       chartEditorState.performCommand(new RemoveNotesCommand([data]));
-    };
+    }
   }
 }

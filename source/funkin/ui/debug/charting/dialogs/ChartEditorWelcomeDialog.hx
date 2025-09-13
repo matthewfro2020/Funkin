@@ -101,7 +101,7 @@ class ChartEditorWelcomeDialog extends ChartEditorBaseDialog
       {
         chartEditorState.success('Loaded Chart',
           result.length == 0 ? 'Loaded chart (${chartPath.toString()})' : 'Loaded chart (${chartPath.toString()})\n${result.join("\n")}');
-      };
+      }
       else
       {
         chartEditorState.error('Failed to Load Chart', 'Failed to load chart (${chartPath.toString()})');

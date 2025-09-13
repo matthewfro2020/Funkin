@@ -132,7 +132,7 @@ class ChartEditorNotificationHandler
               if (state.subState != null) return;
               action.callback(action);
             };
-          };
+          }
         }
         return true; // Continue walking.
       });

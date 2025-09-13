@@ -75,7 +75,7 @@ class ChartEditorDropdowns
       if (startingStageId == stageId) returnValue = value;
 
       dropDown.dataSource.add(value);
-    };
+    }
 
     dropDown.dataSource.sort('text', ASCENDING);
 
@@ -95,7 +95,7 @@ class ChartEditorDropdowns
       var value = {id: event.id, text: event.getTitle()};
       if (startingEventId == event.id) returnValue = value;
       dropDown.dataSource.add(value);
-    };
+    }
 
     dropDown.dataSource.sort('text', ASCENDING);
 
@@ -140,7 +140,7 @@ class ChartEditorDropdowns
         || noteStyle._data?.assets?.holdNote == null)
       {
         continue;
-      };
+      }
 
       var value = {id: noteStyleId, text: noteStyle.getName()};
       if (startingStyleId == noteStyleId) returnValue = value;
@@ -210,7 +210,7 @@ class ChartEditorDropdowns
       if (startingKindId == noteKindId) returnValue = value;
 
       dropDown.dataSource.add(value);
-    };
+    }
 
     dropDown.dataSource.sort('id', ASCENDING);
 
