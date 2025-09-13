@@ -320,7 +320,7 @@ private class AddRankAnimationDataBox extends HBox
         var bitmap = openfl.display.BitmapData.fromBytes(bitBytes);
         newObj.frames = flixel.graphics.frames.FlxAtlasFrames.fromSparrow(bitmap, datBytes.toString());
 
-        wizFiles = [;
+        wizFiles = [
           {name: box.animData.assetPath, bytes: bitBytes},
           {name: box.animData.assetPath.replace(".png", ".xml"), bytes: datBytes}
         ];

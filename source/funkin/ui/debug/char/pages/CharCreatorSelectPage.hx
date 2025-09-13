@@ -287,7 +287,7 @@ class CharCreatorSelectPage extends CharCreatorDefaultPage
         var daImgPath = _.fullPath;
         var daXmlPath = daImgPath.replace(".png", ".xml");
 
-        pixelIconFiles = [;
+        pixelIconFiles = [
           {name: daImgPath, bytes: FileUtil.readBytesFromPath(daImgPath)}];
 
         if (FileUtil.doesFileExist(daXmlPath)) pixelIconFiles.push({name: daXmlPath, bytes: FileUtil.readBytesFromPath(daXmlPath)});

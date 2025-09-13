@@ -16,7 +16,7 @@ class NgPrompt extends Prompt
     return showLoginPrompt(true);
   }
 
-  static public function showfunkin.save.SavedSessionFailed()
+  static public function showdSessionFailed()
   {
     return showLoginPrompt(false);
   }

@@ -48,7 +48,7 @@ class NGUtil
     trace('checking NG.io version');
     GAME_VER = "v" + Application.current.meta.get('version');
 
-    NG.core.calls.app.getCurrentVersion(GAME_VER).addDataHandler(function(response) {
+    NG.core.calls.app.getCurrentVersion(GAME_VER).addStatusHandler(function(response) {
       GAME_VER = response.result.data.currentVersion;
       trace('CURRENT NG VERSION: ' + GAME_VER);
       callback(GAME_VER);
