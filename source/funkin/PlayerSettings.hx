@@ -109,12 +109,12 @@ class PlayerSettings
   function addKeyboard():Void
   {
     var useDefault:Bool = true;
-    if (Save.instance.hasControls(id, Keys))
+    if (funkin.save.Save.instance.hasControls(id, Keys))
     {
-      var keyControlData = Save.instance.getControls(id, Keys);
+      var keyControlData = funkin.save.Save.instance.getControls(id, Keys);
       trace('Loading keyboard control scheme from user save');
       useDefault = false;
-      controls.fromSaveData(keyControlData, Keys);
+      controls.fromfunkin.save.SaveData(keyControlData, Keys);
     }
     else
     {
@@ -137,12 +137,12 @@ class PlayerSettings
   function addGamepad(gamepad:FlxGamepad):Void
   {
     var useDefault = true;
-    if (Save.instance.hasControls(id, Gamepad(gamepad.id)))
+    if (funkin.save.Save.instance.hasControls(id, Gamepad(gamepad.id)))
     {
-      var padControlData = Save.instance.getControls(id, Gamepad(gamepad.id));
+      var padControlData = funkin.save.Save.instance.getControls(id, Gamepad(gamepad.id));
       trace('Loading gamepad control scheme from user save');
       useDefault = false;
-      controls.addGamepadWithSaveData(gamepad.id, padControlData);
+      controls.addGamepadWithfunkin.save.SaveData(gamepad.id, padControlData);
     }
     else
     {
@@ -158,24 +158,24 @@ class PlayerSettings
   }
 
   /**
-   * Save this player's controls to the game's persistent save.
+   * funkin.save.Save this player's controls to the game's persistent save.
    */
   public function saveControls():Void
   {
-    var keyData = controls.createSaveData(Keys);
+    var keyData = controls.createfunkin.save.SaveData(Keys);
     if (keyData != null)
     {
       trace('Saving keyboard control scheme to user save');
-      Save.instance.setControls(id, Keys, keyData);
+      funkin.save.Save.instance.setControls(id, Keys, keyData);
     }
 
     if (controls.gamepadsAdded.length > 0)
     {
-      var padData = controls.createSaveData(Gamepad(controls.gamepadsAdded[0]));
+      var padData = controls.createfunkin.save.SaveData(Gamepad(controls.gamepadsAdded[0]));
       if (padData != null)
       {
         trace('Saving gamepad control scheme to user save');
-        Save.instance.setControls(id, Gamepad(controls.gamepadsAdded[0]), padData);
+        funkin.save.Save.instance.setControls(id, Gamepad(controls.gamepadsAdded[0]), padData);
       }
     }
   }

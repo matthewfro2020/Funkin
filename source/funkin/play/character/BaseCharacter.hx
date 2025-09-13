@@ -148,13 +148,13 @@ class BaseCharacter extends Bopper
 
   public function new(id:String, renderType:CharacterRenderType)
   {
-    super(CharacterDataParser.DEFAULT_DANCEEVERY);
+    super(funkin.data.character.CharacterDataParser.DEFAULT_DANCEEVERY);
 
     this.characterId = id;
 
     ignoreExclusionPref = ["sing"];
 
-    _data = CharacterDataParser.fetchCharacterData(this.characterId);
+    _data = funkin.data.character.CharacterDataParser.fetchCharacterData(this.characterId);
     if (_data == null)
     {
       throw 'Could not find character data for characterId: $characterId';

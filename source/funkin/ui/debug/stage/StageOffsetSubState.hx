@@ -310,24 +310,24 @@ class StageOffsetSubState extends HaxeUISubState
     var jsonStr = prepStageStuff();
 
     _file = new FileReference();
-    _file.addEventListener(Event.COMPLETE, onSaveComplete);
-    _file.addEventListener(Event.CANCEL, onSaveCancel);
-    _file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+    _file.addEventListener(Event.COMPLETE, onfunkin.save.SaveComplete);
+    _file.addEventListener(Event.CANCEL, onfunkin.save.SaveCancel);
+    _file.addEventListener(IOErrorEvent.IO_ERROR, onfunkin.save.SaveError);
     _file.save(jsonStr, PlayState.instance.currentStageId + ".json");
   }
 
-  function onSaveComplete(_)
+  function onfunkin.save.SaveComplete(_)
   {
     fileRemoveListens();
     FlxG.log.notice("Successfully saved!");
   }
 
-  function onSaveCancel(_)
+  function onfunkin.save.SaveCancel(_)
   {
     fileRemoveListens();
   }
 
-  function onSaveError(_)
+  function onfunkin.save.SaveError(_)
   {
     fileRemoveListens();
     FlxG.log.error("Problem saving Stage file!");
@@ -335,9 +335,9 @@ class StageOffsetSubState extends HaxeUISubState
 
   function fileRemoveListens()
   {
-    _file.removeEventListener(Event.COMPLETE, onSaveComplete);
-    _file.removeEventListener(Event.CANCEL, onSaveCancel);
-    _file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+    _file.removeEventListener(Event.COMPLETE, onfunkin.save.SaveComplete);
+    _file.removeEventListener(Event.CANCEL, onfunkin.save.SaveCancel);
+    _file.removeEventListener(IOErrorEvent.IO_ERROR, onfunkin.save.SaveError);
     _file = null;
   }
 

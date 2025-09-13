@@ -24,7 +24,7 @@ class IntroSubState extends MusicBeatSubState
 
   public override function create():Void
   {
-    if (Save.instance.oldChar)
+    if (funkin.save.Save.instance.oldChar)
     {
       onLightsEnd();
       return;

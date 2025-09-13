@@ -111,8 +111,8 @@ class StageEditorCharacterToolbox extends StageEditorDefaultToolbox
     if (charScrollY.pos != curChar.scrollFactor.y) charScrollY.pos = curChar.scrollFactor.y;
 
     var prevText = charType.text;
-    var charData = CharacterDataParser.fetchCharacterData(curChar.characterId);
-    charType.icon = (charData == null ? null : CharacterDataParser.getCharPixelIconAsset(curChar.characterId));
+    var charData = funkin.data.character.CharacterDataParser.fetchCharacterData(curChar.characterId);
+    charType.icon = (charData == null ? null : funkin.data.character.CharacterDataParser.getCharPixelIconAsset(curChar.characterId));
     charType.text = (charData == null ? "None" : charData.name.length > 6 ? '${charData.name.substr(0, 6)}.' : '${charData.name}');
 
     if (characterScaleSlider.pos != stageEditorState.selectedChar.scale.x / stageEditorState.selectedChar.getBaseScale())
@@ -223,15 +223,15 @@ class StageEditorCharacterMenu extends Menu // copied from chart editor
         parent.repositionCharacter();
         group.zIndex = Std.int(parent.charZIdx.pos ?? 0);
 
-        // Save the selection.
+        // funkin.save.Save the selection.
         switch (type)
         {
           case BF:
-            Save.instance.stageBoyfriendChar = charId;
+            funkin.save.Save.instance.stageBoyfriendChar = charId;
           case GF:
-            Save.instance.stageGirlfriendChar = charId;
+            funkin.save.Save.instance.stageGirlfriendChar = charId;
           case DAD:
-            Save.instance.stageDadChar = charId;
+            funkin.save.Save.instance.stageDadChar = charId;
           default:
             // Do nothing.
         }

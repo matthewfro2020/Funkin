@@ -570,18 +570,18 @@ class DebugBoundingState extends FlxState
     if ((saveString != null) && (saveString.length > 0))
     {
       _file = new FileReference();
-      _file.addEventListener(Event.COMPLETE, onSaveComplete);
-      _file.addEventListener(Event.CANCEL, onSaveCancel);
-      _file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+      _file.addEventListener(Event.COMPLETE, onfunkin.save.SaveComplete);
+      _file.addEventListener(Event.CANCEL, onfunkin.save.SaveCancel);
+      _file.addEventListener(IOErrorEvent.IO_ERROR, onfunkin.save.SaveError);
       _file.save(saveString, fileName);
     }
   }
 
-  function onSaveComplete(_):Void
+  function onfunkin.save.SaveComplete(_):Void
   {
-    _file.removeEventListener(Event.COMPLETE, onSaveComplete);
-    _file.removeEventListener(Event.CANCEL, onSaveCancel);
-    _file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+    _file.removeEventListener(Event.COMPLETE, onfunkin.save.SaveComplete);
+    _file.removeEventListener(Event.CANCEL, onfunkin.save.SaveCancel);
+    _file.removeEventListener(IOErrorEvent.IO_ERROR, onfunkin.save.SaveError);
     _file = null;
     FlxG.log.notice("Successfully saved LEVEL DATA.");
   }
@@ -589,22 +589,22 @@ class DebugBoundingState extends FlxState
   /**
    * Called when the save file dialog is cancelled.
    */
-  function onSaveCancel(_):Void
+  function onfunkin.save.SaveCancel(_):Void
   {
-    _file.removeEventListener(Event.COMPLETE, onSaveComplete);
-    _file.removeEventListener(Event.CANCEL, onSaveCancel);
-    _file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+    _file.removeEventListener(Event.COMPLETE, onfunkin.save.SaveComplete);
+    _file.removeEventListener(Event.CANCEL, onfunkin.save.SaveCancel);
+    _file.removeEventListener(IOErrorEvent.IO_ERROR, onfunkin.save.SaveError);
     _file = null;
   }
 
   /**
    * Called if there is an error while saving the gameplay recording.
    */
-  function onSaveError(_):Void
+  function onfunkin.save.SaveError(_):Void
   {
-    _file.removeEventListener(Event.COMPLETE, onSaveComplete);
-    _file.removeEventListener(Event.CANCEL, onSaveCancel);
-    _file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+    _file.removeEventListener(Event.COMPLETE, onfunkin.save.SaveComplete);
+    _file.removeEventListener(Event.CANCEL, onfunkin.save.SaveCancel);
+    _file.removeEventListener(IOErrorEvent.IO_ERROR, onfunkin.save.SaveError);
     _file = null;
     FlxG.log.error("Problem saving Level data");
   }

@@ -918,11 +918,11 @@ class Controls extends FlxActionSet
     }
   }
 
-  public function addGamepadWithSaveData(id:Int, ?padData:Dynamic):Void
+  public function addGamepadWithfunkin.save.SaveData(id:Int, ?padData:Dynamic):Void
   {
     gamepadsAdded.push(id);
 
-    fromSaveData(padData, Gamepad(id));
+    fromfunkin.save.SaveData(padData, Gamepad(id));
   }
 
   public function getGamepadIds():Array<Int>
@@ -1144,7 +1144,7 @@ class Controls extends FlxActionSet
    * An EMPTY array means the control is uninitialized and needs to be reset to default.
    * An array with a single FlxKey.NONE means the control was intentionally unbound by the user.
    */
-  public function fromSaveData(data:Dynamic, device:Device):Void
+  public function fromfunkin.save.SaveData(data:Dynamic, device:Device):Void
   {
     for (control in Control.createAll())
     {
@@ -1197,7 +1197,7 @@ class Controls extends FlxActionSet
    * An EMPTY array means the control is uninitialized and needs to be reset to default.
    * An array with a single FlxKey.NONE means the control was intentionally unbound by the user.
    */
-  public function createSaveData(device:Device):Dynamic
+  public function createfunkin.save.SaveData(device:Device):Dynamic
   {
     var isEmpty = true;
     var data = {};
@@ -1236,7 +1236,7 @@ class Controls extends FlxActionSet
   }
 }
 
-typedef SaveInputLists =
+typedef funkin.save.SaveInputLists =
 {
   ?keys:Array<Int>,
   ?pad:Array<Int>

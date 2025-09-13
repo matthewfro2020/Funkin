@@ -69,7 +69,7 @@ class OptionsState extends MusicBeatState
     optionsCodex = new Codex<OptionsMenuPageName>(Options);
     add(optionsCodex);
 
-    var saveData:SaveDataMenu = optionsCodex.addPage(SaveData, new SaveDataMenu());
+    var saveData:funkin.save.SaveDataMenu = optionsCodex.addPage(funkin.save.SaveData, new funkin.save.SaveDataMenu());
     var options:OptionsMenu = optionsCodex.addPage(Options, new OptionsMenu(saveData));
     var preferences:PreferencesMenu = optionsCodex.addPage(Preferences, new PreferencesMenu());
     var controls:ControlsMenu = optionsCodex.addPage(Controls, new ControlsMenu());
@@ -162,7 +162,7 @@ class OptionsMenu extends Page<OptionsMenuPageName>
 
   final CAMERA_MARGIN:Int = 150;
 
-  public function new(saveDataMenu:SaveDataMenu)
+  public function new(saveDataMenu:funkin.save.SaveDataMenu)
   {
     super();
     add(items = new TextMenuList());
@@ -235,12 +235,12 @@ class OptionsMenu extends Page<OptionsMenuPageName>
     if (saveDataMenu.hasMultipleOptions())
     {
       createItem("SAVE DATA OPTIONS", function() {
-        codex.switchPage(SaveData);
+        codex.switchPage(funkin.save.SaveData);
       });
     }
     else
     {
-      createItem("CLEAR SAVE DATA", saveDataMenu.openSaveDataPrompt);
+      createItem("CLEAR SAVE DATA", saveDataMenu.openfunkin.save.SaveDataPrompt);
     }
 
     #if NO_FEATURE_TOUCH_CONTROLS
@@ -320,5 +320,5 @@ enum abstract OptionsMenuPageName(String) to PageName
   var Mods = "mods";
   var Preferences = "preferences";
   var Offsets = "offsets";
-  var SaveData = "saveData";
+  var funkin.save.SaveData = "saveData";
 }

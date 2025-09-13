@@ -398,10 +398,10 @@ class ChartEditorImportExportHandler
   /**
    * @param force Whether to export without prompting. `false` will prompt the user for a location.
    * @param targetPath where to export if `force` is `true`. If `null`, will export to the `backups` folder.
-   * @param onSaveCb Callback for when the file is saved.
+   * @param onfunkin.save.SaveCb Callback for when the file is saved.
    * @param onCancelCb Callback for when saving is cancelled.
    */
-  public static function exportAllSongData(state:ChartEditorState, force:Bool = false, targetPath:Null<String>, ?onSaveCb:String->Void,
+  public static function exportAllSongData(state:ChartEditorState, force:Bool = false, targetPath:Null<String>, ?onfunkin.save.SaveCb:String->Void,
       ?onCancelCb:Void->Void):Void
   {
     var zipEntries:Array<haxe.zip.Entry> = [];
@@ -480,7 +480,7 @@ class ChartEditorImportExportHandler
         {
           FileUtil.saveFilesAsZIPToPath(zipEntries, targetPath, targetMode);
           // On success.
-          if (onSaveCb != null) onSaveCb(targetPath);
+          if (onfunkin.save.SaveCb != null) onfunkin.save.SaveCb(targetPath);
         }
         catch (e)
         {
@@ -497,7 +497,7 @@ class ChartEditorImportExportHandler
           // On success.
           FileUtil.saveFilesAsZIPToPath(zipEntries, targetPath, targetMode);
           state.saveDataDirty = false;
-          if (onSaveCb != null) onSaveCb(targetPath);
+          if (onfunkin.save.SaveCb != null) onfunkin.save.SaveCb(targetPath);
         }
         catch (e)
         {
@@ -509,7 +509,7 @@ class ChartEditorImportExportHandler
     else
     {
       // Prompt and save.
-      var onSave:Array<String>->Void = function(paths:Array<String>) {
+      var onfunkin.save.Save:Array<String>->Void = function(paths:Array<String>) {
         if (paths.length != 1)
         {
           trace('[WARN] Could not get save path.');
@@ -517,10 +517,10 @@ class ChartEditorImportExportHandler
         }
         else
         {
-          trace('Saved to "${paths[0]}"');
+          trace('funkin.save.Saved to "${paths[0]}"');
           state.currentWorkingFilePath = paths[0];
           state.applyWindowTitle();
-          if (onSaveCb != null) onSaveCb(paths[0]);
+          if (onfunkin.save.SaveCb != null) onfunkin.save.SaveCb(paths[0]);
         }
       };
 
@@ -532,7 +532,7 @@ class ChartEditorImportExportHandler
       trace('Exporting to user-defined location...');
       try
       {
-        FileUtil.saveChartAsFNFC(zipEntries, onSave, onCancel, '${state.currentSongId}.${Constants.EXT_CHART}');
+        FileUtil.saveChartAsFNFC(zipEntries, onfunkin.save.Save, onCancel, '${state.currentSongId}.${Constants.EXT_CHART}');
         state.saveDataDirty = false;
       }
       catch (e) {}

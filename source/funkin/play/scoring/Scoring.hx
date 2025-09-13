@@ -367,7 +367,7 @@ class Scoring
     }
   }
 
-  public static function calculateRank(scoreData:Null<SaveScoreData>):Null<ScoringRank>
+  public static function calculateRank(scoreData:Null<funkin.save.SaveScoreData>):Null<ScoringRank>
   {
     if (scoreData?.tallies.totalNotes == 0 || scoreData == null) return null;
 
@@ -417,7 +417,7 @@ class Scoring
    * @param tallies
    * @return Float Completion, as a float value between 0 and 1. If `tallies` is `null`, we return 0;
    */
-  public static function tallyCompletion(?tallies:SaveScoreTallyData):Float
+  public static function tallyCompletion(?tallies:funkin.save.SaveScoreTallyData):Float
   {
     if (tallies == null) return 0.0;
     return ((tallies.sick + tallies.good - tallies.missed) / tallies.totalNotes).clamp(0, 1); // Needs to be clamped to make sure Perfect ranks are saved properly

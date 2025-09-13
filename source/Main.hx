@@ -117,7 +117,7 @@ class Main extends Sprite
     #end
 
     // George recommends binding the save before FlxGame is created.
-    Save.load();
+    funkin.save.Save.load();
 
     #if hxvlc
     // Initialize hxvlc's Handle here so the videos are loading faster.

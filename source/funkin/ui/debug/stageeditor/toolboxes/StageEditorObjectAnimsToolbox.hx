@@ -32,7 +32,7 @@ class StageEditorObjectAnimsToolbox extends StageEditorDefaultToolbox
   var objAnimOffsetX:NumberStepper;
   var objAnimOffsetY:NumberStepper;
 
-  var objAnimSave:Button;
+  var objAnimfunkin.save.Save:Button;
   var objAnimDelete:Button;
 
   override public function new(state:StageEditorState)
@@ -72,7 +72,7 @@ class StageEditorObjectAnimsToolbox extends StageEditorDefaultToolbox
       objAnimOffsetY.pos = (animData.offsets[1] ?? 0);
     }
 
-    objAnimSave.onClick = function(_) {
+    objAnimfunkin.save.Save.onClick = function(_) {
       if (linkedObj == null) return;
 
       if ((objAnimName.text ?? "") == "")

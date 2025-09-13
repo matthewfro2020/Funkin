@@ -99,7 +99,7 @@ class RegistryMacro
 
   #if macro
   /**
-   * Retrieve the type parameters for a class extending `BaseRegistry<T, J>`.
+   * Retrieve the type parameters for a class extending `BaseRegistry<T, J, String>`.
    * @param cls The class to retrieve the type parameters for.
    * @return The type parameters for the class.
    */

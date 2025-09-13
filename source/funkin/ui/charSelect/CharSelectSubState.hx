@@ -458,7 +458,7 @@ class CharSelectSubState extends MusicBeatSubState
     openSubState(new IntroSubState());
     subStateClosed.addOnce((_) -> {
       remove(blackScreen);
-      if (!Save.instance.oldChar)
+      if (!funkin.save.Save.instance.oldChar)
       {
         camera.flash();
 
@@ -467,7 +467,7 @@ class CharSelectSubState extends MusicBeatSubState
       }
       checkNewChar();
 
-      Save.instance.oldChar = true;
+      funkin.save.Save.instance.oldChar = true;
     });
   }
 
@@ -639,7 +639,7 @@ class CharSelectSubState extends MusicBeatSubState
         Medals.award(CharSelect);
         #end
 
-        Save.instance.addCharacterSeen(char);
+        funkin.save.Save.instance.addCharacterSeen(char);
         if (nonLocks.length == 0)
         {
           pressedSelect = false;

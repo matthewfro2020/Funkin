@@ -1978,7 +1978,7 @@ class PlayState extends MusicBeatSubState
     //
     // GIRLFRIEND
     //
-    var girlfriend:Null<BaseCharacter> = CharacterDataParser.fetchCharacter(currentCharacterData.girlfriend);
+    var girlfriend:Null<BaseCharacter> = funkin.data.character.CharacterDataParser.fetchCharacter(currentCharacterData.girlfriend);
 
     if (girlfriend != null)
     {
@@ -1996,7 +1996,7 @@ class PlayState extends MusicBeatSubState
     //
     // DAD
     //
-    var dad:Null<BaseCharacter> = CharacterDataParser.fetchCharacter(currentCharacterData.opponent);
+    var dad:Null<BaseCharacter> = funkin.data.character.CharacterDataParser.fetchCharacter(currentCharacterData.opponent);
 
     if (dad != null)
     {
@@ -2019,7 +2019,7 @@ class PlayState extends MusicBeatSubState
     //
     // BOYFRIEND
     //
-    var boyfriend:Null<BaseCharacter> = CharacterDataParser.fetchCharacter(currentCharacterData.player);
+    var boyfriend:Null<BaseCharacter> = funkin.data.character.CharacterDataParser.fetchCharacter(currentCharacterData.player);
 
     if (boyfriend != null)
     {
@@ -3245,7 +3245,7 @@ class PlayState extends MusicBeatSubState
       && currentVariation != 'erect') ? '$currentDifficulty-${currentVariation}' : currentDifficulty;
 
     var isNewHighscore = false;
-    var prevScoreData:Null<SaveScoreData> = Save.instance.getSongScore(currentSong.id, suffixedDifficulty);
+    var prevScoreData:Null<funkin.save.SaveScoreData> = funkin.save.Save.instance.getSongScore(currentSong.id, suffixedDifficulty);
 
     if (currentSong != null && currentSong.validScore)
     {
@@ -3280,12 +3280,12 @@ class PlayState extends MusicBeatSubState
         Events.logCompleteSong(currentSong.id, currentVariation);
         #end
 
-        isNewHighscore = Save.instance.isSongHighScore(currentSong.id, suffixedDifficulty, data);
+        isNewHighscore = funkin.save.Save.instance.isSongHighScore(currentSong.id, suffixedDifficulty, data);
 
         // If no high score is present, save both score and rank.
         // If score or rank are better, save the highest one.
         // If neither are higher, nothing will change.
-        Save.instance.applySongRank(currentSong.id, suffixedDifficulty, data);
+        funkin.save.Save.instance.applySongRank(currentSong.id, suffixedDifficulty, data);
 
         if (isNewHighscore) {}
       }
@@ -3377,9 +3377,9 @@ class PlayState extends MusicBeatSubState
             Events.logCompleteLevel(PlayStatePlaylist.campaignId);
             #end
 
-            if (Save.instance.isLevelHighScore(PlayStatePlaylist.campaignId, PlayStatePlaylist.campaignDifficulty, data))
+            if (funkin.save.Save.instance.isLevelHighScore(PlayStatePlaylist.campaignId, PlayStatePlaylist.campaignDifficulty, data))
             {
-              Save.instance.setLevelScore(PlayStatePlaylist.campaignId, PlayStatePlaylist.campaignDifficulty, data);
+              funkin.save.Save.instance.setLevelScore(PlayStatePlaylist.campaignId, PlayStatePlaylist.campaignDifficulty, data);
               isNewHighscore = true;
             }
           }
@@ -3557,7 +3557,7 @@ class PlayState extends MusicBeatSubState
   /**
      * Play the camera zoom animation and then move to the results screen once it's done.
      */
-  function zoomIntoResultsScreen(isNewHighscore:Bool, ?prevScoreData:SaveScoreData):Void
+  function zoomIntoResultsScreen(isNewHighscore:Bool, ?prevScoreData:funkin.save.SaveScoreData):Void
   {
     trace('WENT TO RESULTS SCREEN!');
 
@@ -3635,7 +3635,7 @@ class PlayState extends MusicBeatSubState
   /**
      * Move to the results screen right goddamn now.
      */
-  function moveToResultsScreen(isNewHighscore:Bool, ?prevScoreData:SaveScoreData):Void
+  function moveToResultsScreen(isNewHighscore:Bool, ?prevScoreData:funkin.save.SaveScoreData):Void
   {
     var currentChart:SongDifficulty = currentChart ??
       {

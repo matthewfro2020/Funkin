@@ -10,7 +10,7 @@ class DebugTallies
   /**
    * 2400 total notes = 7% = LOSS
    */
-  public static var LOSS:SaveScoreTallyData =
+  public static var LOSS:funkin.save.SaveScoreTallyData =
     {
       sick: 190,
       good: 69,
@@ -26,7 +26,7 @@ class DebugTallies
   /**
    * 275 total notes = 69% = NICE
    */
-  public static var NICE:SaveScoreTallyData =
+  public static var NICE:funkin.save.SaveScoreTallyData =
     {
       sick: 190,
       good: 69,
@@ -42,7 +42,7 @@ class DebugTallies
   /**
    * 240 total notes = 79% = GOOD
    */
-  public static var GOOD:SaveScoreTallyData =
+  public static var GOOD:funkin.save.SaveScoreTallyData =
     {
       sick: 190,
       good: 69,
@@ -58,7 +58,7 @@ class DebugTallies
   /**
    * 230 total notes = 82% = GREAT
    */
-  public static var GREAT:SaveScoreTallyData =
+  public static var GREAT:funkin.save.SaveScoreTallyData =
     {
       sick: 190,
       good: 69,
@@ -74,7 +74,7 @@ class DebugTallies
   /**
    * 210 total notes = 90% = EXCELLENT
    */
-  public static var EXCELLENT:SaveScoreTallyData =
+  public static var EXCELLENT:funkin.save.SaveScoreTallyData =
     {
       sick: 190,
       good: 69,
@@ -90,7 +90,7 @@ class DebugTallies
   /**
    * 190 total notes = PERFECT
    */
-  public static var PERFECT:SaveScoreTallyData =
+  public static var PERFECT:funkin.save.SaveScoreTallyData =
     {
       sick: 190,
       good: 69,
@@ -106,7 +106,7 @@ class DebugTallies
   /**
    * 190 total sicks and total notes = PERFECT GOLD
    */
-  public static var PERFECT_GOLD:SaveScoreTallyData =
+  public static var PERFECT_GOLD:funkin.save.SaveScoreTallyData =
     {
       sick: 190,
       good: 0,
@@ -119,7 +119,7 @@ class DebugTallies
       totalNotes: 190
     };
 
-  public static function getTallyForRank(rank:DebugRank):SaveScoreTallyData
+  public static function getTallyForRank(rank:DebugRank):funkin.save.SaveScoreTallyData
   {
     return switch (rank)
     {

@@ -307,7 +307,7 @@ class StageEditorObjectToolbox extends StageEditorDefaultToolbox
       objectAnimOffsetY.pos = (animData.offsets != null && animData.offsets.length == 2 ? animData.offsets[1] : 0);
     }
 
-    objectAnimSave.onClick = function(_) {
+    objectAnimfunkin.save.Save.onClick = function(_) {
       if (linkedObject == null) return;
 
       if (objectAnimName.text == null || objectAnimName.text == "")

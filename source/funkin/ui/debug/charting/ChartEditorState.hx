@@ -750,7 +750,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
   /**
    * A timer used to auto-save the chart after a period of inactivity.
    */
-  var autoSaveTimer:Null<FlxTimer> = null;
+  var autofunkin.save.SaveTimer:Null<FlxTimer> = null;
 
   // Scrolling
 
@@ -972,16 +972,16 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
     if (value)
     {
       // Start the auto-save timer.
-      autoSaveTimer = new FlxTimer().start(Constants.AUTOSAVE_TIMER_DELAY_SEC, (_) -> autoSave());
+      autofunkin.save.SaveTimer = new FlxTimer().start(Constants.AUTOSAVE_TIMER_DELAY_SEC, (_) -> autofunkin.save.Save());
     }
     else
     {
-      if (autoSaveTimer != null)
+      if (autofunkin.save.SaveTimer != null)
       {
         // Stop the auto-save timer.
-        autoSaveTimer.cancel();
-        autoSaveTimer.destroy();
-        autoSaveTimer = null;
+        autofunkin.save.SaveTimer.cancel();
+        autofunkin.save.SaveTimer.destroy();
+        autofunkin.save.SaveTimer = null;
       }
     }
 
@@ -994,12 +994,12 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
 
   function get_shouldShowBackupAvailableDialog():Bool
   {
-    return Save.instance.chartEditorHasBackup;
+    return funkin.save.Save.instance.chartEditorHasBackup;
   }
 
   function set_shouldShowBackupAvailableDialog(value:Bool):Bool
   {
-    return Save.instance.chartEditorHasBackup = value;
+    return funkin.save.Save.instance.chartEditorHasBackup = value;
   }
 
   /**
@@ -1015,7 +1015,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
     previousWorkingFilePaths = value;
     applyWindowTitle();
     populateOpenRecentMenu();
-    applyCanQuickSave();
+    applyCanQuickfunkin.save.Save();
     return value;
   }
 
@@ -1780,14 +1780,14 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
   var menubarOpenRecent:Menu;
 
   /**
-   * The `File -> Save Chart` menu item.
+   * The `File -> funkin.save.Save Chart` menu item.
    */
-  var menubarItemSaveChart:MenuItem;
+  var menubarItemfunkin.save.SaveChart:MenuItem;
 
   /**
-   * The `File -> Save Chart As` menu item.
+   * The `File -> funkin.save.Save Chart As` menu item.
    */
-  var menubarItemSaveChartAs:MenuItem;
+  var menubarItemfunkin.save.SaveChartAs:MenuItem;
 
   /**
    * The `File -> Preferences` menu item.
@@ -2316,7 +2316,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
     setupContextMenu();
     setupTurboKeyHandlers();
 
-    setupAutoSave();
+    setupAutofunkin.save.Save();
 
     refresh();
 
@@ -2389,7 +2389,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
 
   public function loadPreferences():Void
   {
-    var save:Save = Save.instance;
+    var save:funkin.save.Save = funkin.save.Save.instance;
 
     if (previousWorkingFilePaths[0] == null)
     {
@@ -2418,7 +2418,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
 
   public function writePreferences(hasBackup:Bool):Void
   {
-    var save:Save = Save.instance;
+    var save:funkin.save.Save = funkin.save.Save.instance;
 
     // Can't use filter() because of null safety checking!
     var filteredWorkingFilePaths:Array<String> = [];
@@ -3006,7 +3006,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
     // File
     menubarItemNewChart.onClick = _ -> this.openWelcomeDialog(true);
     menubarItemOpenChart.onClick = _ -> this.openBrowseFNFC(true);
-    menubarItemSaveChart.onClick = _ -> {
+    menubarItemfunkin.save.SaveChart.onClick = _ -> {
       if (currentWorkingFilePath != null)
       {
         this.exportAllSongData(true, currentWorkingFilePath);
@@ -3016,7 +3016,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
         this.exportAllSongData(false, null);
       }
     };
-    menubarItemSaveChartAs.onClick = _ -> this.exportAllSongData(false, null);
+    menubarItemfunkin.save.SaveChartAs.onClick = _ -> this.exportAllSongData(false, null);
     menubarItemExit.onClick = _ -> quitChartEditor();
 
     // Edit
@@ -3320,7 +3320,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
   /**
    * Setup timers and listerners to handle auto-save.
    */
-  function setupAutoSave():Void
+  function setupAutofunkin.save.Save():Void
   {
     // Called when clicking the X button on the window.
     WindowUtil.windowExit.add(onWindowClose);
@@ -3337,14 +3337,14 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
   /**
    * UPDATE FUNCTIONS
    */
-  function autoSave(?beforePlaytest:Bool = false):Void
+  function autofunkin.save.Save(?beforePlaytest:Bool = false):Void
   {
-    var needsAutoSave:Bool = saveDataDirty;
+    var needsAutofunkin.save.Save:Bool = saveDataDirty;
 
     saveDataDirty = false;
 
     // Auto-save preferences.
-    writePreferences(needsAutoSave);
+    writePreferences(needsAutofunkin.save.Save);
 
     // Auto-save the chart.
     #if html5
@@ -3352,7 +3352,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
     // TODO: Implement this.
     #else
     // Auto-save to temp file.
-    if (needsAutoSave)
+    if (needsAutofunkin.save.Save)
     {
       this.exportAllSongData(true, null);
       if (beforePlaytest)
@@ -3363,7 +3363,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
       {
         displayAutosavePopup = false;
         var absoluteBackupsPath:String = Path.join([Sys.getCwd(), ChartEditorImportExportHandler.BACKUPS_PATH]);
-        this.infoWithActions('Auto-Save', 'Chart auto-saved to ${absoluteBackupsPath}.', [
+        this.infoWithActions('Auto-funkin.save.Save', 'Chart auto-saved to ${absoluteBackupsPath}.', [
           {
             text: "Take Me There",
             callback: openBackupsFolder,
@@ -3400,11 +3400,11 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
     trace('Window exited with exit code: $exitCode');
     trace('Should save chart? $saveDataDirty');
 
-    var needsAutoSave:Bool = saveDataDirty;
+    var needsAutofunkin.save.Save:Bool = saveDataDirty;
 
-    writePreferences(needsAutoSave);
+    writePreferences(needsAutofunkin.save.Save);
 
-    if (needsAutoSave)
+    if (needsAutofunkin.save.Save)
     {
       this.exportAllSongData(true, null);
     }
@@ -3417,17 +3417,17 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
 
     trace('Should save chart? $saveDataDirty');
 
-    var needsAutoSave:Bool = saveDataDirty;
+    var needsAutofunkin.save.Save:Bool = saveDataDirty;
 
-    writePreferences(needsAutoSave);
+    writePreferences(needsAutofunkin.save.Save);
 
-    if (needsAutoSave)
+    if (needsAutofunkin.save.Save)
     {
       this.exportAllSongData(true, null);
     }
   }
 
-  function cleanupAutoSave():Void
+  function cleanupAutofunkin.save.Save():Void
   {
     WindowUtil.windowExit.remove(onWindowClose);
     CrashHandler.errorSignal.remove(onWindowCrash);
@@ -5646,19 +5646,19 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
     {
       if (currentWorkingFilePath == null || FlxG.keys.pressed.SHIFT)
       {
-        // CTRL + SHIFT + S = Save As
+        // CTRL + SHIFT + S = funkin.save.Save As
         this.exportAllSongData(false, null, function(path:String) {
           // CTRL + SHIFT + S Successful
-          this.success('Saved Chart', 'Chart saved successfully to ${path}.');
+          this.success('funkin.save.Saved Chart', 'Chart saved successfully to ${path}.');
         }, function() {
           // CTRL + SHIFT + S Cancelled
         });
       }
       else
       {
-        // CTRL + S = Save Chart
+        // CTRL + S = funkin.save.Save Chart
         this.exportAllSongData(true, currentWorkingFilePath);
-        this.success('Saved Chart', 'Chart saved successfully to ${currentWorkingFilePath}.');
+        this.success('funkin.save.Saved Chart', 'Chart saved successfully to ${currentWorkingFilePath}.');
       }
     }
 
@@ -6005,7 +6005,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
    */
   function testSongInPlayState(minimal:Bool = false):Void
   {
-    autoSave(true);
+    autofunkin.save.Save(true);
 
     stopWelcomeMusic();
     stopAudioPlayback();
@@ -6470,7 +6470,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
       #if sys
       Toolkit.callLater(() -> {
         var absoluteBackupsPath:String = Path.join([Sys.getCwd(), ChartEditorImportExportHandler.BACKUPS_PATH]);
-        this.infoWithActions('Auto-Save', 'Chart auto-saved to ${absoluteBackupsPath}.', [
+        this.infoWithActions('Auto-funkin.save.Save', 'Chart auto-saved to ${absoluteBackupsPath}.', [
           {
             text: "Take Me There",
             callback: openBackupsFolder,
@@ -6762,7 +6762,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
   {
     super.destroy();
 
-    cleanupAutoSave();
+    cleanupAutofunkin.save.Save();
 
     this.closeExistingMenu();
 
@@ -6778,17 +6778,17 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
     if (audioVocalTrackGroup != null) audioVocalTrackGroup.destroy();
   }
 
-  function applyCanQuickSave():Void
+  function applyCanQuickfunkin.save.Save():Void
   {
-    if (menubarItemSaveChart == null) return;
+    if (menubarItemfunkin.save.SaveChart == null) return;
 
     if (currentWorkingFilePath == null)
     {
-      menubarItemSaveChart.disabled = true;
+      menubarItemfunkin.save.SaveChart.disabled = true;
     }
     else
     {
-      menubarItemSaveChart.disabled = false;
+      menubarItemfunkin.save.SaveChart.disabled = false;
     }
   }
 

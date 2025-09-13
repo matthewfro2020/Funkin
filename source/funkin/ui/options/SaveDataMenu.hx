@@ -5,7 +5,7 @@ import funkin.api.newgrounds.NewgroundsClient;
 #end
 import funkin.save.Save;
 
-class SaveDataMenu extends Page<OptionsState.OptionsMenuPageName>
+class funkin.save.SaveDataMenu extends Page<OptionsState.OptionsMenuPageName>
 {
   var items:TextMenuList;
 
@@ -15,7 +15,7 @@ class SaveDataMenu extends Page<OptionsState.OptionsMenuPageName>
 
     add(items = new TextMenuList());
 
-    createItem("CLEAR SAVE DATA", openSaveDataPrompt);
+    createItem("CLEAR SAVE DATA", openfunkin.save.SaveDataPrompt);
 
     #if FEATURE_NEWGROUNDS
     if (NewgroundsClient.instance.isLoggedIn())
@@ -25,7 +25,7 @@ class SaveDataMenu extends Page<OptionsState.OptionsMenuPageName>
         \nALL your save data.
         \nAre you sure?
       ", "Overwrite", function() {
-          Save.loadFromNewgrounds(function() {
+          funkin.save.Save.loadFromNewgrounds(function() {
             FlxG.switchState(() -> new funkin.InitState());
           });
         });
@@ -35,7 +35,7 @@ class SaveDataMenu extends Page<OptionsState.OptionsMenuPageName>
         openConfirmPrompt("This will overwrite
         \nALL save data saved
         \non NG. Are you sure?", "Overwrite", function() {
-          Save.saveToNewgrounds();
+          funkin.save.Save.saveToNewgrounds();
         });
       });
 
@@ -43,7 +43,7 @@ class SaveDataMenu extends Page<OptionsState.OptionsMenuPageName>
         openConfirmPrompt("This will delete
         \nALL save data saved
         \non NG. Are you sure?", "Delete", function() {
-          funkin.api.newgrounds.NGSaveSlot.instance.clear();
+          funkin.api.newgrounds.NGfunkin.save.SaveSlot.instance.clear();
         });
       });
     }
@@ -101,14 +101,14 @@ class SaveDataMenu extends Page<OptionsState.OptionsMenuPageName>
       prompt = null;
     }
   }
-  public function openSaveDataPrompt()
+  public function openfunkin.save.SaveDataPrompt()
   {
     openConfirmPrompt("This will delete
         \nALL your save data.
         \nAre you sure?
       ", "Delete", function() {
       // Clear the save data.
-      Save.clearData();
+      funkin.save.Save.clearData();
 
       FlxG.switchState(() -> new funkin.InitState());
     });

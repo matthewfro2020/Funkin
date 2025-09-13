@@ -1331,7 +1331,7 @@ class ChartEditorDialogHandler
         state.isHaxeUIDialogOpen = false;
         if (button == DialogButton.YES)
         {
-          state.autoSave();
+          state.autofunkin.save.Save();
           state.quitChartEditor();
         }
       }

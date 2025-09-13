@@ -2,7 +2,7 @@ package funkin.save.migrator;
 
 import thx.semver.Version;
 
-typedef RawSaveData_v1_0_0 =
+typedef Rawfunkin.save.SaveData_v1_0_0 =
 {
   var seenVideo:Bool;
   var mute:Bool;
@@ -16,21 +16,21 @@ typedef RawSaveData_v1_0_0 =
 
   var ?controls:
     {
-      ?p1:SavePlayerControlsData_v1_0_0,
-      ?p2:SavePlayerControlsData_v1_0_0
+      ?p1:funkin.save.SavePlayerControlsData_v1_0_0,
+      ?p2:funkin.save.SavePlayerControlsData_v1_0_0
     };
   var enabledMods:Array<String>;
   var weeksUnlocked:Array<Bool>;
   var windowSettings:Array<Bool>;
 }
 
-typedef SavePlayerControlsData_v1_0_0 =
+typedef funkin.save.SavePlayerControlsData_v1_0_0 =
 {
-  var keys:SaveControlsData_v1_0_0;
-  var pad:SaveControlsData_v1_0_0;
+  var keys:funkin.save.SaveControlsData_v1_0_0;
+  var pad:funkin.save.SaveControlsData_v1_0_0;
 };
 
-typedef SaveControlsData_v1_0_0 =
+typedef funkin.save.SaveControlsData_v1_0_0 =
 {
   var ?ACCEPT:Array<Int>;
   var ?BACK:Array<Int>;

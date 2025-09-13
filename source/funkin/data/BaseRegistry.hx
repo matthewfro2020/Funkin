@@ -44,7 +44,7 @@ abstract class BaseRegistry<T:(IRegistryEntry<J> & Constructible<EntryConstructo
    */
   final versionRule:thx.semver.VersionRule;
 
-  // public abstract static final instance:BaseRegistry<T, J> = new BaseRegistry<>();
+  // public abstract static final instance:BaseRegistry<T, J, String> = new BaseRegistry<>();
 
   /**
    * @param registryId A readable ID for this registry, used when logging.

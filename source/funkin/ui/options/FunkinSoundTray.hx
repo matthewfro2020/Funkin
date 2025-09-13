@@ -152,7 +152,7 @@ class FunkinSoundTray extends FlxSoundTray
   {
     // Actually save when the volume is changed / modified
     #if FLX_SAVE
-    // Save sound preferences
+    // funkin.save.Save sound preferences
     if (FlxG.save.isBound)
     {
       FlxG.save.data.mute = FlxG.sound.muted;

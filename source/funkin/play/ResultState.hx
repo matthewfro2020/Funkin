@@ -1075,10 +1075,10 @@ typedef ResultsStateParams =
   /**
    * The score, accuracy, and judgements.
    */
-  var scoreData:SaveScoreData;
+  var scoreData:funkin.save.SaveScoreData;
 
   /**
    * The previous score data, used for rank comparision.
    */
-  var ?prevScoreData:SaveScoreData;
+  var ?prevScoreData:funkin.save.SaveScoreData;
 };

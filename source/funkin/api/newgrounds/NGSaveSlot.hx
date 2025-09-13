@@ -9,12 +9,12 @@ import funkin.save.Save;
 
 @:nullSafety
 @:access(funkin.save.Save)
-class NGSaveSlot
+class NGfunkin.save.SaveSlot
 {
-  public static var instance(get, never):NGSaveSlot;
-  static var _instance:Null<NGSaveSlot> = null;
+  public static var instance(get, never):NGfunkin.save.SaveSlot;
+  static var _instance:Null<NGfunkin.save.SaveSlot> = null;
 
-  static function get_instance():NGSaveSlot
+  static function get_instance():NGfunkin.save.SaveSlot
   {
     if (_instance == null)
     {
@@ -23,47 +23,47 @@ class NGSaveSlot
     return _instance;
   }
 
-  public static function loadInstance():NGSaveSlot
+  public static function loadInstance():NGfunkin.save.SaveSlot
   {
-    var loadedSave:NGSaveSlot = loadSlot(Save.BASE_SAVE_SLOT);
-    if (_instance == null) _instance = loadedSave;
+    var loadedfunkin.save.Save:NGfunkin.save.SaveSlot = loadSlot(funkin.save.Save.BASE_SAVE_SLOT);
+    if (_instance == null) _instance = loadedfunkin.save.Save;
 
-    return loadedSave;
+    return loadedfunkin.save.Save;
   }
 
-  static function loadSlot(slot:Int):NGSaveSlot
+  static function loadSlot(slot:Int):NGfunkin.save.SaveSlot
   {
     trace('[NEWGROUNDS] Getting save slot from ID $slot');
 
-    var saveSlot:Null<SaveSlot> = NewgroundsClient.instance.saveSlots?.getById(slot);
+    var saveSlot:Null<funkin.save.SaveSlot> = NewgroundsClient.instance.saveSlots?.getById(slot);
 
-    var saveSlotObj:NGSaveSlot = new NGSaveSlot(saveSlot);
+    var saveSlotObj:NGfunkin.save.SaveSlot = new NGfunkin.save.SaveSlot(saveSlot);
     return saveSlotObj;
   }
 
-  public var ngSaveSlot:Null<SaveSlot> = null;
+  public var ngfunkin.save.SaveSlot:Null<funkin.save.SaveSlot> = null;
 
-  public function new(?ngSaveSlot:Null<SaveSlot>)
+  public function new(?ngfunkin.save.SaveSlot:Null<funkin.save.SaveSlot>)
   {
-    this.ngSaveSlot = ngSaveSlot;
+    this.ngfunkin.save.SaveSlot = ngfunkin.save.SaveSlot;
 
     #if FLX_DEBUG
-    FlxG.console.registerClass(NGSaveSlot);
-    FlxG.console.registerClass(Save);
+    FlxG.console.registerClass(NGfunkin.save.SaveSlot);
+    FlxG.console.registerClass(funkin.save.Save);
     #end
   }
 
   /**
-   * Saves `data` to the newgrounds save slot.
+   * funkin.save.Saves `data` to the newgrounds save slot.
    * @param data The raw save data.
    */
-  public function save(data:RawSaveData):Void
+  public function save(data:Rawfunkin.save.SaveData):Void
   {
     var encodedData:String = haxe.Serializer.run(data);
 
     try
     {
-      ngSaveSlot?.save(encodedData, function(outcome:Outcome<CallError>) {
+      ngfunkin.save.SaveSlot?.save(encodedData, function(outcome:Outcome<CallError>) {
         switch (outcome)
         {
           case SUCCESS:
@@ -85,13 +85,13 @@ class NGSaveSlot
   {
     try
     {
-      ngSaveSlot?.load(function(outcome:SaveSlotOutcome):Void {
+      ngfunkin.save.SaveSlot?.load(function(outcome:funkin.save.SaveSlotOutcome):Void {
         switch (outcome)
         {
           case SUCCESS(value):
-            trace('[NEWGROUNDS] Loaded save slot with the ID of ${ngSaveSlot?.id}!');
+            trace('[NEWGROUNDS] Loaded save slot with the ID of ${ngfunkin.save.SaveSlot?.id}!');
             #if FEATURE_DEBUG_FUNCTIONS
-            trace('Save Slot Data:');
+            trace('funkin.save.Save Slot Data:');
             trace(value);
             #end
 
@@ -101,7 +101,7 @@ class NGSaveSlot
               onComplete(decodedData);
             }
           case FAIL(error):
-            trace('[NEWGROUNDS] Failed to load save slot with the ID of ${ngSaveSlot?.id}!');
+            trace('[NEWGROUNDS] Failed to load save slot with the ID of ${ngfunkin.save.SaveSlot?.id}!');
             trace(error);
 
             if (onError != null)
@@ -113,7 +113,7 @@ class NGSaveSlot
     }
     catch (error:String)
     {
-      trace('[NEWGROUNDS] Failed to load save slot with the ID of ${ngSaveSlot?.id}!');
+      trace('[NEWGROUNDS] Failed to load save slot with the ID of ${ngfunkin.save.SaveSlot?.id}!');
       trace(error);
 
       if (onError != null)
@@ -127,7 +127,7 @@ class NGSaveSlot
   {
     try
     {
-      ngSaveSlot?.clear(function(outcome:Outcome<CallError>) {
+      ngfunkin.save.SaveSlot?.clear(function(outcome:Outcome<CallError>) {
         switch (outcome)
         {
           case SUCCESS:
@@ -147,10 +147,10 @@ class NGSaveSlot
 
   public function checkSlot():Void
   {
-    trace('[NEWGROUNDS] Checking save slot with the ID of ${ngSaveSlot?.id}...');
+    trace('[NEWGROUNDS] Checking save slot with the ID of ${ngfunkin.save.SaveSlot?.id}...');
 
-    trace('  Is null? ${ngSaveSlot == null}');
-    trace('  Is empty? ${ngSaveSlot?.isEmpty() ?? false}');
+    trace('  Is null? ${ngfunkin.save.SaveSlot == null}');
+    trace('  Is empty? ${ngfunkin.save.SaveSlot?.isEmpty() ?? false}');
   }
 }
 #end

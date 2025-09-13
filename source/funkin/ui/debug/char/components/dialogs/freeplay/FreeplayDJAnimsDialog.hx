@@ -14,7 +14,7 @@ class FreeplayDJAnimsDialog extends DefaultPageDialog
       daPage.changeDJAnimation(djAnimList.selectedIndex - daPage.currentDJAnimation);
     }
 
-    djAnimSave.onClick = function(_) {
+    djAnimfunkin.save.Save.onClick = function(_) {
       if (!daPage.dj.hasAnimation(djAnimPrefix.text))
       {
         return;

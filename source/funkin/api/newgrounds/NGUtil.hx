@@ -57,7 +57,7 @@ class NGUtil
 
   static public function init()
   {
-    var api = APIStuff.API;
+    var api = funkin.api.APIStuff.API;
     if (api == null || api.length == 0)
     {
       trace("Missing Newgrounds API key, aborting connection");
@@ -77,18 +77,18 @@ class NGUtil
     if (sessionId != null) trace("found web session id");
 
     #if (debug)
-    if (sessionId == null && APIStuff.SESSION != null)
+    if (sessionId == null && funkin.api.APIStuff.SESSION != null)
     {
       trace("using debug session id");
-      sessionId = APIStuff.SESSION;
+      sessionId = funkin.api.APIStuff.SESSION;
     }
     #end
 
     var onSessionFail:Error->Void = null;
-    if (sessionId == null && Save.instance.ngSessionId != null)
+    if (sessionId == null && funkin.save.Save.instance.ngSessionId != null)
     {
       trace("using stored session id");
-      sessionId = Save.instance.ngSessionId;
+      sessionId = funkin.save.Save.instance.ngSessionId;
       onSessionFail = function(error) savedSessionFailed = true;
     }
     #end
@@ -99,7 +99,7 @@ class NGUtil
     NG.core.verbose = true;
     #end
     // Set the encryption cipher/format to RC4/Base64. AES128 and Hex are not implemented yet
-    NG.core.initEncryption(APIStuff.EncKey); // Found in you NG project view
+    NG.core.initEncryption(funkin.api.APIStuff.EncKey); // Found in you NG project view
 
     if (NG.core.attemptingLogin)
     {
@@ -158,8 +158,8 @@ class NGUtil
   static function onNGLogin():Void
   {
     trace('logged in! user:${NG.core.user.name}');
-    Save.instance.ngSessionId = NG.core.sessionId;
-    Save.instance.flush();
+    funkin.save.Save.instance.ngSessionId = NG.core.sessionId;
+    funkin.save.Save.instance.flush();
     // Load medals then call onNGMedalFetch()
     NG.core.requestMedals(onNGMedalFetch);
 
@@ -173,8 +173,8 @@ class NGUtil
   {
     NG.core.logOut();
 
-    Save.instance.ngSessionId = null;
-    Save.instance.flush();
+    funkin.save.Save.instance.ngSessionId = null;
+    funkin.save.Save.instance.flush();
   }
 
   // --- MEDALS

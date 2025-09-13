@@ -277,7 +277,7 @@ class Conductor
 
   function get_audioVisualOffset():Int
   {
-    return Save?.instance?.options?.audioVisualOffset ?? 0;
+    return funkin.save.Save?.instance?.options?.audioVisualOffset ?? 0;
   }
 
   public var combinedOffset(get, never):Float;

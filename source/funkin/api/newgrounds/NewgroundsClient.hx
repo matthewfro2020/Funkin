@@ -35,7 +35,7 @@ class NewgroundsClient
   public var user(get, never):Null<User>;
   public var medals(get, never):Null<MedalList>;
   public var leaderboards(get, never):Null<ScoreBoardList>;
-  public var saveSlots(get, never):Null<SaveSlotList>;
+  public var saveSlots(get, never):Null<funkin.save.SaveSlotList>;
 
   private function new()
   {
@@ -156,7 +156,7 @@ class NewgroundsClient
       }
     }
 
-    Save.instance.ngSessionId = null;
+    funkin.save.Save.instance.ngSessionId = null;
   }
 
   /**
@@ -239,7 +239,7 @@ class NewgroundsClient
     trace('[NEWGROUNDS] Login successful!');
 
     // Persist the session ID.
-    Save.instance.ngSessionId = NG.core.sessionId;
+    funkin.save.Save.instance.ngSessionId = NG.core.sessionId;
 
     trace('[NEWGROUNDS] Submitting medal request...');
     NG.core.requestMedals(onFetchedMedals);
@@ -247,7 +247,7 @@ class NewgroundsClient
     trace('[NEWGROUNDS] Submitting leaderboard request...');
     NG.core.scoreBoards.loadList(onFetchedLeaderboards);
     trace('[NEWGROUNDS] Submitting save slot request...');
-    NG.core.saveSlots.loadList(onFetchedSaveSlots);
+    NG.core.saveSlots.loadList(onFetchedfunkin.save.SaveSlots);
   }
 
   function onLoginFailed(result:LoginFail):Void
@@ -313,11 +313,11 @@ class NewgroundsClient
     // trace(funkin.api.newgrounds.Leaderboards.listLeaderboardData());
   }
 
-  function onFetchedSaveSlots(outcome:Outcome<CallError>):Void
+  function onFetchedfunkin.save.SaveSlots(outcome:Outcome<CallError>):Void
   {
     trace('[NEWGROUNDS] Fetched save slots!');
 
-    NGSaveSlot.instance.checkSlot();
+    NGfunkin.save.SaveSlot.instance.checkSlot();
   }
 
   function get_user():Null<User>
@@ -338,7 +338,7 @@ class NewgroundsClient
     return NG.core.scoreBoards;
   }
 
-  function get_saveSlots():Null<SaveSlotList>
+  function get_saveSlots():Null<funkin.save.SaveSlotList>
   {
     if (NG.core == null || !this.isLoggedIn()) return null;
     return NG.core.saveSlots;
@@ -353,7 +353,7 @@ class NewgroundsClient
     #end
 
     // We have to fetch the session ID from the save file.
-    return Save.instance.ngSessionId;
+    return funkin.save.Save.instance.ngSessionId;
   }
 }
 

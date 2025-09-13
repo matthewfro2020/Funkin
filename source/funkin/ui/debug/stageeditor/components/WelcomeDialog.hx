@@ -29,7 +29,7 @@ class WelcomeDialog extends Dialog
       killDaDialog();
     }
 
-    for (file in Save.instance.stageEditorPreviousFiles)
+    for (file in funkin.save.Save.instance.stageEditorPreviousFiles)
     {
       trace(file);
 
@@ -55,7 +55,7 @@ class WelcomeDialog extends Dialog
       contentRecent.addComponent(fileText);
     }
 
-    boxDrag.onClick = function(_) FileUtil.browseForSaveFile([FileUtil.FILE_FILTER_FNFS], loadFromFilePath, null, null, "Open Stage Data");
+    boxDrag.onClick = function(_) FileUtil.browseForfunkin.save.SaveFile([FileUtil.FILE_FILTER_FNFS], loadFromFilePath, null, null, "Open Stage Data");
 
     var defaultStages:Array<String> = StageRegistry.instance.listEntryIds();
     defaultStages.sort(funkin.util.SortUtil.alphabetically);

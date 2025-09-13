@@ -604,7 +604,7 @@ class MainMenuState extends MusicBeatState
 
     if (InputUtil.allPressedWithDebounce([CONTROL, ALT, SHIFT, E]))
     {
-      funkin.save.Save.instance.debug_dumpSaveJsonSave();
+      funkin.save.Save.instance.debug_dumpfunkin.save.SaveJsonfunkin.save.Save();
     }
     #end
 

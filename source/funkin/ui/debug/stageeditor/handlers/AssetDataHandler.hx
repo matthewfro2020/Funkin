@@ -24,7 +24,7 @@ class AssetDataHandler
   /**
    * Turns an Object into Data.
    * @param obj the Object whose data to read.
-   * @param useBitmaps Whether to Save object's BitmapData directly.
+   * @param useBitmaps Whether to funkin.save.Save object's BitmapData directly.
    * @return Data of the Object
    */
   public static function toData(obj:StageEditorObject, useBitmaps:Bool = false):StageEditorObjectData
