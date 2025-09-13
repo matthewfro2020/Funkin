@@ -138,22 +138,22 @@ class SaveDataMigrator
   static function migrateLegacyLevelScore(result:Save, inputSaveData:RawSaveData_v1_0_0, levelId:String):Void
   {
     var scoreDataEasy:SaveScoreData =
+    {
+      score: inputSaveData.songScores.get('${levelId}-easy') ?? 0,
+      tallies:
       {
-        score: inputSaveData.songScores.get('${levelId}-easy') ?? 0,
-        // accuracy: inputSaveData.songCompletion.get('${levelId}-easy') ?? 0.0,
-        tallies:
-          {
-            sick: 0,
-            good: 0,
-            bad: 0,
-            shit: 0,
-            missed: 0,
-            combo: 0,
-            maxCombo: 0,
-            totalNotesHit: 0,
-            totalNotes: 0,
-          };
-      };
+        sick: 0,
+        good: 0,
+        bad: 0,
+        shit: 0,
+        missed: 0,
+        combo: 0,
+        maxCombo: 0,
+        totalNotesHit: 0,
+        totalNotes: 0
+      }
+  };
+
     result.setLevelScore(levelId, 'easy', scoreDataEasy);
 
     var scoreDataNormal:SaveScoreData =
