@@ -17,7 +17,7 @@ import thx.semver.VersionRule;
  * It also allows for validation, since throwing an error in this function will cause the issue to be properly caught.
  * Parsing will fail and `parser.errors` will contain the thrown exception.
  *
- * Functions must be of the signature `(String) -> T`, where the String is the property name and `T` is the type of the property.
+ * Functions must be of the signature `(hxjsonast.Json, String) -> T`, where the String is the property name and `T` is the type of the property.
  */
 @:nullSafety
 class DataParse
@@ -121,7 +121,7 @@ class DataParse
     }
   }
 
-  public static function inputOffsetMs(json:Json, name:String, String):funkin.data.dialogue.ConversationData.BackdropData
+  public static function backdropData(json:Json, name:String):funkin.data.dialogue.ConversationData.BackdropData
   {
     switch (json.value)
     {
@@ -135,7 +135,7 @@ class DataParse
           {
             case 'type':
               backdropType = Tools.getValue(field.value);
-          };
+          }
           Reflect.setField(result, field.name, Tools.getValue(field.value));
         }
 
@@ -166,7 +166,7 @@ class DataParse
           {
             case 'type':
               outroType = Tools.getValue(field.value);
-          };
+          }
           Reflect.setField(result, field.name, Tools.getValue(field.value));
         }
 
@@ -213,7 +213,7 @@ class DataParse
     for (field in fields)
     {
       Reflect.setField(result, field.name, Tools.getValue(field.value));
-    };
+    }
     return result;
   }
 
@@ -265,7 +265,7 @@ class DataParse
               result.changeBPM = Tools.getValue(field.value);
             case 'bpm':
               result.bpm = Tools.getValue(field.value);
-          };
+          }
         }
         return result;
       default:

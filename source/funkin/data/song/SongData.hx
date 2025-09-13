@@ -770,7 +770,7 @@ class SongEventDataRaw implements ICloneable<SongEventDataRaw>
       var result:haxe.DynamicAccess<Dynamic> = {};
       result.set(defaultKey, this.value);
       return cast result;
-    };
+    }
     else if (Reflect.isObject(this.value))
     {
       // We enter this case if the value is a struct.
@@ -781,7 +781,7 @@ class SongEventDataRaw implements ICloneable<SongEventDataRaw>
       var result:haxe.DynamicAccess<Dynamic> = {};
       result.set(defaultKey, this.value);
       return cast result;
-    };
+    }
   }
 
   public function getHandler():Null<SongEvent>

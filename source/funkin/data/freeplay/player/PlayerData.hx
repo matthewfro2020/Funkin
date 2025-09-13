@@ -265,6 +265,13 @@ class PlayerFreeplayDJData
 
 class PlayerCharSelectData
 {
+  /**
+   * A zero-indexed number for the character's preferred position in the grid.
+   * 0 = top left, 4 = center, 8 = bottom right
+   * In the event of a conflict, the first character alphabetically gets it,
+   * and others get shifted over.
+   */
+  @:optional
   public var position:Null<Int>;
 
   /**
@@ -272,157 +279,6 @@ class PlayerCharSelectData
    */
   @:optional
   public var gf:PlayerCharSelectGFData;
-
-  /**
-   * The BF name to assign for this character.
-   */
-  @:optional
-  public var bf:PlayerCharSelectGFData;
-
-  /** The Dad name to assign for this character. */
-  @:optional
-  public var dad:PlayerCharSelectGFData;
-
-  /** The Mom name to assign for this character. */
-  @:optional
-  public var mom:PlayerCharSelectGFData;
-
-  /** The Pico name to assign for this character. */
-  @:optional
-  public var pico:PlayerCharSelectGFData;
-
-  /** The Senpai name to assign for this character. */
-  @:optional
-  public var senpai:PlayerCharSelectGFData;
-
-  /** The Spooky name to assign for this character. */
-  @:optional
-  public var spooky:PlayerCharSelectGFData;
-
-  /** The Tankman name to assign for this character. */
-  @:optional
-  public var tankman:PlayerCharSelectGFData;
-
-  /** The Tabi name to assign for this character. */
-  @:optional
-  public var tabi:PlayerCharSelectGFData;
-
-  /** The Whitty name to assign for this character. */
-  @:optional
-  public var whitty:PlayerCharSelectGFData;
-
-  /** The Hex name to assign for this character. */
-  @:optional
-  public var hex:PlayerCharSelectGFData;
-
-  /** The Agoti name to assign for this character. */
-  @:optional
-  public var agoti:PlayerCharSelectGFData;
-
-  /** The Sarv name to assign for this character. */
-  @:optional
-  public var sarv:PlayerCharSelectGFData;
-
-  /** The Ruv name to assign for this character. */
-  @:optional
-  public var ruv:PlayerCharSelectGFData;
-
-  /** The Shaggy name to assign for this character. */
-  @:optional
-  public var shaggy:PlayerCharSelectGFData;
-
-  /** The Limo name to assign for this character. */
-  @:optional
-  public var limo:PlayerCharSelectGFData;
-
-  /** The Camellia name to assign for this character. */
-  @:optional
-  public var camellia:PlayerCharSelectGFData;
-
-  /** The Kapi name to assign for this character. */
-  @:optional
-  public var kapi:PlayerCharSelectGFData;
-
-  /** The Nene name to assign for this character. */
-  @:optional
-  public var nene:PlayerCharSelectGFData;
-
-  /** The Vax name to assign for this character. */
-  @:optional
-  public var vax:PlayerCharSelectGFData;
-
-  /** The Vex name to assign for this character. */
-  @:optional
-  public var vex:PlayerCharSelectGFData;
-
-  /** The Clown name to assign for this character. */
-  @:optional
-  public var clown:PlayerCharSelectGFData;
-
-  /** The Ex-BF name to assign for this character. */
-  @:optional
-  public var exbf:PlayerCharSelectGFData;
-
-  /** The Daddy Dearest name to assign for this character. */
-  @:optional
-  public var daddy:PlayerCharSelectGFData;
-
-  /** The Skid name to assign for this character. */
-  @:optional
-  public var skid:PlayerCharSelectGFData;
-
-  /** The Pump name to assign for this character. */
-  @:optional
-  public var pump:PlayerCharSelectGFData;
-
-  /** The Monster name to assign for this character. */
-  @:optional
-  public var monster:PlayerCharSelectGFData;
-
-  /** The Senora name to assign for this character. */
-  @:optional
-  public var senora:PlayerCharSelectGFData;
-
-  /** The Pico's Girlfriend name to assign for this character. */
-  @:optional
-  public var picoGF:PlayerCharSelectGFData;
-
-  /** The Tabi's Girlfriend name to assign for this character. */
-  @:optional
-  public var tabiGF:PlayerCharSelectGFData;
-
-  /** The Agoti's Girlfriend name to assign for this character. */
-  @:optional
-  public var agotiGF:PlayerCharSelectGFData;
-
-  /** The Ruv's Girlfriend name to assign for this character. */
-  @:optional
-  public var ruvGF:PlayerCharSelectGFData;
-
-  /** The Shaggy's Girlfriend name to assign for this character. */
-  @:optional
-  public var shaggyGF:PlayerCharSelectGFData;
-
-  /** The Limo's Girlfriend name to assign for this character. */
-  @:optional
-  public var limoGF:PlayerCharSelectGFData;
-
-  /** The Camellia's Girlfriend name to assign for this character. */
-  @:optional
-  public var camelliaGF:PlayerCharSelectGFData;
-
-  /** The Kapi's Girlfriend name to assign for this character. */
-  @:optional
-  public var kapiGF:PlayerCharSelectGFData;
-
-  /** The Nene's Girlfriend name to assign for this character. */
-  @:optional
-  public var neneGF:PlayerCharSelectGFData;
-
-  function create()
-  {
-    return new PlayerCharSelectData();
-  }
 }
 
 typedef PlayerCharSelectGFData =

@@ -83,7 +83,7 @@ class VisShit
           trace(k);
 
           haxe.Log.trace('${time};${freq};${power}', null);
-        };
+        }
         if (freq < maxFreq) freqOutput[indexOfArray].push(power);
         //
       }
@@ -107,7 +107,7 @@ class VisShit
     var funny:CurAudioInfo = {left: left, right: right, balanced: balanced};
 
     return funny;
-  };
+  }
 
   public function checkAndSetBuffer()
   {
